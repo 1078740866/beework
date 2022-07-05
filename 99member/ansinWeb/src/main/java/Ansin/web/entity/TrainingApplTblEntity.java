@@ -1,0 +1,174 @@
+package Ansin.web.entity;
+
+import java.util.Date;
+
+public class TrainingApplTblEntity {
+	// 研修ID
+	private Integer trainingId;
+	// 会社ID
+	private Integer companyId;
+	// 応募者ID
+	private Integer applicantId;
+	// ユーザーコード
+	private Integer userCd;
+	// 氏名
+	private String firstName;
+	// 姓
+	private String lastName;
+	// 住所1
+	private String prefeNm;
+	// 最寄駅
+	private String station;
+	// 生年月日
+	private Date birthday;
+	// 性別
+	private String sex;
+	// 卒業学校
+	private String graduationSchool;
+	// 専攻
+	private String graduationMajor;
+	// 電話番号
+	private String userTel;
+	// 仕事状況
+	private String workSituation;
+	// 状態
+	private String status;
+
+	public Integer getTrainingId() {
+		return trainingId;
+	}
+
+	public void setTrainingId(Integer trainingId) {
+		this.trainingId = trainingId;
+	}
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+	public Integer getApplicantId() {
+		return applicantId;
+	}
+
+	public void setApplicantId(Integer applicantId) {
+		this.applicantId = applicantId;
+	}
+
+	public Integer getUserCd() {
+		return userCd;
+	}
+
+	public void setUserCd(Integer userCd) {
+		this.userCd = userCd;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPrefeNm() {
+		return prefeNm;
+	}
+
+	public void setPrefeNm(String prefeNm) {
+		this.prefeNm = prefeNm;
+	}
+
+	public String getStation() {
+		return station;
+	}
+
+	public void setStation(String station) {
+		this.station = station;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getGraduationSchool() {
+		return graduationSchool;
+	}
+
+	public void setGraduationSchool(String graduationSchool) {
+		this.graduationSchool = graduationSchool;
+	}
+
+	public String getGraduationMajor() {
+		return graduationMajor;
+	}
+
+	public void setGraduationMajor(String graduationMajor) {
+		this.graduationMajor = graduationMajor;
+	}
+
+	public String getUserTel() {
+		return userTel;
+	}
+
+	public void setUserTel(String userTel) {
+		this.userTel = userTel;
+	}
+
+	public String getWorkSituation() {
+		return workSituation;
+	}
+
+	public void setWorkSituation(String workSituation) {
+		this.workSituation = workSituation;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "TrainingApplTblEntity [trainingId=" + trainingId + ", companyId=" + companyId + ", applicantId="
+				+ applicantId + ", userCd=" + userCd + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", prefeNm=" + prefeNm + ", station=" + station + ", birthday=" + birthday + ", sex=" + sex
+				+ ", graduationSchool=" + graduationSchool + ", graduationMajor=" + graduationMajor + ", userTel="
+				+ userTel + ", workSituation=" + workSituation + ", status=" + status + ", getTrainingId()="
+				+ getTrainingId() + ", getCompanyId()=" + getCompanyId() + ", getApplicantId()=" + getApplicantId()
+				+ ", getUserCd()=" + getUserCd() + ", getFirstName()=" + getFirstName() + ", getLastName()="
+				+ getLastName() + ", getPrefeNm()=" + getPrefeNm() + ", getStation()=" + getStation()
+				+ ", getBirthday()=" + getBirthday() + ", getSex()=" + getSex() + ", getGraduationSchool()="
+				+ getGraduationSchool() + ", getGraduationMajor()=" + getGraduationMajor() + ", getUserTel()="
+				+ getUserTel() + ", getWorkSituation()=" + getWorkSituation() + ", getStatus()=" + getStatus()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+
+}

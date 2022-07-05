@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.MessageTextTblMapper">
+		
+		<insert id="insert">
+			INSERT INTO
+				MESSAGE_TEXT_TBL
+				(
+				INTERNAL_MESSAGE_TEXT_ID,
+				INTERNAL_MESSAGE_TEXT,
+				CREATE_TIME,
+				CREATE_BY,
+				UPDATE_TIME
+				)
+			VALUES
+				(
+				DEFAULT,
+				#{message},
+				CURRENT_TIMESTAMP(0),
+				#{userCd},
+				CURRENT_TIMESTAMP(0)
+				)
+		</insert>
+		
+		<select id="getId" resultType="java.lang.Integer">
+			SELECT
+				MAX(INTERNAL_MESSAGE_TEXT_ID)
+			FROM
+				MESSAGE_TEXT_TBL
+		</select>
+		
+		
+		<insert id="reportSystemMessage" parameterType="Ansin.web.entity.A0601ReportEntity">
+			INSERT INTO
+				MESSAGE_TEXT_TBL
+				(
+				INTERNAL_MESSAGE_TEXT_ID,
+				INTERNAL_MESSAGE_TEXT,
+				CREATE_TIME,
+				CREATE_BY,
+				UPDATE_TIME
+				)
+			VALUES
+				(
+				DEFAULT,
+				'お客様へのお知らせです。恐れ入りますが、ただいまお客様の職位&quot;${positionNm}&quot;がブロックされています。お手数ではございますが、お早めの段階にて改めてご相談ください。',
+				CURRENT_TIMESTAMP(0),
+				#{updateBy},
+				CURRENT_TIMESTAMP(0)
+				)
+		</insert>
+		
+		
+		<insert id="reportSystemMessage2" parameterType="Ansin.web.entity.A0601ReportEntity">
+			INSERT INTO
+				MESSAGE_TEXT_TBL
+				(
+				INTERNAL_MESSAGE_TEXT_ID,
+				INTERNAL_MESSAGE_TEXT,
+				CREATE_TIME,
+				CREATE_BY,
+				UPDATE_TIME
+				)
+			VALUES
+				(
+				DEFAULT,
+				'お客様へのお知らせです。恐れ入りますが、ただいまお客様の研修会&quot;${trainingNm}&quot;がブロックされています。お手数ではございますが、お早めの段階にて改めてご相談ください。',
+				CURRENT_TIMESTAMP(0),
+				#{updateBy},
+				CURRENT_TIMESTAMP(0)
+				)
+		</insert>
+		
+		
+		<insert id="reportSystemMessage3" parameterType="Ansin.web.entity.A0601ReportEntity">
+			INSERT INTO
+				MESSAGE_TEXT_TBL
+				(
+				INTERNAL_MESSAGE_TEXT_ID,
+				INTERNAL_MESSAGE_TEXT,
+				CREATE_TIME,
+				CREATE_BY,
+				UPDATE_TIME
+				)
+			VALUES
+				(
+				DEFAULT,
+				'お客様へのお知らせです。恐れ入りますが、ただいまお客様の説明会&quot;${briefingNm}&quot;がブロックされています。お手数ではございますが、お早めの段階にて改めてご相談ください。',
+				CURRENT_TIMESTAMP(0),
+				#{updateBy},
+				CURRENT_TIMESTAMP(0)
+				)
+		</insert>
+		
+		<select id="getMaxId" resultType="java.lang.Integer">
+	      	SELECT																													
+				MAX(INTERNAL_MESSAGE_TEXT_ID)
+			FROM 																													
+				MESSAGE_TEXT_TBL																									
+	     </select>
+</mapper>

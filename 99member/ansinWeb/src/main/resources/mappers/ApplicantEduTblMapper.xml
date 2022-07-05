@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ApplicantEduTblMapper" >
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.ApplicantEduTblEntity" >
+		<result column="education_id" property="educationId" jdbcType="INTEGER" />
+		<result column="applicant_id" property="applicantId" jdbcType="INTEGER" />
+		<result column="edu_section" property="eduSection" jdbcType="CHAR" />
+		<result column="edu_date_from" property="eduDateFrom" jdbcType="DATE" />
+		<result column="edu_date_to" property="eduDateTo" jdbcType="DATE" />
+		<result column="degree" property="degree" jdbcType="CHAR" />
+		<result column="school_nm" property="schoolNm" jdbcType="VARCHAR" />
+		<result column="major_nm" property="majorNm" jdbcType="VARCHAR" />
+		<result column="degree_pic1" property="degreePic1" jdbcType="VARCHAR" />
+		<result column="del_flg" property="delFlg" jdbcType="CHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_by" property="createBy" jdbcType="CHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="CHAR" />
+    </resultMap>
+
+
+	<sql id="Base_Column_List">
+		APPLICANT_EDU_TBL.EDUCATION_ID
+		,APPLICANT_EDU_TBL.APPLICANT_ID
+		,APPLICANT_EDU_TBL.EDU_SECTION
+		,APPLICANT_EDU_TBL.EDU_DATE_FROM
+		,APPLICANT_EDU_TBL.EDU_DATE_TO
+		,APPLICANT_EDU_TBL.DEGREE
+		,APPLICANT_EDU_TBL.SCHOOL_NM
+		,APPLICANT_EDU_TBL.MAJOR_NM
+		,APPLICANT_EDU_TBL.DEGREE_PIC1
+		,APPLICANT_EDU_TBL.DEL_FLG
+		,APPLICANT_EDU_TBL.CREATE_TIME
+		,APPLICANT_EDU_TBL.CREATE_BY
+		,APPLICANT_EDU_TBL.UPDATE_TIME
+		,APPLICANT_EDU_TBL.UPDATE_BY
+	</sql>
+
+
+    <select id="getAll" parameterType="java.lang.String" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM APPLICATION_EDU_TBL
+	   WHERE
+	     APPLICATION_EDU_TBL.DEL_FLG = 0
+    </select>
+    
+    
+    <select id="getOne" parameterType="java.lang.String" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM APPLICATION_EDU_TBL
+	   WHERE
+	     APPLICATION_EDU_TBL.DEL_FLG = 0
+	   AND
+	     APPLICATION_EDU_TBL.EDUCATION_ID = #{educationId}
+    </select>
+    
+    <select id="getEdu" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    		SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				APPLICANT_EDU_TBL									
+			WHERE
+			    APPLICANT_EDU_TBL.APPLICANT_ID = #{applicantId}	
+			AND    												
+				APPLICANT_EDU_TBL.DEL_FLG = '0'
+    </select>
+
+	<insert id="eduInsert" parameterType="Ansin.web.vueForm.C010106VueForm">
+		    INSERT INTO APPLICANT_EDU_TBL (							
+			EDUCATION_ID,
+			APPLICANT_ID,
+			EDU_SECTION,
+			EDU_DATE_FROM,
+			EDU_DATE_TO,
+			DEGREE,
+			SCHOOL_NM,
+			MAJOR_NM,
+			DEGREE_PIC1,
+			DEL_FLG,
+			CREATE_TIME,
+			CREATE_BY,
+			UPDATE_TIME			
+			)
+			VALUES  (
+			default,
+			#{c010106VueForm.applicantId},
+			#{c010106VueForm.eduSection},
+			#{c010106VueForm.eduDateFrom},
+			#{c010106VueForm.eduDateTo},
+			#{c010106VueForm.degree},
+			#{c010106VueForm.schoolNm},
+			#{c010106VueForm.majorNm},
+			#{c010106VueForm.degreePic1},
+			0,
+			CURRENT_TIMESTAMP(0),
+			#{c010106VueForm.userCd},
+			CURRENT_TIMESTAMP(0)
+			)
+		</insert>
+		
+		<update id="eduUpdate" parameterType="Ansin.web.vueForm.C010106VueForm">
+		UPDATE																
+			APPLICANT_EDU_TBL														
+		SET																
+			EDU_SECTION	= #{c010106VueForm.eduSection},
+			EDU_DATE_FROM = #{c010106VueForm.eduDateFrom},
+			EDU_DATE_TO = #{c010106VueForm.eduDateTo},
+			DEGREE = #{c010106VueForm.degree},
+			SCHOOL_NM = #{c010106VueForm.schoolNm},
+			MAJOR_NM = #{c010106VueForm.majorNm},
+			DEGREE_PIC1 = #{c010106VueForm.degreePic1},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY =	#{c010106VueForm.userCd}				
+		WHERE																
+			APPLICANT_ID = #{c010106VueForm.applicantId}														
+		AND																
+			EDUCATION_ID = #{c010106VueForm.educationId}														
+		AND																
+			DEL_FLG = '0'														
+
+		</update>
+		
+		<update id="eduDelete">
+		UPDATE																
+			APPLICANT_EDU_TBL														
+		SET																
+			DEL_FLG	= '1',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY =	#{userCd}				
+		WHERE																
+			APPLICANT_ID = #{applicantId}														
+		AND																
+			EDUCATION_ID = #{educationId}														
+
+		</update>
+</mapper>

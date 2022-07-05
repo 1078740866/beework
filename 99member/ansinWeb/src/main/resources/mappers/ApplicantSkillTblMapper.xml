@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ApplicantSkillTblMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.ApplicantSkillTblEntity">
+			<result column="APP_SKILL_ID" property="appSkillId" jdbcType="INTEGER"/>
+			<result column="APPLICANT_ID" property="applicantId" jdbcType="INTEGER"/>
+			<result column="SKILL_ID" property="skillId" jdbcType="INTEGER"/>
+			<result column="EXP_SECTION" property="expSection" jdbcType="CHAR"/>
+			<result column="OTHER_NM" property="otherNm" jdbcType="VARCHAR"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+			<result column="SKILL_NM" property="skillNm" jdbcType="VARCHAR"/>
+			<result column="INDUSTRY_ID" property="industryId" jdbcType="INTEGER"/>
+			<result column="JOBTYPE_ID" property="jobtypeId" jdbcType="INTEGER"/>
+			<result column="INDUSTRY_NM" property="industryNm" jdbcType="VARCHAR"/>
+			<result column="JOBTYPE_NM" property="jobtypeNm" jdbcType="VARCHAR"/>
+		</resultMap>
+		
+		<sql id="Base_Column_List">
+			APPLICANT_SKILL_TBL.APP_SKILL_ID
+			,APPLICANT_SKILL_TBL.APPLICANT_ID
+			,APPLICANT_SKILL_TBL.SKILL_ID
+			,APPLICANT_SKILL_TBL.EXP_SECTION
+			,APPLICANT_SKILL_TBL.OTHER_NM
+			,APPLICANT_SKILL_TBL.DEL_FLG
+			,APPLICANT_SKILL_TBL.CREATE_TIME
+			,APPLICANT_SKILL_TBL.CREATE_BY
+			,APPLICANT_SKILL_TBL.UPDATE_TIME
+			,APPLICANT_SKILL_TBL.UPDATE_BY
+			,SKILL_MST.SKILL_NM
+			,INDUSTRY_MST.INDUSTRY_ID
+			,JOBTYPE_MST.JOBTYPE_ID
+			,INDUSTRY_MST.INDUSTRY_NM
+			,JOBTYPE_MST.JOBTYPE_NM
+		</sql>
+		
+		<select id="getSkill" parameterType="java.lang.Integer" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				APPLICANT_SKILL_TBL,SKILL_MST,INDUSTRY_MST,JOBTYPE_MST
+			WHERE
+			   	APPLICANT_SKILL_TBL.APPLICANT_ID = #{applicantId}	
+			AND
+				APPLICANT_SKILL_TBL.SKILL_ID = SKILL_MST.SKILL_ID
+			AND
+				SKILL_MST.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID
+			AND
+				SKILL_MST.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID
+			AND    												
+				APPLICANT_SKILL_TBL.DEL_FLG = '0'	
+			AND    												
+				SKILL_MST.DEL_FLG = '0'
+			AND    												
+				INDUSTRY_MST.DEL_FLG = '0'	
+			AND    												
+				JOBTYPE_MST.DEL_FLG = '0'										
+		</select>
+		
+		<insert id="skillInsert" parameterType="Ansin.web.vueForm.C010103VueForm">
+		   	INSERT INTO APPLICANT_SKILL_TBL (													
+				APP_SKILL_ID,
+				APPLICANT_ID,
+				SKILL_ID,
+				EXP_SECTION,
+				OTHER_NM,
+				DEL_FLG,
+				CREATE_TIME,
+				CREATE_BY,
+				UPDATE_TIME										
+				)	
+				VALUES
+				(	
+				default,
+				#{c010103VueForm.applicantId},
+				#{c010103VueForm.skillId},
+				#{c010103VueForm.expSection},
+				#{c010103VueForm.otherNm},
+				'0',
+				CURRENT_TIMESTAMP(0),
+				#{c010103VueForm.userCd},
+				CURRENT_TIMESTAMP(0)										
+				)																								
+
+		</insert>
+		
+		<update id="skillUpdate" parameterType="Ansin.web.vueForm.C010103VueForm">
+		UPDATE																
+			APPLICANT_SKILL_TBL														
+		SET																
+			SKILL_ID = #{c010103VueForm.skillId},
+			EXP_SECTION = #{c010103VueForm.expSection},
+			OTHER_NM = #{c010103VueForm.otherNm},
+			UPDATE_TIME	= CURRENT_TIMESTAMP(0),
+			UPDATE_BY =	#{c010103VueForm.userCd}				
+		WHERE																
+			APPLICANT_ID = #{c010103VueForm.applicantId}														
+		AND																
+			APP_SKILL_ID = #{c010103VueForm.appSkillId}														
+		AND																
+			DEL_FLG = '0'																						
+		
+		</update>
+		
+		<update id="skillDelete">
+		UPDATE																
+			APPLICANT_SKILL_TBL														
+		SET																
+			DEL_FLG = '1',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY =	#{userCd}				
+		WHERE																
+			APPLICANT_ID = #{applicantId}														
+		AND																
+			APP_SKILL_ID = #{appSkillId}														
+		</update>
+</mapper>

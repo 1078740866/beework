@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.TrainingApplTblMapper" >
+ 		<resultMap id="BaseResultMap" type="Ansin.web.entity.TrainingApplTblEntity">
+				<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER"/>
+				<result column="TRAINING_ID" property="trainingId" jdbcType="INTEGER"/>
+				<result column="APPLICANT_ID" property="applicantId" jdbcType="INTEGER"/>
+				<result column="USER_CD" property="userCd" jdbcType="INTEGER"/>
+				<result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR"/>
+				<result column="LAST_NAME" property="lastName" jdbcType="VARCHAR"/>
+				<result column="PREFE_NM" property="prefeNm" jdbcType="VARCHAR"/>
+				<result column="STATION" property="station" jdbcType="VARCHAR"/>
+				<result column="BIRTHDAY" property="birthday" jdbcType="DATE"/>
+				<result column="SEX" property="sex" jdbcType="CHAR"/>
+				<result column="GRADUATION_SCHOOL" property="graduationSchool" jdbcType="VARCHAR"/>
+				<result column="GRADUATION_MAJOR" property="graduationMajor" jdbcType="VARCHAR"/>
+				<result column="USER_TEL" property="userTel" jdbcType="VARCHAR"/>
+				<result column="WORK_SITUATION" property="workSituation" jdbcType="VARCHAR"/>
+				<result column="COM_STATUS_FLG" property="status" jdbcType="VARCHAR"/>
+		</resultMap>
+		
+		 <sql id="Base_Column_List" >
+			TRAINING_APPL_TBL.TRAINING_ID,
+			TRAINING_APPL_TBL.COMPANY_ID,
+			TRAINING_APPL_TBL.APPLICANT_ID,
+			APPLICANT_INFO_TBL.USER_CD,
+			USER_TBL.LAST_NAME,
+			USER_TBL.FIRST_NAME,
+			APPLICANT_INFO_TBL.PREFE_NM,
+			APPLICANT_INFO_TBL.STATION,
+			APPLICANT_INFO_TBL.BIRTHDAY,
+			USER_TBL.SEX,
+			APPLICANT_INFO_TBL.GRADUATION_SCHOOL,
+			APPLICANT_INFO_TBL.GRADUATION_MAJOR,
+			USER_TBL.USER_TEL,
+			APPLICANT_INFO_TBL.WORK_SITUATION,
+			TRAINING_APPL_TBL.COM_STATUS_FLG
+		 </sql>
+		 
+		 <!-- 研修応募者を取得  --> 
+		 <select id="getTrainingAppl" parameterType="Ansin.web.vueForm.B0503VueForm" resultMap="BaseResultMap">
+			SELECT																			
+			<include refid="Base_Column_List" />			
+			FROM																			
+				TRAINING_APPL_TBL,APPLICANT_INFO_TBL,USER_TBL																	
+			WHERE 
+				TRAINING_APPL_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID																	
+			AND	APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD
+			<if test="b0503VueForm.status != null and b0503VueForm.status !=''">
+			AND	TRAINING_APPL_TBL.COM_STATUS_FLG = #{b0503VueForm.status}	
+			</if>																	
+			AND	
+				TRAINING_APPL_TBL.COMPANY_ID = #{b0503VueForm.companyId}	
+			AND	
+				TRAINING_APPL_TBL.TRAINING_ID = #{b0503VueForm.trainingId}
+			AND	TRAINING_APPL_TBL.DEL_FLG = '0'																	
+			AND	APPLICANT_INFO_TBL.DEL_FLG = '0'
+			AND	USER_TBL.DEL_FLG = '0'		
+			<if test="b0503VueForm.name != null and b0503VueForm.name != ''">														
+			AND USER_TBL.FIRST_NAME || USER_TBL.LAST_NAME LIKE '%${b0503VueForm.name}%'
+			</if>
+		    AND USER_TBL.USER_STATUS = '0'
+			ORDER BY 
+				TRAINING_APPL_TBL.UPDATE_TIME
+			DESC
+		 </select>
+		 
+		 <!-- 研修応募者を受け取れまたは拒否  -->
+		 
+		 <update id="applUpdateConfirmOrDeny">																				
+			UPDATE																				
+				TRAINING_APPL_TBL																		
+			<set>																			
+				<if test="b0503VueForm.statusFlg != null and b0503VueForm.statusFlg != ''">
+				COM_STATUS_FLG  = #{b0503VueForm.statusFlg},
+				</if>
+				UPDATE_TIME = CURRENT_TIMESTAMP(0),
+				<if test="b0503VueForm.userCd != null">
+				UPDATE_BY = #{b0503VueForm.userCd}
+				</if>	
+			</set>																				
+			WHERE																				
+				TRAINING_APPL_TBL.COMPANY_ID = #{b0503VueForm.companyId}																		
+			AND																				
+				TRAINING_APPL_TBL.TRAINING_ID = #{b0503VueForm.trainingId}																		
+			AND																				
+				TRAINING_APPL_TBL.APPLICANT_ID 
+			IN
+			<foreach item="list" index="index" collection="b0503VueForm.applicantId"
+                    open="(" separator="," close=")">
+                    #{list}
+            </foreach>																		
+			AND																				
+				TRAINING_APPL_TBL.DEL_FLG = '0'																		
+			AND																				
+				TRAINING_APPL_TBL.COM_STATUS_FLG &lt;&gt; #{b0503VueForm.statusFlg}																	
+		 </update>
+		 
+		<!-- C0301研修応募者テーブル  -->	
+		
+		<insert id="insertPost" parameterType="java.util.List">
+			INSERT INTO 
+				  TRAINING_APPL_TBL
+				  (	
+					COMPANY_ID,
+					TRAINING_ID,
+					APPLICANT_ID,
+					COM_STATUS_FLG,
+					APP_STATUS_FLG,
+					DEL_FLG,
+					CREATE_TIME,
+					CREATE_BY,
+					UPDATE_TIME
+					)
+			VALUES
+			<foreach item="List" index="index" collection="c0301VueForm"
+	                     separator=","> 
+				(
+				#{List.companyId},
+				#{List.trainingId},
+				#{List.applicantId},	
+				'0',
+				'0',
+				'0',
+				CURRENT_TIMESTAMP(0),
+				#{List.userCd},	
+				CURRENT_TIMESTAMP(0)											
+				)
+			</foreach>
+		</insert>
+		
+		<insert id="insertLike" parameterType="java.util.List">
+			INSERT INTO 
+				  TRAINING_APPL_TBL
+				  (	
+					COMPANY_ID,
+					TRAINING_ID,
+					APPLICANT_ID,
+					COM_STATUS_FLG,
+					APP_STATUS_FLG,
+					DEL_FLG,
+					CREATE_TIME,
+					CREATE_BY,
+					UPDATE_TIME
+					)
+			VALUES
+			<foreach item="List" index="index" collection="c0301VueForm"
+	                     separator=","> 
+				(
+				#{List.companyId},
+				#{List.trainingId},
+				#{List.applicantId},	
+				'0',
+				'1',
+				'0',
+				CURRENT_TIMESTAMP(0),
+				#{List.userCd},	
+				CURRENT_TIMESTAMP(0)											
+				)
+			</foreach>
+		</insert>
+		
+		<update id="updateLike">
+				UPDATE 										
+					TRAINING_APPL_TBL									
+				SET										
+					APP_STATUS_FLG = '0',
+					UPDATE_TIME = CURRENT_TIMESTAMP(0),
+					UPDATE_BY = #{userCd}					
+				WHERE										
+					APPLICANT_ID = #{applicantId}						
+				AND 										
+					TRAINING_APPL_TBL.DEL_FLG = '0'
+				
+		        <foreach item="c0301VueForm" index="index" collection="c0301VueForm"
+                   open="AND(" separator="OR" close=")">
+				(
+	              COMPANY_ID =
+	             #{c0301VueForm.companyId}
+					AND										
+				  TRAINING_ID =  
+	              #{c0301VueForm.trainingId})		
+        </foreach>	 
+		</update>
+		
+		
+		<delete id="deleteTrainingAppl">
+		DELETE FROM 
+			TRAINING_APPL_TBL 
+		WHERE 
+		<foreach item="c0301VueForm" index="index" collection="c0301VueForm"
+                   open="(" separator="OR" close=")AND">
+			(
+	              COMPANY_ID =
+	             #{c0301VueForm.companyId}
+			AND										
+				  TRAINING_ID =  
+	              #{c0301VueForm.trainingId})		
+    	</foreach>	 
+		    APPLICANT_ID = #{applicantId}
+		AND
+		    TRAINING_APPL_TBL.DEL_FLG = '0'
+		</delete> 
+		
+		
+		<update id="deleteTra">
+		UPDATE
+			TRAINING_APPL_TBL
+		<set>
+		SET
+			DEL_FLG = '1'
+			,UPDATE_TIME = CURRENT_TIMESTAMP(0)
+			,UPDATE_BY = #{userCd}		
+		</set>
+		WHERE
+			TRAINING_ID =
+			<foreach item="trainingIdList" index="index" collection="trainingIdList"
+	                    separator=",">
+	                     #{trainingIdList}
+	        </foreach>
+		AND
+		    APPLICANT_ID = #{applicantId}
+		AND
+		    TRAINING_APPL_TBL.DEL_FLG = '0'
+		</update>
+		
+</mapper>

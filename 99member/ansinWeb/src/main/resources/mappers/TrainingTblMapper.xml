@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.TrainingTblMapper" >
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.TrainingInfoTblEntity" >
+        <result column="TRAINING_ID" property="trainingId" jdbcType="INTEGER" />
+        <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+        <result column="INDUSTRY_ID" property="industryId" jdbcType="INTEGER" />
+        <result column="TRAINING_NM" property="trainingNm" jdbcType="VARCHAR" />
+        <result column="DATE_FROM" property="dateFrom" jdbcType="DATE" />
+        <result column="DATE_TO" property="dateTo" jdbcType="DATE" />
+        <result column="TIME_FROM" property="timeFrom" jdbcType="TIMESTAMP" />
+        <result column="TIME_TO" property="timeTo" jdbcType="TIMESTAMP" />
+        <result column="POSTAL" property="postal" jdbcType="VARCHAR" />
+        <result column="PREFE_NM" property="prefeNm" jdbcType="VARCHAR" />
+        <result column="TRAINING_ADDRESS1" property="trainingAddress1" jdbcType="VARCHAR" />
+        <result column="TRAINING_ADDRESS2" property="trainingAddress2" jdbcType="VARCHAR" />
+        <result column="TRAINING_CONTENT" property="trainingContent" jdbcType="VARCHAR" />
+        <result column="PRO_CNT" property="proCnt" jdbcType="INTEGER" />
+        <result column="TEA_NM" property="teaNm" jdbcType="VARCHAR" />
+        <result column="TEA_INTRO" property="teaIntro" jdbcType="VARCHAR" />
+        <result column="COST" property="cost" jdbcType="INTEGER" />
+        <result column="TEL" property="tel" jdbcType="VARCHAR" />
+        <result column="CHARGE" property="charge" jdbcType="VARCHAR" />
+        <result column="TRAINING_PIC1" property="trainingPic1" jdbcType="VARCHAR" />
+        <result column="TRAINING_PIC2" property="trainingPic2" jdbcType="VARCHAR" />
+        <result column="TRAINING_PIC3" property="trainingPic3" jdbcType="VARCHAR" />
+        <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+        <result column="INDUSTRY_NM" property="industryNm" jdbcType="VARCHAR" />
+        <result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR" />
+        <result column="STATUS_FLG" property="statusFlg" jdbcType="CHAR" />
+    </resultMap>
+    <resultMap id="BaseResultMap2" type="Ansin.web.entity.A0601ReportEntity" >
+		<result column="TRAINING_NM" property="trainingNm" jdbcType="VARCHAR" />
+		<result column="USER_CD" property="userCd" jdbcType="INTEGER" />
+    </resultMap>
+    
+     <sql id="Base_Column_List" >
+       	TRAINING_INFO_TBL.TRAINING_ID
+		,TRAINING_INFO_TBL.COMPANY_ID
+		,TRAINING_INFO_TBL.INDUSTRY_ID
+		,TRAINING_INFO_TBL.TRAINING_NM
+		,TRAINING_INFO_TBL.DATE_FROM
+		,TRAINING_INFO_TBL.DATE_TO
+		,TRAINING_INFO_TBL.TIME_FROM
+		,TRAINING_INFO_TBL.TIME_TO
+		,TRAINING_INFO_TBL.POSTAL
+		,TRAINING_INFO_TBL.PREFE_NM
+		,TRAINING_INFO_TBL.TRAINING_ADDRESS1
+		,TRAINING_INFO_TBL.TRAINING_ADDRESS2
+		,TRAINING_INFO_TBL.TRAINING_CONTENT
+		,TRAINING_INFO_TBL.PRO_CNT
+		,TRAINING_INFO_TBL.TEA_NM
+		,TRAINING_INFO_TBL.TEA_INTRO
+		,TRAINING_INFO_TBL.COST
+		,TRAINING_INFO_TBL.TEL
+		,TRAINING_INFO_TBL.CHARGE
+		,TRAINING_INFO_TBL.TRAINING_PIC1
+		,TRAINING_INFO_TBL.TRAINING_PIC2
+		,TRAINING_INFO_TBL.TRAINING_PIC3
+		,TRAINING_INFO_TBL.REMARKS
+		,INDUSTRY_MST.INDUSTRY_NM
+		,TRAINING_INFO_TBL.STATUS_FLG
+   </sql>
+    
+    
+    <select id="getAllTraining" parameterType="Ansin.web.vueForm.B0501VueForm" resultMap="BaseResultMap" >																					
+		SELECT																				
+		<include refid="Base_Column_List" />	
+		FROM																				
+			TRAINING_INFO_TBL,INDUSTRY_MST																		
+		WHERE																				
+			TRAINING_INFO_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID																		
+		AND																				
+			TRAINING_INFO_TBL.DEL_FLG = '0'																		
+		AND																				
+			INDUSTRY_MST.DEL_FLG = '0'																		
+		AND																				
+			TRAINING_INFO_TBL.COMPANY_ID = #{b0501VueForm.companyId}	
+		<if test="b0501VueForm.trainingNm != null and b0501VueForm.trainingNm != ''">
+			AND TRAINING_INFO_TBL.TRAINING_NM LIKE '%${b0501VueForm.trainingNm}%'
+		</if>																																
+		<if test="b0501VueForm.industryId != null">																																
+			AND	TRAINING_INFO_TBL.INDUSTRY_ID = #{b0501VueForm.industryId}
+		</if>																 																	
+		<if test="b0501VueForm.statusFlg != null and b0501VueForm.statusFlg != ''">
+			AND	TRAINING_INFO_TBL.STATUS_FLG = #{b0501VueForm.statusFlg}	
+		</if>
+		<if test="b0501VueForm.dateFrom != null">	
+			AND	TRAINING_INFO_TBL.DATE_FROM &lt;= #{b0501VueForm.dateFrom} 																															
+		</if>
+		<if test="b0501VueForm.dateTo != null">																				       												
+			AND	TRAINING_INFO_TBL.DATE_TO &lt;= #{b0501VueForm.dateTo} 
+		</if>																				
+		ORDER BY 
+			TRAINING_INFO_TBL.UPDATE_TIME
+		DESC
+    </select>
+    
+    
+     <select id="getAllTra" parameterType="Ansin.web.vueForm.A020202VueForm" resultMap="BaseResultMap" >																					
+		SELECT																				
+		<include refid="Base_Column_List" />	
+		FROM																				
+			TRAINING_APPL_TBL,TRAINING_INFO_TBL,INDUSTRY_MST																		
+		WHERE
+			TRAINING_APPL_TBL.TRAINING_ID = TRAINING_INFO_TBL.TRAINING_ID
+		AND
+			TRAINING_APPL_TBL.APPLICANT_ID = #{a020202VueForm.applicantId}
+		AND												
+			TRAINING_INFO_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID		
+		AND																				
+			TRAINING_APPL_TBL.DEL_FLG = '0'																	
+		AND																				
+			TRAINING_INFO_TBL.DEL_FLG = '0'																		
+		AND																				
+			INDUSTRY_MST.DEL_FLG = '0'	
+		AND																	
+		<if test="b0501VueForm.trainingNm != null and b0501VueForm.trainingNm != ''">
+			AND TRAINING_INFO_TBL.TRAINING_NM LIKE '%${b0501VueForm.trainingNm}%'
+		</if>																																
+		<if test="b0501VueForm.industryId != null">																																
+			AND	TRAINING_INFO_TBL.INDUSTRY_ID = #{b0501VueForm.industryId}
+		</if>																 																	
+		<if test="b0501VueForm.statusFlg != null and b0501VueForm.statusFlg != ''">
+			AND	TRAINING_INFO_TBL.STATUS_FLG = #{b0501VueForm.statusFlg}	
+		</if>
+		<if test="b0501VueForm.dateFrom != null">	
+			AND	TRAINING_INFO_TBL.DATE_FROM &lt;= #{b0501VueForm.dateFrom} 																															
+		</if>
+		<if test="b0501VueForm.dateTo != null">																				       												
+			AND	TRAINING_INFO_TBL.DATE_TO &lt;= #{b0501VueForm.dateTo} 
+		</if>																				
+		ORDER BY 
+			TRAINING_INFO_TBL.UPDATE_TIME
+		DESC
+    </select>
+    
+           
+    <update id="update">
+    	UPDATE																		
+			TRAINING_INFO_TBL	
+		<set>																															
+			DEL_FLG = '1',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		</set>
+		WHERE																					
+			TRAINING_ID 																																				
+		IN	
+		<foreach item="List" index="index" collection="trainingIdList"
+                    open="(" separator="," close=")">
+                    #{List}
+         </foreach>																																	
+		AND	
+			COMPANY_ID = #{companyId}																									
+    </update>
+    
+
+    <!-- 研修情報を更新する場合  -->
+    <update id="specificsUpdate" parameterType="Ansin.web.vueForm.B0502VueForm">
+    	UPDATE																	
+			TRAINING_INFO_TBL															
+	    <set>
+	    <if test="b0502VueForm.industryId != null">
+			INDUSTRY_ID	= #{b0502VueForm.industryId},	
+			</if>
+			<if test="b0502VueForm.trainingNm != null and b0502VueForm.trainingNm != ''">	
+			TRAINING_NM = #{b0502VueForm.trainingNm},	
+			</if>
+			<if test="b0502VueForm.dateFrom != null">
+			DATE_FROM =	#{b0502VueForm.dateFrom},	
+			</if>
+			<if test="b0502VueForm.dateTo != null">
+			DATE_TO	= #{b0502VueForm.dateTo},	
+			</if>
+			<if test="b0502VueForm.timeFrom != null">
+			TIME_FROM = #{b0502VueForm.timeFrom},	
+			</if>
+			<if test="b0502VueForm.timeTo != null">
+			TIME_TO = #{b0502VueForm.timeTo},	
+			</if>
+			<if test="b0502VueForm.postal != null">
+			POSTAL = #{b0502VueForm.postal},	
+			</if>
+			<if test="b0502VueForm.prefeNm != null and b0502VueForm.prefeNm != ''">
+			PREFE_NM = #{b0502VueForm.prefeNm},	
+			</if>
+			<if test="b0502VueForm.trainingAddress1 != null and b0502VueForm.trainingAddress1 != ''">
+			TRAINING_ADDRESS1 =	#{b0502VueForm.trainingAddress1},	
+			</if>
+			<if test="b0502VueForm.trainingAddress2 != null and b0502VueForm.trainingAddress2 != ''">
+			TRAINING_ADDRESS2 =	#{b0502VueForm.trainingAddress2},	
+			</if>
+			<if test="b0502VueForm.trainingContent != null and b0502VueForm.trainingContent != ''">
+			TRAINING_CONTENT = #{b0502VueForm.trainingContent},	
+			</if>
+			<if test="b0502VueForm.proCnt != null">
+			PRO_CNT = #{b0502VueForm.proCnt},	
+			</if>
+			<if test="b0502VueForm.teaNm != null and b0502VueForm.teaNm != ''">
+			TEA_NM = #{b0502VueForm.teaNm},	
+			</if>
+			<if test="b0502VueForm.teaIntro != null and b0502VueForm.teaIntro != ''">
+			TEA_INTRO = #{b0502VueForm.teaIntro},	
+			</if>
+			<if test="b0502VueForm.cost != null">
+			COST= #{b0502VueForm.cost},	
+			</if>
+			<if test="b0502VueForm.tel != null and b0502VueForm.tel != ''">
+			TEL	= #{b0502VueForm.tel},
+			</if>
+			<if test="b0502VueForm.charge != null and b0502VueForm.charge != ''">	
+			CHARGE = #{b0502VueForm.charge},
+			</if>	
+			<if test="b0502VueForm.trainingPic3 != null">
+			TRAINING_PIC1 = #{b0502VueForm.trainingPic1},	
+			</if>
+			<if test="b0502VueForm.trainingPic2 != null">
+			TRAINING_PIC2 =	#{b0502VueForm.trainingPic2},	
+			</if>
+			<if test="b0502VueForm.trainingPic3 != null">
+			TRAINING_PIC3 =	#{b0502VueForm.trainingPic3},	
+			</if>
+			<if test="b0502VueForm.remarks != null and b0502VueForm.remarks != ''">
+			REMARKS	= #{b0502VueForm.remarks},
+			</if>
+			UPDATE_TIME	= CURRENT_TIMESTAMP(0),	
+			UPDATE_BY =	#{b0502VueForm.userCd} 	
+		</set>												
+	WHERE																	
+			TRAINING_ID = #{b0502VueForm.trainingId}
+	AND																	
+			COMPANY_ID = #{b0502VueForm.companyId}													  
+    </update>
+    
+    <!-- 研修情報を新規する場合  -->
+    <insert id="specificsInsert" parameterType="Ansin.web.vueForm.B0501VueForm">
+    	INSERT INTO 
+    		TRAINING_INFO_TBL(														
+					TRAINING_ID
+					,COMPANY_ID
+					,INDUSTRY_ID
+					,TRAINING_NM
+					,DATE_FROM
+					,DATE_TO
+					,TIME_FROM
+					,TIME_TO
+					,POSTAL
+					,PREFE_NM
+					,TRAINING_ADDRESS1
+					,TRAINING_ADDRESS2
+					,TRAINING_CONTENT
+					,PRO_CNT
+					,TEA_NM
+					,TEA_INTRO
+					,COST
+					,TEL
+					,CHARGE
+					,TRAINING_PIC1
+					,TRAINING_PIC2
+					,TRAINING_PIC3
+					,REMARKS
+					,CREATE_TIME
+					,CREATE_BY
+					,UPDATE_TIME
+				)													
+		VALUES(																
+					DEFAULT,					
+					#{b0502VueForm.companyId},					
+					#{b0502VueForm.industryId},					
+					#{b0502VueForm.trainingNm},					
+					#{b0502VueForm.dateFrom},					
+					#{b0502VueForm.dateTo},					
+					#{b0502VueForm.timeFrom},					
+					#{b0502VueForm.timeTo},					
+					#{b0502VueForm.postal},		
+					#{b0502VueForm.prefeNm},			
+					#{b0502VueForm.trainingAddress1},					
+					#{b0502VueForm.trainingAddress2},					
+					#{b0502VueForm.trainingContent},					
+					#{b0502VueForm.proCnt},					
+					#{b0502VueForm.teaNm},					
+					#{b0502VueForm.teaIntro},					
+					#{b0502VueForm.cost},					
+					#{b0502VueForm.tel},					
+					#{b0502VueForm.charge},					
+					#{b0502VueForm.trainingPic1},					
+					#{b0502VueForm.trainingPic2},					
+					#{b0502VueForm.trainingPic3},					
+					#{b0502VueForm.remarks},					
+					CURRENT_TIMESTAMP(0),
+					#{b0502VueForm.userCd},
+					CURRENT_TIMESTAMP(0)
+		)																																	
+    </insert>
+    
+    
+     <!--C0301_検索ボタン押下 -->
+     <select id="getList" parameterType="Ansin.web.vueForm.C0301ListVueForm" resultMap="BaseResultMap">
+		  SELECT																													
+				TRAINING_INFO_TBL.TRAINING_ID,
+				TRAINING_INFO_TBL.COMPANY_ID,
+				TRAINING_INFO_TBL.INDUSTRY_ID,
+				TRAINING_INFO_TBL.TRAINING_NM,
+				TRAINING_INFO_TBL.DATE_FROM,
+				TRAINING_INFO_TBL.DATE_TO,
+				TRAINING_INFO_TBL.TIME_FROM,
+				TRAINING_INFO_TBL.TIME_TO,
+				TRAINING_INFO_TBL.POSTAL,
+				TRAINING_INFO_TBL.PREFE_NM,
+				TRAINING_INFO_TBL.TRAINING_ADDRESS1,
+				TRAINING_INFO_TBL.TRAINING_ADDRESS2,
+				TRAINING_INFO_TBL.TRAINING_CONTENT,
+				TRAINING_INFO_TBL.PRO_CNT,
+				TRAINING_INFO_TBL.TEA_NM,
+				TRAINING_INFO_TBL.TEA_INTRO,
+				TRAINING_INFO_TBL.COST,
+				TRAINING_INFO_TBL.TEL,
+				TRAINING_INFO_TBL.CHARGE,
+				TRAINING_INFO_TBL.TRAINING_PIC1,
+				TRAINING_INFO_TBL.TRAINING_PIC2,
+				TRAINING_INFO_TBL.TRAINING_PIC3,
+				TRAINING_INFO_TBL.REMARKS,															
+				COMPANY_TBL.COMPANY_NM,																
+				INDUSTRY_MST.INDUSTRY_NM	
+		FROM 																													
+			TRAINING_INFO_TBL,COMPANY_TBL,INDUSTRY_MST																												
+		WHERE 																																		
+			TRAINING_INFO_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID																												
+		AND 																													
+			TRAINING_INFO_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID	
+		<if test="c0301ListVueForm.trainingNm != null and c0301ListVueForm.trainingNm != ''">																												
+		AND 																													
+			TRAINING_INFO_TBL.TRAINING_NM LIKE '%${c0301ListVueForm.trainingNm}%'
+		</if>
+		<if test="c0301ListVueForm.companyNm != null and c0301ListVueForm.companyNm != ''">																										
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${c0301ListVueForm.companyNm}%'
+		</if>
+		<if test="c0301ListVueForm.industryId != null">																												
+		AND																													
+			TRAINING_INFO_TBL.INDUSTRY_ID = #{c0301ListVueForm.industryId}																												
+		</if>
+		<if test="c0301ListVueForm.prefeNm != null and c0301ListVueForm.prefeNm != ''">
+		AND																													
+			TRAINING_INFO_TBL.PREFE_NM = #{c0301ListVueForm.prefeNm}																												
+		</if>
+		<if test="c0301ListVueForm.dateFrom != null">
+		AND 																													
+			TRAINING_INFO_TBL.DATE_FROM &gt;= #{c0301ListVueForm.dateFrom}																												
+		</if>
+		<if test="c0301ListVueForm.dateTo != null">
+		AND																													
+			TRAINING_INFO_TBL.DATE_TO &lt;= #{c0301ListVueForm.dateTo}																												
+		</if>
+		<if test="c0301ListVueForm.timeFrom != null">
+		AND																													
+			TRAINING_INFO_TBL.TIME_FROM &gt;= #{c0301ListVueForm.timeFrom}																												
+		</if>
+		<if test="c0301ListVueForm.timeTo != null">
+		AND																													
+			TRAINING_INFO_TBL.TIME_TO &lt;= #{c0301ListVueForm.timeTo}																												
+		</if>
+		<choose>
+	        <when test="c0301ListVueForm.salary == 0">
+	            AND																													
+					TRAINING_INFO_TBL.COST = 0	
+	        </when>
+	        <when test="c0301ListVueForm.salary == 1">
+	            AND																													
+					TRAINING_INFO_TBL.COST &gt; 0	
+	        </when>
+	        <otherwise>
+	        </otherwise>
+	    </choose>																							
+		AND 																													
+			TRAINING_INFO_TBL.DEL_FLG = '0'																												
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'																												
+		AND 																													
+			INDUSTRY_MST.DEL_FLG = '0'																													
+		AND																													
+			TRAINING_INFO_TBL.STATUS_FLG = '1'																												
+		AND																													
+			TRAINING_INFO_TBL.USE_FLG = '0'
+		<if test="c0301ListVueForm.applicantId != null">
+		AND
+			NOT EXISTS
+			(SELECT COMPANY_ID,TRAINING_ID FROM TRAINING_APPL_TBL WHERE APPLICANT_ID = #{c0301ListVueForm.applicantId}
+			AND TRAINING_INFO_TBL.COMPANY_ID = TRAINING_APPL_TBL.COMPANY_ID
+			AND TRAINING_INFO_TBL.TRAINING_ID = TRAINING_APPL_TBL.TRAINING_ID)
+			
+		</if>
+		ORDER BY
+			TRAINING_INFO_TBL.UPDATE_TIME
+		DESC							
+     </select>
+    
+    
+    <!--C0301_研修推薦一覧 -->
+     <select id="getTraining" parameterType="Ansin.web.entity.ApplicantConnEntity" resultMap="BaseResultMap">
+		  SELECT																													
+				TRAINING_INFO_TBL.TRAINING_ID,
+				TRAINING_INFO_TBL.COMPANY_ID,
+				TRAINING_INFO_TBL.INDUSTRY_ID,
+				TRAINING_INFO_TBL.TRAINING_NM,
+				TRAINING_INFO_TBL.DATE_FROM,
+				TRAINING_INFO_TBL.DATE_TO,
+				TRAINING_INFO_TBL.TIME_FROM,
+				TRAINING_INFO_TBL.TIME_TO,
+				TRAINING_INFO_TBL.POSTAL,
+				TRAINING_INFO_TBL.PREFE_NM,
+				TRAINING_INFO_TBL.TRAINING_ADDRESS1,
+				TRAINING_INFO_TBL.TRAINING_ADDRESS2,
+				TRAINING_INFO_TBL.TRAINING_CONTENT,
+				TRAINING_INFO_TBL.PRO_CNT,
+				TRAINING_INFO_TBL.TEA_NM,
+				TRAINING_INFO_TBL.TEA_INTRO,
+				TRAINING_INFO_TBL.COST,
+				TRAINING_INFO_TBL.TEL,
+				TRAINING_INFO_TBL.CHARGE,
+				TRAINING_INFO_TBL.TRAINING_PIC1,
+				TRAINING_INFO_TBL.TRAINING_PIC2,
+				TRAINING_INFO_TBL.TRAINING_PIC3,
+				TRAINING_INFO_TBL.REMARKS,															
+				COMPANY_TBL.COMPANY_NM,																
+				INDUSTRY_MST.INDUSTRY_NM
+				
+		FROM 																													
+			TRAINING_INFO_TBL,COMPANY_TBL,INDUSTRY_MST																												
+		WHERE																										
+			TRAINING_INFO_TBL.INDUSTRY_ID IN(
+							#{app.industryId1},
+							#{app.industryId2},
+							#{app.industryId3}
+							)																												
+		AND																													
+			TRAINING_INFO_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID																												
+		AND 																													
+			TRAINING_INFO_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID	
+		<!--AND
+			TRAINING_INFO_TBL.TRAINING_ID NOT IN(
+				SELECT TRAINING_ID FROM TRAINING_APPL_TBL WHERE APPLICANT_ID = #{app.applicantId} GROUP BY TRAINING_ID
+			)	-->	
+																						
+		AND 																													
+			TRAINING_INFO_TBL.DEL_FLG = '0'																												
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'																												
+		AND 																													
+			INDUSTRY_MST.DEL_FLG = '0'																													
+		AND																													
+			TRAINING_INFO_TBL.STATUS_FLG = '1'																												
+		AND																													
+			TRAINING_INFO_TBL.USE_FLG = '0'
+		AND
+			NOT EXISTS
+			(SELECT COMPANY_ID,TRAINING_ID FROM TRAINING_APPL_TBL WHERE APPLICANT_ID = #{app.applicantId}
+			AND TRAINING_INFO_TBL.COMPANY_ID = TRAINING_APPL_TBL.COMPANY_ID
+			AND TRAINING_INFO_TBL.TRAINING_ID = TRAINING_APPL_TBL.TRAINING_ID)
+			
+		ORDER BY
+			TRAINING_INFO_TBL.UPDATE_TIME
+		DESC							
+     </select>
+     
+     <select id="getTrainingPost" parameterType="Ansin.web.vueForm.C0301ListVueForm" resultMap="BaseResultMap">
+        SELECT																													
+			TRAINING_INFO_TBL.TRAINING_ID,
+			TRAINING_INFO_TBL.COMPANY_ID,
+			TRAINING_INFO_TBL.INDUSTRY_ID,
+			TRAINING_INFO_TBL.TRAINING_NM,
+			TRAINING_INFO_TBL.DATE_FROM,
+			TRAINING_INFO_TBL.DATE_TO,
+			TRAINING_INFO_TBL.TIME_FROM,
+			TRAINING_INFO_TBL.TIME_TO,
+			TRAINING_INFO_TBL.POSTAL,
+			TRAINING_INFO_TBL.PREFE_NM,
+			TRAINING_INFO_TBL.TRAINING_ADDRESS1,
+			TRAINING_INFO_TBL.TRAINING_ADDRESS2,
+			TRAINING_INFO_TBL.TRAINING_CONTENT,
+			TRAINING_INFO_TBL.PRO_CNT,
+			TRAINING_INFO_TBL.TEA_NM,
+			TRAINING_INFO_TBL.TEA_INTRO,
+			TRAINING_INFO_TBL.COST,
+			TRAINING_INFO_TBL.TEL,
+			TRAINING_INFO_TBL.CHARGE,
+			TRAINING_INFO_TBL.TRAINING_PIC1,
+			TRAINING_INFO_TBL.TRAINING_PIC2,
+			TRAINING_INFO_TBL.TRAINING_PIC3,
+			TRAINING_INFO_TBL.REMARKS,															
+			COMPANY_TBL.COMPANY_NM,																
+			INDUSTRY_MST.INDUSTRY_NM
+		FROM 																													
+			TRAINING_INFO_TBL
+		INNER JOIN	
+			COMPANY_TBL
+		ON
+			TRAINING_INFO_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		INNER JOIN
+			TRAINING_APPL_TBL
+		ON
+			TRAINING_INFO_TBL.COMPANY_ID = TRAINING_APPL_TBL.COMPANY_ID
+		AND
+			TRAINING_INFO_TBL.TRAINING_ID = TRAINING_APPL_TBL.TRAINING_ID
+		INNER JOIN
+			APPLICANT_INFO_TBL
+		ON
+			TRAINING_APPL_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		INNER JOIN
+			INDUSTRY_MST
+		ON
+			TRAINING_INFO_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID																											
+		WHERE 																																															
+			APPLICANT_INFO_TBL.USER_CD = #{c0301ListVueForm.userCd}								
+		<if test="c0301ListVueForm.trainingNm != null and c0301ListVueForm.trainingNm != ''">																												
+		AND 																													
+			TRAINING_INFO_TBL.TRAINING_NM = #{c0301ListVueForm.trainingNm}	
+		</if>
+		<if test="c0301ListVueForm.companyNm != null and c0301ListVueForm.companyNm != ''">																										
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${c0301ListVueForm.companyNm}%'
+		</if>
+		<if test="c0301ListVueForm.industryId != null">																												
+		AND																													
+			TRAINING_INFO_TBL.INDUSTRY_ID = #{c0301ListVueForm.industryId}																												
+		</if>
+		<if test="c0301ListVueForm.prefeNm != null and c0301ListVueForm.prefeNm != ''">
+		AND																													
+			TRAINING_INFO_TBL.PREFE_NM = #{c0301ListVueForm.prefeNm}																												
+		</if>
+		<if test="c0301ListVueForm.dateFrom != null">
+		AND 																													
+			TRAINING_INFO_TBL.DATE_FROM &gt;= #{c0301ListVueForm.dateFrom}																												
+		</if>
+		<if test="c0301ListVueForm.dateTo != null">
+		AND																													
+			TRAINING_INFO_TBL.DATE_TO &lt;= #{c0301ListVueForm.dateTo}																												
+		</if>
+		<if test="c0301ListVueForm.timeFrom != null">
+		AND																													
+			TRAINING_INFO_TBL.TIME_FROM &gt;= #{c0301ListVueForm.timeFrom}																												
+		</if>
+		<if test="c0301ListVueForm.timeTo != null">
+		AND																													
+			TRAINING_INFO_TBL.TIME_TO &lt;= #{c0301ListVueForm.timeTo}																												
+		</if>
+																								
+		AND 																													
+			TRAINING_INFO_TBL.DEL_FLG = '0'																												
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'																												
+		AND 																													
+			INDUSTRY_MST.DEL_FLG = '0'																												
+		AND 																													
+			APPLICANT_INFO_TBL.DEL_FLG = '0'																												
+		AND																													
+			TRAINING_INFO_TBL.STATUS_FLG = '1'																												
+		AND																													
+			TRAINING_INFO_TBL.USE_FLG = '0'
+		AND
+			TRAINING_APPL_TBL.APP_STATUS_FLG = '0'
+		AND
+			TRAINING_APPL_TBL.DEL_FLG = '0'		
+		ORDER BY
+			TRAINING_INFO_TBL.UPDATE_TIME
+		DESC			
+     </select>
+     
+     <select id="getTrainingLike" parameterType="Ansin.web.vueForm.C0301ListVueForm" resultMap="BaseResultMap">
+      SELECT																													
+			TRAINING_INFO_TBL.TRAINING_ID,
+			TRAINING_INFO_TBL.COMPANY_ID,
+			TRAINING_INFO_TBL.INDUSTRY_ID,
+			TRAINING_INFO_TBL.TRAINING_NM,
+			TRAINING_INFO_TBL.DATE_FROM,
+			TRAINING_INFO_TBL.DATE_TO,
+			TRAINING_INFO_TBL.TIME_FROM,
+			TRAINING_INFO_TBL.TIME_TO,
+			TRAINING_INFO_TBL.POSTAL,
+			TRAINING_INFO_TBL.PREFE_NM,
+			TRAINING_INFO_TBL.TRAINING_ADDRESS1,
+			TRAINING_INFO_TBL.TRAINING_ADDRESS2,
+			TRAINING_INFO_TBL.TRAINING_CONTENT,
+			TRAINING_INFO_TBL.PRO_CNT,
+			TRAINING_INFO_TBL.TEA_NM,
+			TRAINING_INFO_TBL.TEA_INTRO,
+			TRAINING_INFO_TBL.COST,
+			TRAINING_INFO_TBL.TEL,
+			TRAINING_INFO_TBL.CHARGE,
+			TRAINING_INFO_TBL.TRAINING_PIC1,
+			TRAINING_INFO_TBL.TRAINING_PIC2,
+			TRAINING_INFO_TBL.TRAINING_PIC3,
+			TRAINING_INFO_TBL.REMARKS,															
+			COMPANY_TBL.COMPANY_NM,																
+			INDUSTRY_MST.INDUSTRY_NM
+		FROM 																													
+			TRAINING_INFO_TBL
+		INNER JOIN	
+			COMPANY_TBL
+		ON
+			TRAINING_INFO_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		INNER JOIN
+			TRAINING_APPL_TBL
+		ON
+			TRAINING_INFO_TBL.COMPANY_ID = TRAINING_APPL_TBL.COMPANY_ID
+		AND
+			TRAINING_INFO_TBL.TRAINING_ID = TRAINING_APPL_TBL.TRAINING_ID
+		INNER JOIN
+			APPLICANT_INFO_TBL
+		ON
+			TRAINING_APPL_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		INNER JOIN
+			INDUSTRY_MST
+		ON
+			TRAINING_INFO_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID																											
+		WHERE 																													
+			APPLICANT_INFO_TBL.USER_CD = #{c0301ListVueForm.userCd}		
+		<if test="c0301ListVueForm.trainingNm != null and c0301ListVueForm.trainingNm != ''">																												
+		AND 																													
+			TRAINING_INFO_TBL.TRAINING_NM = #{c0301ListVueForm.trainingNm}	
+		</if>
+		<if test="c0301ListVueForm.companyNm != null and c0301ListVueForm.companyNm != ''">																										
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${c0301ListVueForm.companyNm}%'
+		</if>
+		<if test="c0301ListVueForm.industryId != null">																												
+		AND																													
+			TRAINING_INFO_TBL.INDUSTRY_ID = #{c0301ListVueForm.industryId}																												
+		</if>
+		<if test="c0301ListVueForm.prefeNm != null and c0301ListVueForm.prefeNm != ''">
+		AND																													
+			TRAINING_INFO_TBL.PREFE_NM = #{c0301ListVueForm.prefeNm}																												
+		</if>
+		<if test="c0301ListVueForm.dateFrom != null">
+		AND 																													
+			TRAINING_INFO_TBL.DATE_FROM &gt;= #{c0301ListVueForm.dateFrom}																												
+		</if>
+		<if test="c0301ListVueForm.dateTo != null">
+		AND																													
+			TRAINING_INFO_TBL.DATE_TO &lt;= #{c0301ListVueForm.dateTo}																												
+		</if>
+		<if test="c0301ListVueForm.timeFrom != null">
+		AND																													
+			TRAINING_INFO_TBL.TIME_FROM &gt;= #{c0301ListVueForm.timeFrom}																												
+		</if>
+		<if test="c0301ListVueForm.timeTo != null">
+		AND																													
+			TRAINING_INFO_TBL.TIME_TO &lt;= #{c0301ListVueForm.timeTo}																												
+		</if>
+																										
+		AND 																													
+			TRAINING_INFO_TBL.DEL_FLG = '0'																												
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'																												
+		AND 																													
+			INDUSTRY_MST.DEL_FLG = '0'																												
+		AND 																													
+			APPLICANT_INFO_TBL.DEL_FLG = '0'																												
+		AND																													
+			TRAINING_INFO_TBL.STATUS_FLG = '1'																												
+		AND																													
+			TRAINING_INFO_TBL.USE_FLG = '0'
+		AND
+			TRAINING_APPL_TBL.APP_STATUS_FLG = '1'
+		ORDER BY
+			TRAINING_INFO_TBL.UPDATE_TIME
+		DESC
+     </select>
+     
+     <!-- A0701_04_承認一覧画面(研修会)一覧 -->
+     
+     <select id="getTra" parameterType="Ansin.web.vueForm.A070104VueForm" resultMap="BaseResultMap">
+     		  SELECT																													
+				TRAINING_INFO_TBL.TRAINING_ID,
+				TRAINING_INFO_TBL.COMPANY_ID,
+				TRAINING_INFO_TBL.INDUSTRY_ID,
+				TRAINING_INFO_TBL.TRAINING_NM,
+				TRAINING_INFO_TBL.DATE_FROM,
+				TRAINING_INFO_TBL.DATE_TO,
+				TRAINING_INFO_TBL.TIME_FROM,
+				TRAINING_INFO_TBL.TIME_TO,
+				TRAINING_INFO_TBL.POSTAL,
+				TRAINING_INFO_TBL.PREFE_NM,
+				TRAINING_INFO_TBL.TRAINING_ADDRESS1,
+				TRAINING_INFO_TBL.TRAINING_ADDRESS2,
+				TRAINING_INFO_TBL.TRAINING_CONTENT,
+				TRAINING_INFO_TBL.PRO_CNT,
+				TRAINING_INFO_TBL.TEA_NM,
+				TRAINING_INFO_TBL.TEA_INTRO,
+				TRAINING_INFO_TBL.COST,
+				TRAINING_INFO_TBL.TEL,
+				TRAINING_INFO_TBL.CHARGE,
+				TRAINING_INFO_TBL.TRAINING_PIC1,
+				TRAINING_INFO_TBL.TRAINING_PIC2,
+				TRAINING_INFO_TBL.TRAINING_PIC3,
+				TRAINING_INFO_TBL.REMARKS,															
+				COMPANY_TBL.COMPANY_NM,																
+				INDUSTRY_MST.INDUSTRY_NM,
+				TRAINING_INFO_TBL.STATUS_FLG
+		FROM 																													
+			TRAINING_INFO_TBL,COMPANY_TBL,INDUSTRY_MST																												
+		WHERE 																																																									
+			TRAINING_INFO_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID																												
+		AND 																													
+			TRAINING_INFO_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID	
+		<if test="a070104VueForm.trainingNm != null and a070104VueForm.trainingNm != ''">																												
+		AND 																													
+			TRAINING_INFO_TBL.TRAINING_NM LIKE '%${a070104VueForm.trainingNm}%'	
+		</if>
+		<if test="a070104VueForm.companyNm != null and a070104VueForm.companyNm != ''">																										
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${a070104VueForm.companyNm}%'
+		</if>
+		<if test="a070104VueForm.industryId != null">																												
+		AND																													
+			TRAINING_INFO_TBL.INDUSTRY_ID = #{a070104VueForm.industryId}																												
+		</if>
+		<if test="a070104VueForm.prefeNm != null and a070104VueForm.prefeNm != ''">
+		AND																													
+			TRAINING_INFO_TBL.PREFE_NM = #{a070104VueForm.prefeNm}																												
+		</if>
+		AND 																													
+			TRAINING_INFO_TBL.DEL_FLG = '0'																												
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'																												
+		AND 																													
+			INDUSTRY_MST.DEL_FLG = '0'																																																							
+		AND																													
+			TRAINING_INFO_TBL.STATUS_FLG = '0'																												
+		AND																													
+			TRAINING_INFO_TBL.USE_FLG = '0'	
+		ORDER BY
+			TRAINING_INFO_TBL.UPDATE_TIME
+		DESC	
+     </select>
+     
+     <update id="trainingConfirmOrDeny">
+     	UPDATE																		
+			TRAINING_INFO_TBL																
+		SET																		
+			STATUS_FLG = #{statusFlg},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		WHERE																					
+			TRAINING_ID 																																				
+		IN	
+		<foreach item="list" index="index" collection="list"
+                    open="(" separator="," close=")">
+                    #{list.trainingId}
+        </foreach>	
+        AND
+        	COMPANY_ID
+        IN
+        <foreach item="list" index="index" collection="list"
+                    open="(" separator="," close=")">
+                    #{list.companyId}
+        </foreach>	
+     </update>
+     
+ 	 
+     <select id="getName" parameterType="java.lang.Integer" resultType="java.lang.String">
+    	SELECT																													
+			TRAINING_NM
+		FROM 																													
+			TRAINING_INFO_TBL																										
+		WHERE 																																																									
+			TRAINING_INFO_TBL.TRAINING_ID = #{trainingId}
+		AND 																													
+			TRAINING_INFO_TBL.DEL_FLG = '0'	
+     </select>
+     
+     <update id="reportTraining">
+		UPDATE
+			TRAINING_INFO_TBL
+		SET
+		 	USE_FLG = '1',
+		 	UPDATE_TIME = CURRENT_TIMESTAMP(0),
+		 	UPDATE_BY = #{userCd}
+		WHERE
+			TRAINING_ID 
+				IN
+		<foreach item="trainingIds" index="index" collection="trainingIds"
+                	open="(" separator="," close=")">
+        	#{trainingIds}
+       	</foreach>
+	</update>
+     
+     
+    
+    <select id="trainingListSelect" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+    	SELECT
+			TRAINING_INFO_TBL.TRAINING_NM,
+			USER_TBL.USER_CD
+		FROM
+			TRAINING_INFO_TBL
+		INNER JOIN
+			USER_TBL
+		ON
+			USER_TBL.COMPANY_ID = TRAINING_INFO_TBL.COMPANY_ID
+		WHERE
+			TRAINING_INFO_TBL.TRAINING_ID
+				IN
+			<foreach item="trainingIds" index="index" collection="trainingIds"
+	                	open="(" separator="," close=")">
+	        	#{trainingIds}
+	       	</foreach>
+		AND
+			TRAINING_INFO_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.AUTHORITY = '会社会員管理員(認証済み)'
+		AND
+			USER_TBL.DEL_FLG = '0'
+     </select>
+     
+     
+     <select id="getOne" parameterType="java.lang.Integer" resultMap="BaseResultMap" >																					
+		SELECT																				
+		<include refid="Base_Column_List" />	
+		FROM																				
+			TRAINING_INFO_TBL,INDUSTRY_MST																		
+		WHERE																				
+			TRAINING_INFO_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID																		
+		AND																				
+			TRAINING_INFO_TBL.DEL_FLG = '0'																		
+		AND																				
+			INDUSTRY_MST.DEL_FLG = '0'
+		AND
+			TRAINING_INFO_TBL.TRAINING_ID = #{trainingId}	
+    </select>
+     
+     
+</mapper>

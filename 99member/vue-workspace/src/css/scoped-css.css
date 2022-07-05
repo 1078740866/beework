@@ -1,0 +1,24 @@
+/* 灰色背景色 */
+main.el-main {
+    background-color: #f6f6f6;
+}
+
+/* el-card 幅 */
+.el-card {
+    width: 80vw;
+    margin: 0 auto;
+}
+
+/* el-card　title */
+::v-deep .el-card__header {
+    font-size: 28px;
+    color: #014099;
+    font-weight: 600;
+}
+
+/* el-form labelの青字 */
+::v-deep div>.el-form-item__label {
+    font-size: 16px;
+    color: #014099;
+    font-weight: bold;
+}

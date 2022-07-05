@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.WaribikiMstMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.WaribikiMstEntity">
+			<result column="WARIBIKI1" property="waribiki1" jdbcType="DOUBLE"/>
+			<result column="WARIBIKI2" property="waribiki2" jdbcType="DOUBLE"/>
+			<result column="WARIBIKI3" property="waribiki3" jdbcType="DOUBLE"/>
+			<result column="WARIBIKI4" property="waribiki4" jdbcType="DOUBLE"/>
+			<result column="WARIBIKI5" property="waribiki5" jdbcType="DOUBLE"/>
+			<result column="SYOHIZEI" property="syohizei" jdbcType="DOUBLE"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		
+
+		<sql id="Base_Column_List">
+			WARIBIKI_MST.WARIBIKI1
+			,WARIBIKI_MST.WARIBIKI2
+			,WARIBIKI_MST.WARIBIKI3
+			,WARIBIKI_MST.WARIBIKI4
+			,WARIBIKI_MST.WARIBIKI5
+			,WARIBIKI_MST.SYOHIZEI
+			,WARIBIKI_MST.DEL_FLG
+			,WARIBIKI_MST.CREATE_TIME
+			,WARIBIKI_MST.CREATE_BY
+			,WARIBIKI_MST.UPDATE_TIME
+			,WARIBIKI_MST.UPDATE_BY
+		</sql>
+		
+		<select id="getAll" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				WARIBIKI_MST										
+			WHERE													
+				WARIBIKI_MST.DEL_FLG = '0'											
+		</select>
+
+		
+</mapper>

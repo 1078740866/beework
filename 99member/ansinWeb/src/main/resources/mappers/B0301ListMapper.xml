@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Ansin.web.mapper.B0301ListMapper">
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.B0301Entity">
+		<result column="USER_CD" property="userCd" jdbcType="INTEGER"/>
+		<result column="APPLICANT_ID" property="applicantId" jdbcType="INTEGER"/>
+		<result column="INDUSTRY_ID1" property="industryId1" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_ID1_1" property="jobtypeId1_1" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_ID1_2" property="jobtypeId1_2" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_ID1_3" property="jobtypeId1_3" jdbcType="INTEGER"/>
+		<result column="INDUSTRY_ID2" property="industryId2" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_ID2_1" property="jobtypeId2_1" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_ID2_2" property="jobtypeId2_2" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_ID2_3" property="jobtypeId2_3" jdbcType="INTEGER"/>
+		<result column="INDUSTRY_ID3" property="industryId3" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_ID3_1" property="jobtypeId3_1" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_ID3_2" property="jobtypeId3_2" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_ID3_3" property="jobtypeId3_3" jdbcType="INTEGER"/>
+		<result column="LAST_NAME" property="lastName" jdbcType="VARCHAR"/>
+		<result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR"/>
+		<result column="INDUSTRY_NM" property="industryNm" jdbcType="VARCHAR"/>
+		<result column="JOBTYPE_NM" property="jobtypeNm" jdbcType="VARCHAR"/>
+		<result column="WORK_YEARS" property="workYears" jdbcType="INTEGER"/>
+		<result column="SEX" property="sex" jdbcType="CHAR"/>
+		<result column="BIRTHDAY" property="birthday" jdbcType="DATE"/>
+		<result column="HOPE_SALARY_FROM" property="hopeSalaryFrom" jdbcType="INTEGER"/>
+		<result column="HOPE_SALARY_TO" property="hopeSalaryTo" jdbcType="INTEGER"/>
+		<result column="STATION" property="station" jdbcType="VARCHAR"/>
+		<result column="FINAL_EDUCATION" property="finalEducation" jdbcType="CHAR"/>
+		<result column="GRADUATION_SCHOOL" property="graduationSchool" jdbcType="VARCHAR"/>
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="ADDRESS1" property="address1" jdbcType="VARCHAR"/>
+		<result column="PHOTO" property="photo" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+   
+    <sql id="Base_Column_List">
+		USER_TBL.USER_CD,										
+		APPLICANT_INFO_TBL.APPLICANT_ID,										
+		USER_TBL.FIRST_NAME,										
+		USER_TBL.LAST_NAME,										
+		JOBTYPE_MST.JOBTYPE_NM,										
+		INDUSTRY_MST.INDUSTRY_NM,										
+		APPLICANT_INFO_TBL.WORK_YEARS,										
+		USER_TBL.SEX,										
+		APPLICANT_INFO_TBL.BIRTHDAY,										
+		APPLICANT_INFO_TBL.HOPE_SALARY_FROM,										
+		APPLICANT_INFO_TBL.HOPE_SALARY_TO,										
+		APPLICANT_INFO_TBL.STATION,										
+		APPLICANT_INFO_TBL.FINAL_EDUCATION,									
+		APPLICANT_INFO_TBL.GRADUATION_SCHOOL,										
+		APPLICANT_INFO_TBL.UPDATE_TIME,
+		APPLICANT_INFO_TBL.ADDRESS1,
+		APPLICANT_INFO_TBL.PHOTO
+	</sql>
+	
+	
+	<select id="getAll" parameterType="Ansin.web.vueForm.B0301VueForm" resultMap="BaseResultMap">
+		SELECT																							
+			 <include refid="Base_Column_List" />																				
+		FROM																							
+			APPLICANT_INFO_TBL
+		INNER JOIN 
+			USER_TBL
+		ON 
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD
+		AND 
+			USER_TBL.DEL_FLG = '0'	
+		INNER JOIN
+			INDUSTRY_MST
+		ON  
+			APPLICANT_INFO_TBL.INDUSTRY_ID1 = INDUSTRY_MST.INDUSTRY_ID
+		AND	
+			INDUSTRY_MST.DEL_FLG = '0'
+		INNER JOIN
+			JOBTYPE_MST
+		ON
+			APPLICANT_INFO_TBL.JOBTYPE_ID1_1 = JOBTYPE_MST.JOBTYPE_ID
+		AND	
+			JOBTYPE_MST.DEL_FLG = '0'
+		<if test="b0301VueForm.languageId != null or b0301VueForm.levelSection != null and b0301VueForm.levelSection !=''">
+		 	INNER JOIN																									
+				APPLICANT_LAN_TBL																								
+			ON																									
+				APPLICANT_INFO_TBL.APPLICANT_ID	= APPLICANT_LAN_TBL.APPLICANT_ID
+			AND																									
+				APPLICANT_LAN_TBL.DEL_FLG = '0'	
+		</if>
+		<if test="b0301VueForm.skillId != null">
+			INNER JOIN																									
+				APPLICANT_SKILL_TBL																								
+			ON																									
+				APPLICANT_INFO_TBL.APPLICANT_ID	= APPLICANT_SKILL_TBL.APPLICANT_ID
+			AND																									
+				APPLICANT_SKILL_TBL.DEL_FLG	= '0'	
+		</if>																							
+		WHERE																									
+			APPLICANT_INFO_TBL.DEL_FLG = '0'			
+		<if test="b0301VueForm.industryId != null">											
+		AND	
+			 #{b0301VueForm.industryId}	IN (
+			 APPLICANT_INFO_TBL.INDUSTRY_ID1,
+			 APPLICANT_INFO_TBL.INDUSTRY_ID2,
+			 APPLICANT_INFO_TBL.INDUSTRY_ID3
+			 )
+		</if>
+		<if test="b0301VueForm.jobtypeId != null">									
+		AND	
+			#{b0301VueForm.jobtypeId} IN(
+			APPLICANT_INFO_TBL.JOBTYPE_ID1_1,
+			APPLICANT_INFO_TBL.JOBTYPE_ID1_2,
+			APPLICANT_INFO_TBL.JOBTYPE_ID1_3,
+			APPLICANT_INFO_TBL.JOBTYPE_ID2_1,
+			APPLICANT_INFO_TBL.JOBTYPE_ID2_2,
+			APPLICANT_INFO_TBL.JOBTYPE_ID2_3,
+			APPLICANT_INFO_TBL.JOBTYPE_ID3_1,
+			APPLICANT_INFO_TBL.JOBTYPE_ID3_2,
+			APPLICANT_INFO_TBL.JOBTYPE_ID3_3
+			)	
+		</if>
+		<if test="b0301VueForm.hopeLand != null">																															
+		AND	
+			#{b0301VueForm.hopeland} IN (
+			APPLICANT_INFO_TBL.HOPE_LAND1,
+			APPLICANT_INFO_TBL.HOPE_LAND2,
+			APPLICANT_INFO_TBL.HOPE_LAND3
+			)
+		</if>
+		<if test="b0301VueForm.finalEducation != null and b0301VueForm.finalEducation !=''">																						
+		AND	
+			APPLICANT_INFO_TBL.FINAL_EDUCATION &gt;= #{b0301VueForm.finalEducation}
+		</if>
+		<if test="b0301VueForm.ageFrom != null">												
+		AND	
+			EXTRACT(YEAR FROM NOW())-EXTRACT(YEAR FROM BIRTHDAY) &gt;= #{b0301VueForm.ageFrom}	
+		</if>	
+		<if test="b0301VueForm.ageTo != null">																				
+		AND	
+			EXTRACT(YEAR FROM NOW())-EXTRACT(YEAR FROM BIRTHDAY) &lt;= #{b0301VueForm.ageTo}		
+		</if>																				
+		<if test="b0301VueForm.workYearsFrom != null">																								
+		AND	
+			APPLICANT_INFO_TBL.WORK_YEARS &gt;= #{b0301VueForm.workYearsFrom}
+		</if>
+		<if test="b0301VueForm.workYearsTo != null">																				
+		AND	
+			APPLICANT_INFO_TBL.WORK_YEARS &lt;= #{b0301VueForm.workYearsTo}	
+		</if>
+		<if test="b0301VueForm.prefeNm != null and b0301VueForm.prefeNm !=''">																							
+		AND	
+			APPLICANT_INFO_TBL.PREFE_NM  = #{b0301VueForm.prefeNm}	
+		</if>	
+		<if test="b0301VueForm.hopeSalaryFrom != null">
+		AND	
+			APPLICANT_INFO_TBL.HOPE_SALARY_FROM &gt;= #{b0301VueForm.hopeSalaryFrom}	
+		</if>
+		<if test="b0301VueForm.hopeSalaryTo != null">											
+		AND	
+			APPLICANT_INFO_TBL.HOPE_SALARY_TO &lt;= #{b0301VueForm.hopeSalaryTo}																																		
+		</if>																							
+		<if test="b0301VueForm.sex != null and b0301VueForm.sex !=''">																	
+		AND	
+			USER_TBL.SEX = #{b0301VueForm.sex}																																					
+		</if>																										
+		<if test="b0301VueForm.languageId != null">														
+		AND	
+			APPLICANT_LAN_TBL.LANGUAGE_ID = #{b0301VueForm.languageId}								
+		</if>
+		<if test="b0301VueForm.levelSection != null and b0301VueForm.levelSection !=''">
+		AND	
+			APPLICANT_LAN_TBL.LEVEL_SECTION = #{b0301VueForm.levelSection}																																		
+		</if>																								
+		<if test="b0301VueForm.skillId != null">															
+		AND	
+			APPLICANT_SKILL_TBL.SKILL_ID = #{b0301VueForm.skillId}									
+		</if>																								
+		ORDER BY																																								
+			APPLICANT_INFO_TBL.UPDATE_TIME
+		DESC
+																	
+	</select>
+	
+	
+	<select id="getList" parameterType="Ansin.web.entity.CompanyTblEntity" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List"/>
+		FROM
+			APPLICANT_INFO_TBL
+		INNER JOIN
+			USER_TBL
+		ON
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD
+		INNER JOIN
+			INDUSTRY_MST
+		ON
+			APPLICANT_INFO_TBL.INDUSTRY_ID1 = INDUSTRY_MST.INDUSTRY_ID
+		INNER JOIN
+			JOBTYPE_MST
+		ON
+			APPLICANT_INFO_TBL.JOBTYPE_ID1_1 = JOBTYPE_MST.JOBTYPE_ID
+		WHERE
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.USER_STATUS = '0'
+		AND
+			INDUSTRY_MST.DEL_FLG = '0'
+		AND
+			JOBTYPE_MST.DEL_FLG = '0'
+		AND
+		(
+			#{company.industryId1} IN (
+										APPLICANT_INFO_TBL.INDUSTRY_ID1
+										,APPLICANT_INFO_TBL.INDUSTRY_ID2
+										,APPLICANT_INFO_TBL.INDUSTRY_ID3
+										)
+			<if test="company.industryId2 != null">
+			OR
+			#{company.industryId2} IN (
+										APPLICANT_INFO_TBL.INDUSTRY_ID1
+										,APPLICANT_INFO_TBL.INDUSTRY_ID2
+										,APPLICANT_INFO_TBL.INDUSTRY_ID3
+										)
+			</if>
+			<if test="company.industryId3 != null">
+			OR
+			#{company.industryId3} IN (
+										APPLICANT_INFO_TBL.INDUSTRY_ID1
+										,APPLICANT_INFO_TBL.INDUSTRY_ID2
+										,APPLICANT_INFO_TBL.INDUSTRY_ID3
+										)
+			</if>
+		)
+		ORDER BY
+			APPLICANT_INFO_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	
+	
+</mapper>

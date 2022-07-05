@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.CompanyTblMapper">
+	<resultMap
+		id="CompanyMap"
+		type="Ansin.web.entity.CompanyTblEntity">
+		<id
+			property="companyId"
+			column="company_id"
+			jdbcType="INTEGER" />
+		<result
+			property="companyNm"
+			column="company_nm"
+			jdbcType="VARCHAR" />
+		<result
+			property="validitySection"
+			column="validity_section"
+			jdbcType="CHAR" />
+		<result
+			property="companyTel"
+			column="company_tel"
+			jdbcType="VARCHAR" />
+		<result
+			property="companyMail"
+			column="company_mail"
+			jdbcType="VARCHAR" />
+		<result
+			property="companyScale"
+			column="company_scale"
+			jdbcType="VARCHAR" />
+		<result
+			property="companyPostal"
+			column="company_postal"
+			jdbcType="VARCHAR" />
+		<result
+			property="countryId"
+			column="country_id"
+			jdbcType="INTEGER" />
+		<result
+			property="prefeNm"
+			column="prefe_nm"
+			jdbcType="VARCHAR" />
+		<result
+			property="address1"
+			column="address1"
+			jdbcType="VARCHAR" />
+		<result
+			property="address2"
+			column="address2"
+			jdbcType="VARCHAR" />
+		<result
+			property="industryId1"
+			column="industry_id1"
+			jdbcType="INTEGER" />
+		<result
+			property="industryId2"
+			column="industry_id2"
+			jdbcType="INTEGER" />
+		<result
+			property="industryId3"
+			column="industry_id3"
+			jdbcType="INTEGER" />
+		<result
+			property="businessContent"
+			column="business_content"
+			jdbcType="VARCHAR" />
+		<result
+			property="capital"
+			column="capital"
+			jdbcType="NUMERIC" />
+		<result
+			property="salesAmount"
+			column="sales_amount"
+			jdbcType="NUMERIC" />
+		<result
+			property="homepage"
+			column="homepage"
+			jdbcType="VARCHAR" />
+		<result
+			property="licenseAddress"
+			column="license_address"
+			jdbcType="VARCHAR" />
+		<result
+			property="companyLogo"
+			column="company_logo"
+			jdbcType="VARCHAR" />
+		<result
+			property="photoAddress1"
+			column="photo_address1"
+			jdbcType="VARCHAR" />
+		<result
+			property="photoAddress2"
+			column="photo_address2"
+			jdbcType="VARCHAR" />
+		<result
+			property="photoAddress3"
+			column="photo_address3"
+			jdbcType="VARCHAR" />
+		<result
+			property="videoAddress1"
+			column="video_address1"
+			jdbcType="VARCHAR" />
+		<result
+			property="videoAddress2"
+			column="video_address2"
+			jdbcType="VARCHAR" />
+		<result
+			property="videoAddress3"
+			column="video_address3"
+			jdbcType="VARCHAR" />
+		<result
+			property="payConsSum"
+			column="pay_cons_sum"
+			jdbcType="VARCHAR" />
+		<result
+			property="remainder"
+			column="remainder"
+			jdbcType="INTEGER" />
+		<result
+			property="point"
+			column="point"
+			jdbcType="INTEGER" />
+		<result
+			property="levelId"
+			column="level_id"
+			jdbcType="INTEGER" />
+		<result
+			property="delFlg"
+			column="del_flg"
+			jdbcType="CHAR" />
+		<result
+			property="createTime"
+			column="create_time"
+			jdbcType="TIMESTAMP" />
+		<result
+			property="createBy"
+			column="create_by"
+			jdbcType="CHAR" />
+		<result
+			property="updateTime"
+			column="update_time"
+			jdbcType="TIMESTAMP" />
+		<result
+			property="updateBy"
+			column="update_by"
+			jdbcType="CHAR" />
+		<result
+			property="levelNm"
+			column="level_nm"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="Ansin.web.entity.CompanyTblPopEntity" id="CompanyPopMap">
+		<result property="companyId" column="company_id" jdbcType="INTEGER" />
+		<result property="companyNm" column="company_nm" jdbcType="VARCHAR" />
+		<result property="validitySection" column="validity_section" jdbcType="CHAR" />
+		<result property="companyTel" column="company_tel" jdbcType="VARCHAR" />
+		<result property="companyMail" column="company_mail" jdbcType="VARCHAR" />
+		<result property="companyScale" column="company_scale" jdbcType="VARCHAR" />
+		<result property="companyPostal" column="company_postal" jdbcType="VARCHAR" />
+		<result property="countryId" column="country_id" jdbcType="INTEGER" />
+		<result property="countryNm" column="COUNTRY_NM" jdbcType="VARCHAR" />		
+		<result property="prefeNm" column="prefe_nm" jdbcType="VARCHAR" />
+		<result property="address1" column="address1" jdbcType="VARCHAR" />
+		<result property="address2" column="address2" jdbcType="VARCHAR" />
+		<result property="industryId1" column="industry_id1" jdbcType="INTEGER" />
+		<result property="industryId2" column="industry_id2" jdbcType="INTEGER" />
+		<result property="industryId3" column="industry_id3" jdbcType="INTEGER" />
+		<result property="industryNm1" column="INDUSTRY_NM1" jdbcType="VARCHAR" />
+		<result property="industryNm2" column="INDUSTRY_NM2" jdbcType="VARCHAR" />
+		<result property="industryNm3" column="INDUSTRY_NM3" jdbcType="VARCHAR" />
+		<result property="businessContent" column="business_content" jdbcType="VARCHAR" />
+		<result property="capital" column="capital" jdbcType="NUMERIC" />
+		<result property="salesAmount" column="sales_amount" jdbcType="NUMERIC" />
+		<result property="homepage" column="homepage" jdbcType="VARCHAR" />
+		<result property="licenseAddress" column="license_address" jdbcType="VARCHAR" />
+		<result property="companyLogo" column="company_logo" jdbcType="VARCHAR" />
+		<result property="photoAddress1" column="photo_address1" jdbcType="VARCHAR" />
+		<result property="photoAddress2" column="photo_address2" jdbcType="VARCHAR" />
+		<result property="photoAddress3" column="photo_address3" jdbcType="VARCHAR" />
+		<result property="videoAddress1" column="video_address1" jdbcType="VARCHAR" />
+		<result property="videoAddress2" column="video_address2" jdbcType="VARCHAR" />
+		<result property="videoAddress3" column="video_address3" jdbcType="VARCHAR" />
+		<result property="payConsSum" column="pay_cons_sum" jdbcType="VARCHAR" />
+		<result property="remainder" column="remainder" jdbcType="INTEGER" />
+		<result property="point" column="point" jdbcType="INTEGER" />
+		<result property="levelId" column="level_id" jdbcType="INTEGER" />
+		<result property="delFlg" column="del_flg" jdbcType="CHAR" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="createBy" column="create_by" jdbcType="CHAR" />
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="updateBy" column="update_by" jdbcType="CHAR" />
+		<result property="levelNm" column="level_nm" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="Ansin.web.entity.CompanyTblPopEntity" id="CompanyPopMap2">
+		<result property="companyId" column="company_id" jdbcType="INTEGER" />
+		<result property="companyNm" column="company_nm" jdbcType="VARCHAR" />
+		<result property="validitySection" column="validity_section" jdbcType="CHAR" />
+		<result property="companyTel" column="company_tel" jdbcType="VARCHAR" />
+		<result property="companyMail" column="company_mail" jdbcType="VARCHAR" />
+		<result property="companyScale" column="company_scale" jdbcType="VARCHAR" />
+		<result property="companyPostal" column="company_postal" jdbcType="VARCHAR" />
+		<result property="countryId" column="country_id" jdbcType="INTEGER" />
+		<result property="countryNm" column="COUNTRY_NM" jdbcType="VARCHAR" />		
+		<result property="prefeNm" column="prefe_nm" jdbcType="VARCHAR" />
+		<result property="address1" column="address1" jdbcType="VARCHAR" />
+		<result property="address2" column="address2" jdbcType="VARCHAR" />
+		<result property="industryId1" column="industry_id1" jdbcType="INTEGER" />
+		<result property="industryId2" column="industry_id2" jdbcType="INTEGER" />
+		<result property="industryId3" column="industry_id3" jdbcType="INTEGER" />
+		<result property="industryNm1" column="INDUSTRY_NM1" jdbcType="VARCHAR" />
+		<result property="industryNm2" column="INDUSTRY_NM2" jdbcType="VARCHAR" />
+		<result property="industryNm3" column="INDUSTRY_NM3" jdbcType="VARCHAR" />
+		<result property="businessContent" column="business_content" jdbcType="VARCHAR" />
+		<result property="capital" column="capital" jdbcType="NUMERIC" />
+		<result property="salesAmount" column="sales_amount" jdbcType="NUMERIC" />
+		<result property="homepage" column="homepage" jdbcType="VARCHAR" />
+		<result property="licenseAddress" column="license_address" jdbcType="VARCHAR" />
+		<result property="companyLogo" column="company_logo" jdbcType="VARCHAR" />
+		<result property="photoAddress1" column="photo_address1" jdbcType="VARCHAR" />
+		<result property="photoAddress2" column="photo_address2" jdbcType="VARCHAR" />
+		<result property="photoAddress3" column="photo_address3" jdbcType="VARCHAR" />
+		<result property="videoAddress1" column="video_address1" jdbcType="VARCHAR" />
+		<result property="videoAddress2" column="video_address2" jdbcType="VARCHAR" />
+		<result property="videoAddress3" column="video_address3" jdbcType="VARCHAR" />
+		<result property="payConsSum" column="pay_cons_sum" jdbcType="VARCHAR" />
+		<result property="remainder" column="remainder" jdbcType="INTEGER" />
+		<result property="point" column="point" jdbcType="INTEGER" />
+		<result property="levelId" column="level_id" jdbcType="INTEGER" />
+		<result property="delFlg" column="del_flg" jdbcType="CHAR" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="createBy" column="create_by" jdbcType="CHAR" />
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="updateBy" column="update_by" jdbcType="CHAR" />
+		<result property="levelNm" column="level_nm" jdbcType="VARCHAR" />
+		<result property="firstName" column="first_Name" jdbcType="VARCHAR" />
+		<result property="lastName" column="last_Name" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="Ansin.web.entity.ComCoinPointEntity" id="selectCharge">
+		<result property="remainderCoin" column="REMAINDER" jdbcType="INTEGER" />
+		<result property="sumAcquiredCoin" column="CHARGE_HONEY" jdbcType="INTEGER" />
+		<result property="chargeSumMoney" column="CHARGE_MONEY" jdbcType="INTEGER" />
+		<result property="remainderPoint" column="POINT" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="Ansin.web.entity.ComCoinPointEntity" id="selectCons">
+		<result property="sumUsedCoin" column="CONS_HONEY" jdbcType="INTEGER" />
+		<result property="sumAcquiredPoint" column="EARN_POINT" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="Ansin.web.entity.ComCoinPointEntity" id="selectMonthAcquired">
+		<result property="monAcquiredCoin" column="MONACQUIREDCOIN" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="Ansin.web.entity.ComCoinPointEntity" id="selectMonthUsed">
+		<result property="monUsedCoin" column="MONUSEDCOIN" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="Ansin.web.entity.ComCoinPointEntity" id="selectLastDate">
+		<result property="deadlineMoney" column="LAST_HONEY" jdbcType="INTEGER" />
+		<result property="deadlineSoon" column="HONEY_LAST_DATE" jdbcType="DATE" />
+	</resultMap>
+
+  <resultMap id="BaseResultMap" type="Ansin.web.entity.CompanyTblEntity" >
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER"/>
+		<result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR"/>
+		<result column="VALIDITY_SECTION" property="validitySection" jdbcType="CHAR"/>
+		<result column="COMPANY_TEL" property="companyTel" jdbcType="VARCHAR"/>
+		<result column="COMPANY_MAIL" property="companyMail" jdbcType="VARCHAR"/>
+		<result column="COMPANY_SCALE" property="companyScale" jdbcType="VARCHAR"/>
+		<result column="COMPANY_POSTAL" property="companyPostal" jdbcType="VARCHAR"/>
+		<result column="COUNTRY_ID" property="countryId" jdbcType="INTEGER"/>
+		<result column="PREFE_NM" property="prefeNm" jdbcType="VARCHAR"/>
+		<result column="ADDRESS1" property="address1" jdbcType="VARCHAR"/>
+		<result column="ADDRESS2" property="address2" jdbcType="VARCHAR"/>
+		<result column="INDUSTRY_ID1" property="industryId1" jdbcType="INTEGER"/>
+		<result column="INDUSTRY_ID2" property="industryId2" jdbcType="INTEGER"/>
+		<result column="INDUSTRY_ID3" property="industryId3" jdbcType="INTEGER"/>
+		<result column="BUSINESS_CONTENT" property="businessContent" jdbcType="VARCHAR"/>
+		<result column="CAPITAL" property="capital" jdbcType="NUMERIC"/>
+		<result column="SALES_AMOUNT" property="salesAmount" jdbcType="NUMERIC"/>
+		<result column="HOMEPAGE" property="homepage" jdbcType="VARCHAR"/>
+		<result column="LICENSE_ADDRESS" property="licenseAddress" jdbcType="VARCHAR"/>
+		<result column="COMPANY_LOGO" property="companyLogo" jdbcType="VARCHAR"/>
+		<result column="PHOTO_ADDRESS1" property="photoAddress1" jdbcType="VARCHAR"/>
+		<result column="PHOTO_ADDRESS2" property="photoAddress2" jdbcType="VARCHAR"/>
+		<result column="PHOTO_ADDRESS3" property="photoAddress3" jdbcType="VARCHAR"/>
+		<result column="VIDEO_ADDRESS1" property="videoAddress1" jdbcType="VARCHAR"/>
+		<result column="VIDEO_ADDRESS2" property="videoAddress2" jdbcType="VARCHAR"/>
+		<result column="VIDEO_ADDRESS3" property="videoAddress3" jdbcType="VARCHAR"/>
+		<result column="PAY_CONS_SUM" property="payConsSum" jdbcType="INTEGER"/>
+		<result column="REMAINDER" property="remainder" jdbcType="INTEGER"/>
+		<result column="POINT" property="point" jdbcType="INTEGER"/>
+		<result column="LEVEL_ID" property="levelId" jdbcType="INTEGER"/>
+		<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		<result column="INDUSTRY_NM1" property="industryNm1" jdbcType="VARCHAR"/>
+		<result column="INDUSTRY_NM2" property="industryNm2" jdbcType="VARCHAR"/>
+		<result column="INDUSTRY_NM3" property="industryNm3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+	
+
+	<sql id="CompanyList">
+		COMPANY_TBL.COMPANY_ID
+		,COMPANY_TBL.COMPANY_NM
+		,COMPANY_TBL.VALIDITY_SECTION
+		,COMPANY_TBL.COMPANY_TEL
+		,COMPANY_TBL.COMPANY_MAIL
+		,COMPANY_TBL.COMPANY_SCALE
+		,COMPANY_TBL.COMPANY_POSTAL
+		,COMPANY_TBL.COUNTRY_ID
+		,COMPANY_TBL.PREFE_NM
+		,COMPANY_TBL.ADDRESS1
+		,COMPANY_TBL.ADDRESS2
+		,COMPANY_TBL.INDUSTRY_ID1
+		,COMPANY_TBL.INDUSTRY_ID2
+		,COMPANY_TBL.INDUSTRY_ID3
+		,COMPANY_TBL.BUSINESS_CONTENT
+		,COMPANY_TBL.CAPITAL
+		,COMPANY_TBL.SALES_AMOUNT
+		,COMPANY_TBL.HOMEPAGE
+		,COMPANY_TBL.LICENSE_ADDRESS
+		,COMPANY_TBL.COMPANY_LOGO
+		,COMPANY_TBL.PHOTO_ADDRESS1
+		,COMPANY_TBL.PHOTO_ADDRESS2
+		,COMPANY_TBL.PHOTO_ADDRESS3
+		,COMPANY_TBL.VIDEO_ADDRESS1
+		,COMPANY_TBL.VIDEO_ADDRESS2
+		,COMPANY_TBL.VIDEO_ADDRESS3
+		,COMPANY_TBL.PAY_CONS_SUM
+		,COMPANY_TBL.REMAINDER
+		,COMPANY_TBL.POINT
+		,COMPANY_TBL.LEVEL_ID
+		,COMPANY_TBL.DEL_FLG
+		,COMPANY_TBL.CREATE_TIME
+		,COMPANY_TBL.CREATE_BY
+		,COMPANY_TBL.UPDATE_TIME
+		,COMPANY_TBL.UPDATE_BY
+		,MEMBER_LEVEL_MST.LEVEL_NM
+	</sql>
+
+	
+	<sql id="CompanyPopList">
+		COMPANY_TBL.COMPANY_ID
+		,COMPANY_TBL.COMPANY_NM
+		,COMPANY_TBL.VALIDITY_SECTION
+		,COMPANY_TBL.COMPANY_TEL
+		,COMPANY_TBL.COMPANY_MAIL
+		,COMPANY_TBL.COMPANY_SCALE
+		,COMPANY_TBL.COMPANY_POSTAL
+		,COMPANY_TBL.COUNTRY_ID
+		,COU_MST.COUNTRY_NM
+		,COMPANY_TBL.PREFE_NM
+		,COMPANY_TBL.ADDRESS1
+		,COMPANY_TBL.ADDRESS2
+		,COMPANY_TBL.INDUSTRY_ID1
+		,INDUSTRY_SELECT.INDUSTRY_NM1
+		,COMPANY_TBL.INDUSTRY_ID2
+		,INDUSTRY_SELECT.INDUSTRY_NM2
+		,COMPANY_TBL.INDUSTRY_ID3
+		,INDUSTRY_SELECT.INDUSTRY_NM3
+		,COMPANY_TBL.BUSINESS_CONTENT
+		,COMPANY_TBL.CAPITAL
+		,COMPANY_TBL.SALES_AMOUNT
+		,COMPANY_TBL.HOMEPAGE
+		,COMPANY_TBL.LICENSE_ADDRESS
+		,COMPANY_TBL.COMPANY_LOGO
+		,COMPANY_TBL.PHOTO_ADDRESS1
+		,COMPANY_TBL.PHOTO_ADDRESS2
+		,COMPANY_TBL.PHOTO_ADDRESS3
+		,COMPANY_TBL.VIDEO_ADDRESS1
+		,COMPANY_TBL.VIDEO_ADDRESS2
+		,COMPANY_TBL.VIDEO_ADDRESS3
+		,COMPANY_TBL.PAY_CONS_SUM
+		,COMPANY_TBL.REMAINDER
+		,COMPANY_TBL.POINT
+		,COMPANY_TBL.LEVEL_ID
+		,COMPANY_TBL.DEL_FLG
+		,COMPANY_TBL.CREATE_TIME
+		,COMPANY_TBL.CREATE_BY
+		,COMPANY_TBL.UPDATE_TIME
+		,COMPANY_TBL.UPDATE_BY
+		,MEMBER_LEVEL_MST.LEVEL_NM
+	</sql>
+	
+	
+	<sql id="CompanyPopList2">
+		COMPANY_TBL.COMPANY_ID
+		,COMPANY_TBL.COMPANY_NM
+		,COMPANY_TBL.VALIDITY_SECTION
+		,COMPANY_TBL.COMPANY_TEL
+		,COMPANY_TBL.COMPANY_MAIL
+		,COMPANY_TBL.COMPANY_SCALE
+		,COMPANY_TBL.COMPANY_POSTAL
+		,COMPANY_TBL.COUNTRY_ID
+		,COU_MST.COUNTRY_NM
+		,COMPANY_TBL.PREFE_NM
+		,COMPANY_TBL.ADDRESS1
+		,COMPANY_TBL.ADDRESS2
+		,COMPANY_TBL.INDUSTRY_ID1
+		,INDUSTRY_SELECT.INDUSTRY_NM1
+		,COMPANY_TBL.INDUSTRY_ID2
+		,INDUSTRY_SELECT.INDUSTRY_NM2
+		,COMPANY_TBL.INDUSTRY_ID3
+		,INDUSTRY_SELECT.INDUSTRY_NM3
+		,COMPANY_TBL.BUSINESS_CONTENT
+		,COMPANY_TBL.CAPITAL
+		,COMPANY_TBL.SALES_AMOUNT
+		,COMPANY_TBL.HOMEPAGE
+		,COMPANY_TBL.LICENSE_ADDRESS
+		,COMPANY_TBL.COMPANY_LOGO
+		,COMPANY_TBL.PHOTO_ADDRESS1
+		,COMPANY_TBL.PHOTO_ADDRESS2
+		,COMPANY_TBL.PHOTO_ADDRESS3
+		,COMPANY_TBL.VIDEO_ADDRESS1
+		,COMPANY_TBL.VIDEO_ADDRESS2
+		,COMPANY_TBL.VIDEO_ADDRESS3
+		,COMPANY_TBL.PAY_CONS_SUM
+		,COMPANY_TBL.REMAINDER
+		,COMPANY_TBL.POINT
+		,COMPANY_TBL.LEVEL_ID
+		,COMPANY_TBL.DEL_FLG
+		,COMPANY_TBL.CREATE_TIME
+		,COMPANY_TBL.CREATE_BY
+		,COMPANY_TBL.UPDATE_TIME
+		,COMPANY_TBL.UPDATE_BY
+		,MEMBER_LEVEL_MST.LEVEL_NM
+		,USER_TBL.FIRST_NAME
+		,USER_TBL.LAST_NAME
+	</sql>
+	
+	
+	
+	<sql id="insertCompanyTbl">
+		COMPANY_ID
+		,COMPANY_NM
+		,COMPANY_TEL
+		,COMPANY_MAIL
+		,COMPANY_SCALE
+		,COMPANY_POSTAL
+		,COUNTRY_ID
+		,PREFE_NM
+		,ADDRESS1
+		,ADDRESS2
+		,INDUSTRY_ID1
+		,INDUSTRY_ID2
+		,INDUSTRY_ID3
+		,BUSINESS_CONTENT
+		,CAPITAL
+		,SALES_AMOUNT
+		,HOMEPAGE
+		,LICENSE_ADDRESS
+		,COMPANY_LOGO
+		,PHOTO_ADDRESS1
+		,PHOTO_ADDRESS2
+		,PHOTO_ADDRESS3
+		,VIDEO_ADDRESS1
+		,VIDEO_ADDRESS2
+		,VIDEO_ADDRESS3
+		,CREATE_TIME
+		,CREATE_BY
+		,UPDATE_TIME
+	</sql>
+	
+	
+	<sql id="getCompantCharge">
+		COMPANY_TBL.REMAINDER
+		,COMPANY_TBL.POINT
+		,SUM(COMCHARGE_HIS_TBL.CHARGE_HONEY) AS CHARGE_HONEY
+		,SUM(COMCHARGE_HIS_TBL.CHARGE_MONEY) AS CHARGE_MONEY
+	</sql>
+	
+	<sql id="getCompantCons">
+		SUM(COMCONS_HIS_TBL.CONS_HONEY) AS CONS_HONEY
+		,SUM(COMCONS_HIS_TBL.EARN_POINT) AS EARN_POINT
+	</sql>
+	
+	<select
+		id="getCompanyInfoById"
+		parameterType="java.lang.Integer"
+		resultMap="CompanyMap">
+		SELECT
+		<include refid="CompanyList" />
+		FROM 
+			COMPANY_TBL,MEMBER_LEVEL_MST
+		WHERE 
+			COMPANY_TBL.LEVEL_ID = MEMBER_LEVEL_MST.LEVEL_ID
+		AND
+			COMPANY_TBL.VALIDITY_SECTION = '0'
+		AND
+			COMPANY_TBL.STATUS_FLG = '1'
+		AND
+			COMPANY_TBL.COMPANY_ID = #{companyId}
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+			MEMBER_LEVEL_MST.DEL_FLG = '0'
+	</select>
+
+
+	<select
+		id="getInfoById"
+		parameterType="java.lang.Integer"
+		resultMap="CompanyPopMap2">
+		SELECT
+		<include refid="CompanyPopList2" />
+		FROM 
+			COMPANY_TBL
+		INNER JOIN
+		  	MEMBER_LEVEL_MST
+		ON
+		  	COMPANY_TBL.LEVEL_ID = MEMBER_LEVEL_MST.LEVEL_ID
+		INNER JOIN
+			(
+			SELECT
+	      		A.COMPANY_ID
+			    , B.INDUSTRY_ID INDUSTRY_ID1
+				, C.INDUSTRY_ID INDUSTRY_ID2
+				, D.INDUSTRY_ID INDUSTRY_ID3
+			    , B.INDUSTRY_NM INDUSTRY_NM1
+			    , C.INDUSTRY_NM INDUSTRY_NM2
+			    , D.INDUSTRY_NM INDUSTRY_NM3
+			FROM
+			    COMPANY_TBL A
+			INNER JOIN
+				INDUSTRY_MST B
+			ON
+				A.INDUSTRY_ID1 = B.INDUSTRY_ID
+			LEFT JOIN
+				INDUSTRY_MST C
+			ON
+				(
+				A.INDUSTRY_ID2 = C.INDUSTRY_ID
+				OR
+				A.INDUSTRY_ID2 = null
+				)
+			LEFT JOIN
+				INDUSTRY_MST D
+			ON
+				(
+				A.INDUSTRY_ID3 = D.INDUSTRY_ID
+				OR
+				A.INDUSTRY_ID3 = null
+				)
+			WHERE
+				B.DEL_FLG = '0'
+			) INDUSTRY_SELECT
+		ON
+			INDUSTRY_SELECT.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		INNER JOIN
+			COU_MST
+		ON
+			COMPANY_TBL.COUNTRY_ID = COU_MST.COUNTRY_ID
+		INNER JOIN
+			USER_TBL
+		ON
+			COMPANY_TBL.COMPANY_ID = USER_TBL.COMPANY_ID
+		AND
+			USER_TBL.AUTHORITY = '会社会員管理員(認証済み)'
+		WHERE 
+			COMPANY_TBL.VALIDITY_SECTION = '0'
+		AND
+			COMPANY_TBL.STATUS_FLG = '1'
+		AND
+			COMPANY_TBL.COMPANY_ID = #{companyId}
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+			MEMBER_LEVEL_MST.DEL_FLG = '0'
+	</select>
+
+
+	<select
+		id="selectCompanyInfo"
+		resultMap="CompanyMap">
+		SELECT
+		<include refid="CompanyList" />
+		FROM 
+			COMPANY_TBL,MEMBER_LEVEL_MST
+		WHERE 
+			COMPANY_TBL.LEVEL_ID = MEMBER_LEVEL_MST.LEVEL_ID
+		AND
+			COMPANY_TBL.validity_section = '0'
+		AND 
+			COMPANY_TBL.del_flg = '0'
+		AND 
+			MEMBER_LEVEL_MST.del_flg = '0'
+		<if test="companyNm != null and companyNm != ''">
+			AND COMPANY_TBL.company_nm like '%${companyNm}%'
+		</if>
+		<if test="address1 != null and address1 != ''">
+			AND COMPANY_TBL.address1 = #{address1}
+		</if>
+		<if test="companyScale != null and companyScale != ''">
+			AND COMPANY_TBL.company_Scale = #{companyScale}
+		</if>
+		<if test="countryId != null">
+			AND COMPANY_TBL.country_id = #{countryId}
+		</if>
+		<if test="industryId != null">
+			AND(
+			   COMPANY_TBL.industry_id1 = #{industryId}
+			OR COMPANY_TBL.industry_id2 = #{industryId}
+			OR COMPANY_TBL.industry_id3 = #{industryId}
+			)
+		</if>
+		ORDER BY 
+			COMPANY_TBL.UPDATE_TIME
+		DESC	
+	</select>
+
+
+	<select
+		id="selectCompanyPop"
+		resultMap="CompanyPopMap">
+		SELECT
+		<include refid="CompanyPopList" />
+		FROM
+		  	COMPANY_TBL
+		INNER JOIN
+		  	MEMBER_LEVEL_MST
+		ON
+		  	COMPANY_TBL.LEVEL_ID = MEMBER_LEVEL_MST.LEVEL_ID
+		INNER JOIN
+			(
+			SELECT
+	      		A.COMPANY_ID
+			    , B.INDUSTRY_ID INDUSTRY_ID1
+				, C.INDUSTRY_ID INDUSTRY_ID2
+				, D.INDUSTRY_ID INDUSTRY_ID3
+			    , B.INDUSTRY_NM INDUSTRY_NM1
+			    , C.INDUSTRY_NM INDUSTRY_NM2
+			    , D.INDUSTRY_NM INDUSTRY_NM3
+			FROM
+			    COMPANY_TBL A
+			INNER JOIN
+				INDUSTRY_MST B
+			ON
+				A.INDUSTRY_ID1 = B.INDUSTRY_ID
+			LEFT JOIN
+				INDUSTRY_MST C
+			ON
+				(
+				A.INDUSTRY_ID2 = C.INDUSTRY_ID
+				OR
+				A.INDUSTRY_ID2 = null
+				)
+			LEFT JOIN
+				INDUSTRY_MST D
+			ON
+				(
+				A.INDUSTRY_ID3 = D.INDUSTRY_ID
+				OR
+				A.INDUSTRY_ID3 = null
+				)
+			WHERE
+				B.DEL_FLG = '0'
+			) INDUSTRY_SELECT
+		ON
+			INDUSTRY_SELECT.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		INNER JOIN
+			COU_MST
+		ON
+			COMPANY_TBL.COUNTRY_ID = COU_MST.COUNTRY_ID
+		WHERE 
+			COMPANY_TBL.validity_section = '0'
+		AND 
+			COMPANY_TBL.del_flg = '0'
+		AND 
+			MEMBER_LEVEL_MST.del_flg = '0'
+		AND 
+			COU_MST.del_flg = '0'
+		<if test="companyNm != null and companyNm != ''">
+			AND COMPANY_TBL.company_nm like '%${companyNm}%'
+		</if>
+		<if test="address1 != null and address1 != ''">
+			AND COMPANY_TBL.address1 = #{address1}
+		</if>
+		<if test="companyScale != null and companyScale != ''">
+			AND COMPANY_TBL.company_Scale = #{companyScale}
+		</if>
+		<if test="countryId != null">
+			AND COMPANY_TBL.country_id = #{countryId}
+		</if>
+		<if test="industryId != null">
+			AND(
+			   COMPANY_TBL.industry_id1 = #{industryId}
+			OR COMPANY_TBL.industry_id2 = #{industryId}
+			OR COMPANY_TBL.industry_id3 = #{industryId}
+			)
+		</if>
+		ORDER BY 
+			COMPANY_TBL.UPDATE_TIME
+		DESC	
+	</select>
+
+	<insert
+		id="insertCompanyInfo"
+		parameterType="Ansin.web.entity.CompanyTblEntity">
+		<selectKey order="AFTER" keyProperty="companyId" resultType="java.lang.Integer">
+			SELECT currval('company_tbl_company_id_seq') as companyId
+		</selectKey>
+		INSERT INTO
+		company_tbl
+		(
+		<include refid="insertCompanyTbl"/>
+		)
+		VALUES
+		(DEFAULT, #{companyNm}, #{companyTel},
+		#{companyMail},#{companyScale}, #{companyPostal},
+		#{countryId},#{prefeNm},#{address1},#{address2}, 
+		#{industryId1}, #{industryId2},#{industryId3}, 
+		#{businessContent}, #{capital}, #{salesAmount},
+		#{homepage}, #{licenseAddress}, #{companyLogo}, 
+		#{photoAddress1},#{photoAddress2}, #{photoAddress3}, 
+		#{videoAddress1},#{videoAddress2}, #{videoAddress3},
+		CURRENT_TIMESTAMP(0),'SYSTEM', CURRENT_TIMESTAMP(0))
+	</insert>
+	
+	<select id="getCharge" parameterType="java.lang.Integer" resultMap="selectCharge">
+		SELECT
+			<include refid="getCompantCharge"/>
+		FROM
+			COMPANY_TBL,COMCHARGE_HIS_TBL
+		WHERE
+			COMPANY_TBL.COMPANY_ID = #{companyId}
+		AND
+			COMPANY_TBL.COMPANY_ID = COMCHARGE_HIS_TBL.COMPANY_ID
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+			COMCHARGE_HIS_TBL.MUKOU_FLG = '0'
+		AND
+			COMCHARGE_HIS_TBL.DEL_FLG = '0'
+		GROUP BY
+			COMPANY_TBL.REMAINDER
+			,COMPANY_TBL.POINT
+	</select>
+	
+	
+	<select id="getCons" parameterType="java.lang.Integer" resultMap="selectCons">
+		SELECT
+			<include refid="getCompantCons"/>
+		FROM
+			COMPANY_TBL,COMCONS_HIS_TBL
+		WHERE
+			COMPANY_TBL.COMPANY_ID = #{companyId}
+		AND
+			COMPANY_TBL.COMPANY_ID = COMCONS_HIS_TBL.COMPANY_ID
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+			COMCONS_HIS_TBL.DEL_FLG = '0'
+	</select>
+	
+	<select id="getMonthAcquired" parameterType="java.lang.Integer" resultMap="selectMonthAcquired">
+		SELECT 
+			SUM(CHARGE_HONEY) AS MONACQUIREDCOIN
+		FROM 
+			COMPANY_TBL,COMCHARGE_HIS_TBL
+		WHERE
+			TO_CHAR(COMCHARGE_HIS_TBL.CHARGE_TIME,'MM') = TO_CHAR(NOW(),'MM')
+		AND
+			COMPANY_TBL.COMPANY_ID = #{companyId}
+		AND
+			COMPANY_TBL.COMPANY_ID = COMCHARGE_HIS_TBL.COMPANY_ID
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+			COMCHARGE_HIS_TBL.MUKOU_FLG = '0'
+		AND
+			COMCHARGE_HIS_TBL.DEL_FLG = '0'
+	</select>
+	
+	<select id="getMonthUsed" parameterType="java.lang.Integer" resultMap="selectMonthUsed">
+		SELECT 
+			SUM(CONS_HONEY) AS MONUSEDCOIN
+		FROM 
+			COMPANY_TBL,COMCONS_HIS_TBL
+		WHERE
+			TO_CHAR(COMCONS_HIS_TBL.CREATE_TIME,'MM') = TO_CHAR(NOW(),'MM')
+		AND
+			COMPANY_TBL.COMPANY_ID = #{companyId}
+		AND
+			COMPANY_TBL.COMPANY_ID = COMCONS_HIS_TBL.COMPANY_ID
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+			COMCONS_HIS_TBL.DEL_FLG = '0'
+	</select>
+	
+	<select id="getLastDate" parameterType="java.lang.Integer" resultMap="selectLastDate">
+		SELECT
+			SUM(CHARGE_HONEY) AS LAST_HONEY,HONEY_LAST_DATE
+		FROM
+			COMCHARGE_HIS_TBL
+		WHERE
+			COMCHARGE_HIS_TBL.COMPANY_ID = #{companyId}
+		AND
+			HONEY_LAST_DATE = ( SELECT 
+									MIN(HONEY_LAST_DATE) 
+								FROM
+									COMCHARGE_HIS_TBL 
+								WHERE 
+									HONEY_LAST_DATE > NOW()
+								AND
+									COMCHARGE_HIS_TBL.COMPANY_ID = #{companyId}
+					  			)
+		AND
+			COMCHARGE_HIS_TBL.STATUS_FLG = '1'
+		AND
+			COMCHARGE_HIS_TBL.MUKOU_FLG = '0'
+		AND
+			COMCHARGE_HIS_TBL.DEL_FLG = '0'
+		GROUP BY 
+			HONEY_LAST_DATE
+	</select>
+	
+	
+	<!-- A0701_02_承認一覧画面(会社) -->
+   <select id="selectCompany" parameterType="Ansin.web.vueForm.A070102VueForm" resultMap="BaseResultMap">
+	   SELECT
+			COMPANY_TBL.COMPANY_ID
+			,COMPANY_TBL.COMPANY_NM
+			,COMPANY_TBL.VALIDITY_SECTION
+			,COMPANY_TBL.COMPANY_TEL
+			,COMPANY_TBL.COMPANY_MAIL
+			,COMPANY_TBL.COMPANY_SCALE
+			,COMPANY_TBL.COMPANY_POSTAL
+			,COMPANY_TBL.COUNTRY_ID
+			,COMPANY_TBL.PREFE_NM
+			,COMPANY_TBL.ADDRESS1
+			,COMPANY_TBL.ADDRESS2
+			,COMPANY_TBL.INDUSTRY_ID1
+			,COMPANY_TBL.INDUSTRY_ID2
+			,COMPANY_TBL.INDUSTRY_ID3
+			,COMPANY_TBL.BUSINESS_CONTENT
+			,COMPANY_TBL.CAPITAL
+			,COMPANY_TBL.SALES_AMOUNT
+			,COMPANY_TBL.HOMEPAGE
+			,COMPANY_TBL.LICENSE_ADDRESS
+			,COMPANY_TBL.COMPANY_LOGO
+			,COMPANY_TBL.PHOTO_ADDRESS1
+			,COMPANY_TBL.PHOTO_ADDRESS2
+			,COMPANY_TBL.PHOTO_ADDRESS3
+			,COMPANY_TBL.VIDEO_ADDRESS1
+			,COMPANY_TBL.VIDEO_ADDRESS2
+			,COMPANY_TBL.VIDEO_ADDRESS3
+			,COMPANY_TBL.PAY_CONS_SUM
+			,COMPANY_TBL.REMAINDER
+			,COMPANY_TBL.POINT
+			,COMPANY_TBL.LEVEL_ID
+			,COMPANY_TBL.DEL_FLG
+			,COMPANY_TBL.CREATE_TIME
+			,COMPANY_TBL.CREATE_BY
+			,COMPANY_TBL.UPDATE_TIME
+			,COMPANY_TBL.UPDATE_BY
+			,INDUSTRY_SELECT.INDUSTRY_NM1
+		   	,INDUSTRY_SELECT2.INDUSTRY_NM2
+		    ,INDUSTRY_SELECT3.INDUSTRY_NM3
+		FROM
+		  COMPANY_TBL 
+		INNER JOIN ( 
+		  SELECT
+		    A.COMPANY_ID
+		    , B.INDUSTRY_ID INDUSTRY_ID1
+		    , B.INDUSTRY_NM INDUSTRY_NM1
+		  FROM
+		    COMPANY_TBL A 
+		    LEFT JOIN INDUSTRY_MST B 
+		      ON A.INDUSTRY_ID1 = B.INDUSTRY_ID 
+		  WHERE
+		    B.DEL_FLG = '0' 
+		) INDUSTRY_SELECT 
+		  ON INDUSTRY_SELECT.COMPANY_ID = COMPANY_TBL.COMPANY_ID 
+		LEFT JOIN ( 
+		  SELECT
+		    A.COMPANY_ID
+		    , B.INDUSTRY_ID INDUSTRY_ID2
+		    , B.INDUSTRY_NM INDUSTRY_NM2
+		  FROM
+		    COMPANY_TBL A 
+		    LEFT JOIN INDUSTRY_MST B 
+		      ON A.INDUSTRY_ID2 = B.INDUSTRY_ID 
+		  WHERE
+		    B.DEL_FLG = '0' 
+		) INDUSTRY_SELECT2
+		  ON INDUSTRY_SELECT2.COMPANY_ID = COMPANY_TBL.COMPANY_ID 
+		LEFT JOIN ( 
+		  SELECT
+		    A.COMPANY_ID
+		    , B.INDUSTRY_ID INDUSTRY_ID3
+		    , B.INDUSTRY_NM INDUSTRY_NM3
+		  FROM
+		    COMPANY_TBL A 
+		    LEFT JOIN INDUSTRY_MST B 
+		      ON A.INDUSTRY_ID3 = B.INDUSTRY_ID 
+		  WHERE
+		    B.DEL_FLG = '0' 
+		) INDUSTRY_SELECT3
+		  ON INDUSTRY_SELECT3.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		WHERE
+			COMPANY_TBL.DEL_FLG = '0'
+		<if test="a070102VueForm.companyNm != null and a070102VueForm.companyNm != ''">
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${a070102VueForm.companyNm}%'
+		</if>
+		<if test="a070102VueForm.industryId != null">
+		AND 																													
+			#{a070102VueForm.industryId} IN(
+											INDUSTRY_SELECT.INDUSTRY_ID1
+											,INDUSTRY_SELECT2.INDUSTRY_ID2
+											,INDUSTRY_SELECT3.INDUSTRY_ID3											
+											)
+		</if>
+		<if test="a070102VueForm.prefeNm != null and a070102VueForm.prefeNm != ''">
+		AND 																													
+			COMPANY_TBL.PREFE_NM = #{a070102VueForm.prefeNm}
+		</if>
+		AND
+			COMPANY_TBL.STATUS_FLG = '0'
+		ORDER BY
+			COMPANY_TBL.UPDATE_TIME
+		DESC
+   </select>
+   
+   <update id="updateCompanyInfo">
+   		UPDATE																		
+			COMPANY_TBL																
+		SET																		
+			STATUS_FLG = #{statusFlg},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		WHERE																					
+			COMPANY_ID																														
+		IN	
+		<foreach item="List" index="index" collection="companyIdList"
+                    open="(" separator="," close=")">
+                    #{List}
+        </foreach>	
+   </update>
+
+	<update id="update">
+		UPDATE
+			COMPANY_TBL
+		SET
+			DEL_FLG = '1',
+			UPDATE_BY = #{userCd},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0)
+		WHERE
+			COMPANY_ID
+		IN
+		<foreach
+			collection="companyIdList"
+			item="list"
+			open="("
+			separator=","
+			close=")"
+			index="index">
+			#{list}
+		</foreach>
+		<if test="companyId !=null">
+			AND
+			COMPANY_ID = #{companyId}
+		</if>
+	</update>
+	
+	<select id="selectBalance" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			point
+		FROM
+			COMPANY_TBL
+		WHERE
+			COMPANY_TBL.COMPANY_ID = #{companyId}
+	</select>
+	
+	<update id="changeCom">
+		UPDATE
+			COMPANY_TBL
+		<set>
+			PAY_CONS_SUM = PAY_CONS_SUM + #{money},
+			REMAINDER = REMAINDER + #{coin},
+			POINT = POINT + #{coin},
+			UPDATE_BY = 'SYSTEM',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0)
+		</set>
+		WHERE
+			COMPANY_ID = #{companyId}
+		AND
+			DEL_FLG = '0'
+	</update>
+	
+	<select id="getName" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT
+			COMPANY_NM
+		FROM
+			COMPANY_TBL
+		WHERE
+			COMPANY_TBL.COMPANY_ID = #{companyId}
+	</select>
+	
+	
+	<select id="getUsers" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			USER_TBL.USER_CD
+		FROM
+			USER_TBL
+		INNER JOIN
+			COMPANY_TBL
+		ON
+			USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		WHERE
+			COMPANY_TBL.COMPANY_ID IN
+			<foreach
+				collection="list"
+				item="list"
+				open="("
+				separator=","
+				close=")"
+				index="index">
+				#{list}
+			</foreach>
+		AND
+			USER_TBL.AUTHORITY = '会社会員管理員(未認証)'
+		AND
+			USER_TBL.DEL_FLG = '0'
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+	</select>
+	
+	
+</mapper>

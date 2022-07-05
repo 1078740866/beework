@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- @author コウ　テンキ @date 2020-10-19 13:59:35 -->
+<mapper namespace="Ansin.web.mapper.InterviewHisTblMapper">
+
+	<resultMap
+		type="Ansin.web.entity.InterviewHisTblEntity"
+		id="BaseResultMap">
+		<result
+			property="interviewId"
+			column="INTERVIEW_ID"
+			jdbcType="INTEGER" />
+		<result
+			property="companyId"
+			column="COMPANY_ID"
+			jdbcType="INTEGER" />
+		<result
+			property="positionId"
+			column="POSITION_ID"
+			jdbcType="INTEGER" />
+		<result
+			property="applicantId"
+			column="APPLICANT_ID"
+			jdbcType="INTEGER" />
+		<result
+			property="positionNm"
+			column="POSITION_NM"
+			jdbcType="VARCHAR" />
+		<result
+			property="firstName"
+			column="FIRST_NAME"
+			jdbcType="VARCHAR" />
+		<result
+			property="lastName"
+			column="LAST_NAME"
+			jdbcType="VARCHAR" />
+		<result
+			property="interviewType"
+			column="INTERVIEW_TYPE"
+			jdbcType="VARCHAR" />
+		<result
+			property="tel"
+			column="TEL"
+			jdbcType="VARCHAR" />
+		<result
+			property="responsible"
+			column="RESPONSIBLE"
+			jdbcType="VARCHAR" />
+		<result
+			property="interviewAddress"
+			column="INTERVIEW_ADDRESS"
+			jdbcType="VARCHAR" />
+		<result
+			property="interviewDate"
+			column="INTERVIEW_DATE"
+			jdbcType="DATE" />
+		<result
+			property="dateFrom"
+			column="DATE_FROM"
+			jdbcType="TIME" />
+		<result
+			property="dateTo"
+			column="DATE_TO"
+			jdbcType="TIME" />
+		<result
+			property="statusFlg"
+			column="STATUS_FLG"
+			jdbcType="CHAR" />
+		<result
+			property="remarks"
+			column="REMARKS"
+			jdbcType="VARCHAR" />
+		<result
+			property="photo"
+			column="PHOTO"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		INTERVIEW_HIS_TBL.INTERVIEW_ID,
+		INTERVIEW_HIS_TBL.COMPANY_ID,
+		POSITION_TBL.POSITION_ID,
+		INTERVIEW_HIS_TBL.APPLICANT_ID,
+		POSITION_TBL.POSITION_NM,
+		USER_TBL.FIRST_NAME,
+		USER_TBL.LAST_NAME,
+		INTERVIEW_HIS_TBL.INTERVIEW_TYPE,
+		INTERVIEW_HIS_TBL.STATUS_FLG,
+		INTERVIEW_HIS_TBL.RESPONSIBLE,
+		INTERVIEW_HIS_TBL.TEL,
+		INTERVIEW_HIS_TBL.INTERVIEW_DATE,
+		INTERVIEW_HIS_TBL.DATE_FROM,
+		INTERVIEW_HIS_TBL.DATE_TO,
+		INTERVIEW_HIS_TBL.INTERVIEW_ADDRESS,
+		INTERVIEW_HIS_TBL.REMARKS,
+		APPLICANT_INFO_TBL.PHOTO
+	</sql>
+
+	<select
+		id="getAllInterviewHisTblEntities"
+		parameterType="Ansin.web.vueForm.B0401VueForm"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+			INTERVIEW_HIS_TBL
+		INNER JOIN
+			APPLICANT_INFO_TBL
+		ON
+		 	INTERVIEW_HIS_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID 
+		INNER JOIN
+			USER_TBL
+		ON	
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD 
+		INNER JOIN
+			POSITION_TBL	
+		ON
+			INTERVIEW_HIS_TBL.POSITION_ID = POSITION_TBL.POSITION_ID 	
+		AND
+			INTERVIEW_HIS_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID	
+		WHERE
+			USER_TBL.DEL_FLG = '0'
+		AND
+			INTERVIEW_HIS_TBL.DEL_FLG = '0'
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.USER_STATUS = '0'
+		<if
+			test="b0401VueForm.companyId != null">
+			AND
+			INTERVIEW_HIS_TBL.COMPANY_ID = #{b0401VueForm.companyId}
+		</if>
+		<if
+			test="b0401VueForm.interviewType != null and b0401VueForm.interviewType != '' ">
+			AND
+			INTERVIEW_HIS_TBL.INTERVIEW_TYPE =
+			#{b0401VueForm.interviewType}
+		</if>
+		<if
+			test="b0401VueForm.statusFlg != null and b0401VueForm.statusFlg != '' ">
+			AND
+			INTERVIEW_HIS_TBL.STATUS_FLG = #{b0401VueForm.statusFlg}
+		</if>
+		<if test="b0401VueForm.interviewDateFrom !=null">
+			AND INTERVIEW_HIS_TBL.INTERVIEW_DATE
+			&gt;=
+			#{b0401VueForm.interviewDateFrom}
+		</if>
+		<if test="b0401VueForm.interviewDateTo !=null">
+			AND INTERVIEW_HIS_TBL.INTERVIEW_DATE
+			&lt;=
+			#{b0401VueForm.interviewDateTo}
+		</if>
+		ORDER BY
+			INTERVIEW_HIS_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	
+	<select
+		id="getInterview" parameterType="Ansin.web.vueForm.A020204VueForm" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+			INTERVIEW_HIS_TBL, USER_TBL, POSITION_TBL,APPLICANT_INFO_TBL
+		WHERE
+			INTERVIEW_HIS_TBL.POSITION_ID = POSITION_TBL.POSITION_ID
+		AND
+			INTERVIEW_HIS_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		AND
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD
+		AND
+			USER_TBL.DEL_FLG = '0'
+		AND
+			INTERVIEW_HIS_TBL.DEL_FLG = '0'
+		AND
+			INTERVIEW_HIS_TBL.USE_FLG = '0'
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.USER_STATUS = '0'
+		<if
+			test="a020204VueForm.applicantId != null">
+			AND
+			INTERVIEW_HIS_TBL.APPLICANTID = #{a020204VueForm.applicantId}
+		</if>
+		<if
+			test="a020204VueForm.interviewType != null and a020204VueForm.interviewType != '' ">
+			AND
+			INTERVIEW_HIS_TBL.INTERVIEW_TYPE =
+			#{a020204VueForm.interviewType}
+		</if>
+		<if
+			test="a020204VueForm.statusFlg != null and a020204VueForm.statusFlg != '' ">
+			AND
+			INTERVIEW_HIS_TBL.STATUS_FLG = #{a020204VueForm.statusFlg}
+		</if>
+		<if
+			test="a020204VueForm.interviewDateFrom != null">
+			AND
+			INTERVIEW_HIS_TBL.INTERVIEW_DATE &gt;= #{a020204VueForm.interviewDateFrom}
+		</if>
+		<if
+			test="a020204VueFormm.interviewDateTo != null">
+			AND
+			INTERVIEW_HIS_TBL.INTERVIEW_DATE &lt;= #{a020204VueForm.interviewDateTo}
+		</if>
+		ORDER BY
+			INTERVIEW_HIS_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+
+	<update id="update">
+		UPDATE
+			INTERVIEW_HIS_TBL
+		SET
+			DEL_FLG = '1',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0), 
+			UPDATE_BY = #{userCd}	
+		WHERE
+			INTERVIEW_HIS_TBL.interview_id
+		IN
+		<foreach
+			collection="interviewIdList"
+			item="list"
+			open="("
+			separator=","
+			close=")"
+			index="index">
+			#{list}
+		</foreach>
+		<if test="companyId != null">
+			AND
+				INTERVIEW_HIS_TBL.company_id = #{companyId}
+		</if>
+	</update>
+	
+	
+	<update id="updateInterview">
+		UPDATE
+		interview_his_tbl
+		SET
+		DEL_FLG = '1',
+		UPDATE_TIME = CURRENT_TIMESTAMP(0),
+		UPDATE_BY = #{userCd}
+		WHERE
+		interview_his_tbl.interview_id
+		IN
+		<foreach
+			collection="interviewIdList"
+			item="list"
+			open="("
+			separator=","
+			close=")"
+			index="index">
+			#{list}
+		</foreach>
+		<if test="applicantId != null">
+			AND
+			interview_his_tbl.APPLICANT_ID = #{applicantId}
+		</if>
+	</update>
+	
+	
+	<select id="getName" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT
+			COMPANY_TBL.COMPANY_NM
+		FROM
+			INTERVIEW_HIS_TBL, COMPANY_TBL
+		WHERE
+			INTERVIEW_HIS_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		AND
+			INTERVIEW_HIS_TBL.INTERVIEW_ID = #{interviewId}
+		AND
+			INTERVIEW_HIS_TBL.DEL_FLG = '0'
+	</select>
+	
+	
+	
+	<select
+		id="getAllForUser"
+		parameterType="Ansin.web.vueForm.B0401VueForm"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+			INTERVIEW_HIS_TBL
+		INNER JOIN
+			APPLICANT_INFO_TBL
+		ON
+		 	INTERVIEW_HIS_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID 
+		INNER JOIN
+			USER_TBL
+		ON	
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD 
+		INNER JOIN
+			POSITION_TBL	
+		ON
+			INTERVIEW_HIS_TBL.POSITION_ID = POSITION_TBL.POSITION_ID 	
+		AND
+			INTERVIEW_HIS_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID	
+		WHERE
+			USER_TBL.DEL_FLG = '0'
+		AND
+			INTERVIEW_HIS_TBL.DEL_FLG = '0'
+		AND
+			INTERVIEW_HIS_TBL.USE_FLG = '0'
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.USER_STATUS = '0'
+		AND
+			INTERVIEW_HIS_TBL.APPLICANT_ID = #{b0401VueForm.applicantId}
+		AND
+			INTERVIEW_HIS_TBL.STATUS_FLG = '0'
+		<if
+			test="b0401VueForm.interviewType != null and b0401VueForm.interviewType != '' ">
+			AND
+			INTERVIEW_HIS_TBL.INTERVIEW_TYPE =
+			#{b0401VueForm.interviewType}
+		</if>
+		<choose>
+			<when
+				test="b0401VueForm.interviewDateFrom != null 
+				and b0401VueForm.interviewDateTo != null">
+				AND
+				INTERVIEW_HIS_TBL.INTERVIEW_DATE
+				&gt;=
+				#{b0401VueForm.interviewDateFrom}
+				AND
+				INTERVIEW_HIS_TBL.INTERVIEW_DATE
+				&lt;=
+				#{b0401VueForm.interviewDateTo}
+			</when>
+			<otherwise>
+				<if test="b0401VueForm.interviewDateFrom !=null">
+					AND INTERVIEW_HIS_TBL.INTERVIEW_DATE
+					&gt;=
+					#{b0401VueForm.interviewDateFrom}
+				</if>
+				<if test="b0401VueForm.interviewDateTo !=null">
+					AND INTERVIEW_HIS_TBL.INTERVIEW_DATE
+					&lt;=
+					#{b0401VueForm.interviewDateTo}
+				</if>
+			</otherwise>
+		</choose>
+		ORDER BY
+			INTERVIEW_HIS_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	
+	<select
+		id="getAllInfoUser"
+		parameterType="Ansin.web.vueForm.B0401VueForm"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+			INTERVIEW_HIS_TBL
+		INNER JOIN
+			APPLICANT_INFO_TBL
+		ON
+		 	INTERVIEW_HIS_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID 
+		INNER JOIN
+			USER_TBL
+		ON	
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD 
+		INNER JOIN
+			POSITION_TBL	
+		ON
+			INTERVIEW_HIS_TBL.POSITION_ID = POSITION_TBL.POSITION_ID 	
+		AND
+			INTERVIEW_HIS_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID	
+		WHERE
+			USER_TBL.DEL_FLG = '0'
+		AND
+			INTERVIEW_HIS_TBL.DEL_FLG = '0'
+		AND
+			INTERVIEW_HIS_TBL.USE_FLG = '0'
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.USER_STATUS = '0'
+		AND
+			INTERVIEW_HIS_TBL.APPLICANT_ID = #{b0401VueForm.applicantId}
+		AND
+			INTERVIEW_HIS_TBL.STATUS_FLG  &lt;&gt; '0'
+		<if
+			test="b0401VueForm.interviewType != null and b0401VueForm.interviewType != '' ">
+			AND
+			INTERVIEW_HIS_TBL.INTERVIEW_TYPE =
+			#{b0401VueForm.interviewType}
+		</if>
+		<choose>
+			<when
+				test="b0401VueForm.interviewDateFrom != null 
+				and b0401VueForm.interviewDateTo != null">
+				AND
+				INTERVIEW_HIS_TBL.INTERVIEW_DATE
+				&gt;=
+				#{b0401VueForm.interviewDateFrom}
+				AND
+				INTERVIEW_HIS_TBL.INTERVIEW_DATE
+				&lt;=
+				#{b0401VueForm.interviewDateTo}
+			</when>
+			<otherwise>
+				<if test="b0401VueForm.interviewDateFrom !=null">
+					AND INTERVIEW_HIS_TBL.INTERVIEW_DATE
+					&gt;=
+					#{b0401VueForm.interviewDateFrom}
+				</if>
+				<if test="b0401VueForm.interviewDateTo !=null">
+					AND INTERVIEW_HIS_TBL.INTERVIEW_DATE
+					&lt;=
+					#{b0401VueForm.interviewDateTo}
+				</if>
+			</otherwise>
+		</choose>
+		ORDER BY
+			INTERVIEW_HIS_TBL.UPDATE_TIME
+		DESC
+	</select>
+
+	
+	<update id="updateStatus">
+		UPDATE
+			INTERVIEW_HIS_TBL
+		SET
+			STATUS_FLG = #{statusFlg},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		WHERE
+			INTERVIEW_HIS_TBL.interview_id
+		IN
+		<foreach
+			collection="interviewIdList"
+			item="list"
+			open="("
+			separator=","
+			close=")"
+			index="index">
+			#{list}
+		</foreach>
+	</update>
+
+
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.CompanyCouponTblMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.CompanyCouponTblEntity">
+			<result column="COM_COU_ID" property="comCouId" jdbcType="INTEGER"/>
+			<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER"/>
+			<result column="COUPON_ID" property="couponId" jdbcType="INTEGER"/>
+			<result column="DEADLINE" property="deadline" jdbcType="TIMESTAMP"/>
+			<result column="STATUS_FLG" property="statusFlg" jdbcType="CHAR"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		
+
+		<sql id="Base_Column_List">
+				COMPANY_ID
+				,COUPON_ID
+				,DEADLINE
+				,CREATE_TIME
+				,CREATE_BY
+				,UPDATE_TIME
+		</sql>
+		
+		<insert id="insertCoupon">
+			INSERT INTO 																				
+				COMPANY_COUPON_TBL
+				(
+					<include refid="Base_Column_List"/>
+				)															
+			VALUES	
+			<foreach item="bean" index="index" collection="beans"
+	                     separator=","> 
+				(																		
+				 ${bean.companyId},																		
+		 		 ${bean.couponId},																			
+		 		 CURRENT_TIMESTAMP(0) + interval '${bean.expDays}' day,	
+		 		 CURRENT_TIMESTAMP(0),																																																					
+		 		 ${bean.userCd},					
+		 		 CURRENT_TIMESTAMP(0)																																
+		 	 	 )
+			</foreach>																					
+		</insert>
+		
+</mapper>

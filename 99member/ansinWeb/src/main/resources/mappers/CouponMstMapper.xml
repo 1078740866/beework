@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.CouponMstMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.CouponMstEntity">
+			<result column="COUPON_ID" property="couponId" jdbcType="INTEGER"/>
+			<result column="COUPON_NM" property="couponNm" jdbcType="VARCHAR"/>
+			<result column="POINT_NUM" property="pointNum" jdbcType="INTEGER"/>
+			<result column="DETAIL" property="detail" jdbcType="VARCHAR"/>
+			<result column="EXP_DAYS" property="expDays" jdbcType="INTEGER"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		<resultMap id="BaseResultMap2" type="Ansin.web.entity.ComCouponTblEntity">
+			<result column="COM_COU_ID" property="comCouId" jdbcType="INTEGER"/>
+			<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER"/>
+			<result column="STATUS_FLG" property="statusFlg" jdbcType="VARCHAR"/>
+			<result column="DEADLINE" property="deadline" jdbcType="TIMESTAMP"/>
+			<result column="COUPON_ID" property="couponId" jdbcType="INTEGER"/>
+			<result column="COUPON_NM" property="couponNm" jdbcType="VARCHAR"/>
+			<result column="POINT_NUM" property="pointNum" jdbcType="VARCHAR"/>
+			<result column="DETAIL" property="detail" jdbcType="VARCHAR"/>
+			<result column="EXP_DAYS" property="expDays" jdbcType="INTEGER"/>
+		</resultMap>
+		
+		<sql id="Base_Column_List">
+				COUPON_MST.COUPON_ID,
+				COUPON_MST.COUPON_NM,
+				COUPON_MST.POINT_NUM,
+				COUPON_MST.DETAIL,
+				COUPON_MST.EXP_DAYS
+		</sql>
+		
+		<sql id="Base_Column_List2">
+				COMPANY_COUPON_TBL.COM_COU_ID,
+				COMPANY_COUPON_TBL.COMPANY_ID,
+				COMPANY_COUPON_TBL.STATUS_FLG,
+				COMPANY_COUPON_TBL.DEADLINE,
+				COUPON_MST.COUPON_ID,
+				COUPON_MST.COUPON_NM,
+				COUPON_MST.POINT_NUM,
+				COUPON_MST.DETAIL,
+				COUPON_MST.EXP_DAYS
+		</sql>
+		
+		
+		<select id="getAll" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				COUPON_MST										
+			WHERE													
+				COUPON_MST.DEL_FLG = '0'
+			ORDER BY 
+				COUPON_MST.UPDATE_TIME
+			DESC											
+		</select>
+		
+		
+		<select id="getCompanyAll" parameterType="java.lang.Integer" resultMap="BaseResultMap2">												
+			SELECT													
+				<include refid="Base_Column_List2" />			
+			FROM													
+				COUPON_MST,COMPANY_COUPON_TBL
+			WHERE
+				COMPANY_COUPON_TBL.COMPANY_ID = #{companyId}
+			AND
+				COUPON_MST.COUPON_ID = COMPANY_COUPON_TBL.COUPON_ID
+			AND						
+				COUPON_MST.DEL_FLG = '0'
+			AND
+				COMPANY_COUPON_TBL.DEL_FLG = '0'
+			ORDER BY
+				COMPANY_COUPON_TBL.UPDATE_TIME
+			DESC
+		</select>
+		
+		
+		<select id="getCouponAll" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List2" />			
+			FROM													
+				COUPON_MST,COMPANY_COUPON_TBL
+			WHERE
+				COMPANY_COUPON_TBL.COMPANY_ID = #{companyId}
+			AND
+				COMPANY_COUPON_TBL.STATUS_FLG = #{statusFlg}
+			AND
+				COUPON_MST.COUPON_ID = COMPANY_COUPON_TBL.COUPON_ID
+			AND						
+				COUPON_MST.DEL_FLG = '0'
+			AND
+				COMPANY_COUPON_TBL.DEL_FLG = '0'	
+			ORDER BY
+				COMPANY_COUPON_TBL.UPDATE_TIME
+			DESC							
+		</select>
+		
+		
+		<select id="getCouponNm" parameterType="java.lang.Integer" resultType="java.lang.String">												
+			SELECT													
+				COUPON_MST.COUPON_NM		
+			FROM													
+				COUPON_MST
+			WHERE
+				COUPON_MST.COUPON_ID = #{couponId}
+			AND
+				COUPON_MST.DEL_FLG = '0'					
+		</select>
+		
+		
+</mapper>

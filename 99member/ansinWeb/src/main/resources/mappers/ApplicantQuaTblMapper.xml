@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ApplicantQuaTblMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.ApplicantQuaTblEntity">
+			<result column="APP_QUA_ID" property="appQuaId" jdbcType="INTEGER"/>
+			<result column="APPLICANT_ID" property="applicantId" jdbcType="INTEGER"/>
+			<result column="QUA_NM" property="quaNm" jdbcType="VARCHAR"/>
+			<result column="QUA_NUM" property="quaNum" jdbcType="VARCHAR"/>
+			<result column="QUA_ADDRESS" property="quaAddress" jdbcType="VARCHAR"/>
+			<result column="ACQUISITION_DATE" property="acquisitionDate" jdbcType="DATE"/>
+			<result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		
+		<sql id="Base_Column_List">
+			APPLICANT_QUA_TBL.APP_QUA_ID
+			,APPLICANT_QUA_TBL.APPLICANT_ID
+			,APPLICANT_QUA_TBL.QUA_NM
+			,APPLICANT_QUA_TBL.QUA_NUM
+			,APPLICANT_QUA_TBL.QUA_ADDRESS
+			,APPLICANT_QUA_TBL.ACQUISITION_DATE
+			,APPLICANT_QUA_TBL.REMARKS
+			,APPLICANT_QUA_TBL.DEL_FLG
+			,APPLICANT_QUA_TBL.CREATE_TIME
+			,APPLICANT_QUA_TBL.CREATE_BY
+			,APPLICANT_QUA_TBL.UPDATE_TIME
+			,APPLICANT_QUA_TBL.UPDATE_BY
+		</sql>
+		
+		<select id="getQua" parameterType="java.lang.Integer" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				APPLICANT_QUA_TBL									
+			WHERE
+			    APPLICANT_QUA_TBL.APPLICANT_ID = #{applicantId}	
+			AND    												
+				APPLICANT_QUA_TBL.DEL_FLG = '0'											
+		</select>
+		
+		<insert id="quaInsert" parameterType="Ansin.web.vueForm.C010102VueForm">
+		    INSERT INTO
+		        APPLICANT_QUA_TBL
+		    (
+		    APP_QUA_ID,
+			APPLICANT_ID,
+			QUA_NM,
+			QUA_NUM,
+			QUA_ADDRESS,
+			ACQUISITION_DATE,
+			REMARKS,
+			DEL_FLG,
+			CREATE_TIME,
+			CREATE_BY,
+			UPDATE_TIME
+		    )
+		    VALUES
+		    (
+		    default,
+			#{c010102VueForm.applicantId},
+			#{c010102VueForm.quaNm},
+			#{c010102VueForm.quaNum},
+			#{c010102VueForm.quaAddress},
+			#{c010102VueForm.acquisitionDate},
+			#{c010102VueForm.remarks},
+		    '0',
+			CURRENT_TIMESTAMP(0),
+			#{c010102VueForm.userCd},
+			CURRENT_TIMESTAMP(0)
+		    )    
+		</insert>
+		
+		<update id="quaUpdate" parameterType="Ansin.web.vueForm.C010102VueForm">
+		UPDATE																
+			APPLICANT_QUA_TBL														
+		SET																
+			QUA_NM = #{c010102VueForm.quaNm},
+			QUA_NUM = #{c010102VueForm.quaNum},
+			QUA_ADDRESS = #{c010102VueForm.quaAddress},
+			ACQUISITION_DATE = #{c010102VueForm.acquisitionDate},
+			REMARKS = #{c010102VueForm.remarks},
+			UPDATE_TIME =  CURRENT_TIMESTAMP(0),
+			UPDATE_BY =	#{c010102VueForm.userCd}				
+		WHERE																
+			APPLICANT_ID = #{c010102VueForm.applicantId}														
+		AND																
+			APP_QUA_ID = #{c010102VueForm.appQuaId}														
+		AND																
+			DEL_FLG = '0'														
+		
+		</update>
+		
+		<update id="quaDelete">
+		UPDATE														
+			APPLICANT_QUA_TBL												
+		SET														
+			DEL_FLG = '1',		
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),		
+			UPDATE_BY = #{userCd}		
+		WHERE														
+			APPLICANT_ID = #{applicantId}												
+		AND														
+			APP_QUA_ID = #{appQuaId}												
+		
+		</update>
+		
+</mapper>

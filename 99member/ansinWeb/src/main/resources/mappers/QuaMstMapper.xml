@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.QuaMstMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.QuaMstEntity">
+			<result column="QUA_ID" property="quaId" jdbcType="INTEGER"/>
+			<result column="INDUSTRY_ID" property="industryId" jdbcType="INTEGER"/>
+			<result column="QUA_NM" property="quaNm" jdbcType="VARCHAR"/>
+			<result column="EXP_DATE" property="expDate" jdbcType="INTEGER"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		
+		<sql id="Base_Column_List">
+				QUA_MST.QUA_ID,					
+				QUA_MST.INDUSTRY_ID,
+				QUA_MST.QUA_NM,
+				QUA_MST.EXP_DATE
+		</sql>
+		
+		<select id="getAll" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				QUA_MST										
+			WHERE													
+				QUA_MST.DEL_FLG = '0'											
+		</select>
+
+		
+</mapper>

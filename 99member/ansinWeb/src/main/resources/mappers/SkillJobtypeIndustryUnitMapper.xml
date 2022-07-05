@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.SkillJobtypeIndustryUnitMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.SkillJobtypeIndustryUnitEntity">
+		<result column="SKILL_ID" property="skillId" jdbcType="INTEGER"/>
+		<result column="SKILL_NM" property="skillNm" jdbcType="VARCHAR"/>
+		<result column="INDUSTRY_ID" property="industryId" jdbcType="INTEGER"/>
+		<result column="INDUSTRY_NM" property="industryNm" jdbcType="VARCHAR"/>
+		<result column="JOBTYPE_ID" property="jobtypeId" jdbcType="INTEGER"/>
+		<result column="JOBTYPE_NM" property="jobtypeNm" jdbcType="CHAR"/>
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+			SKILL_MST.SKILL_ID,							
+			SKILL_MST.SKILL_NM,							
+			INDUSTRY_MST.INDUSTRY_ID,							
+			INDUSTRY_MST.INDUSTRY_NM,							
+			JOBTYPE_MST.JOBTYPE_ID,							
+			JOBTYPE_MST.JOBTYPE_NM							
+	</sql>
+	
+	<select id="getAll" resultMap="BaseResultMap">
+																														
+	SELECT																												
+		<include refid="Base_Column_List" />																					
+	FROM																												
+		SKILL_MST,INDUSTRY_MST,JOBTYPE_MST																								
+	WHERE																												
+		SKILL_MST.DEL_FLG = '0'																										
+	AND																												
+		INDUSTRY_MST.DEL_FLG = '0'																										
+	AND																												
+		JOBTYPE_MST.DEL_FLG = '0'																										
+	AND																												
+		INDUSTRY_MST.INDUSTRY_ID = JOBTYPE_MST.INDUSTRY_ID																									
+	AND																												
+		JOBTYPE_MST.JOBTYPE_ID = SKILL_MST.JOBTYPE_ID																										
+</select>
+
+</mapper>

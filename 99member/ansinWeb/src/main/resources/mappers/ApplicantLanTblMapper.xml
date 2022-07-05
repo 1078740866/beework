@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ApplicantLanTblMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.ApplicantLanTblEntity">
+			<result column="APP_LAN_ID" property="appLanId" jdbcType="INTEGER"/>
+			<result column="APPLICANT_ID" property="applicantId" jdbcType="INTEGER"/>
+			<result column="LANGUAGE_ID" property="languageId" jdbcType="INTEGER"/>
+			<result column="LEVEL_SECTION" property="levelSection" jdbcType="CHAR"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		
+		<sql id="Base_Column_List">
+				APPLICANT_LAN_TBL.APP_LAN_ID
+				,APPLICANT_LAN_TBL.APPLICANT_ID
+				,APPLICANT_LAN_TBL.LANGUAGE_ID
+				,APPLICANT_LAN_TBL.LEVEL_SECTION
+				,APPLICANT_LAN_TBL.DEL_FLG
+				,APPLICANT_LAN_TBL.CREATE_TIME
+				,APPLICANT_LAN_TBL.CREATE_BY
+				,APPLICANT_LAN_TBL.UPDATE_TIME
+				,APPLICANT_LAN_TBL.UPDATE_BY
+		</sql>
+		
+		<select id="getAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				APPLICANT_LAN_TBL									
+			WHERE
+			    APPLICANT_LAN_TBL.APPLICANT_ID = #{applicantId}	
+			AND    												
+				APPLICANT_LAN_TBL.DEL_FLG = '0'											
+		</select>
+		
+		<insert id="lanInsert" parameterType="Ansin.web.vueForm.C010105VueForm">
+		   	INSERT INTO APPLICANT_LAN_TBL 
+		   	(													
+			APPLICANT_ID,
+			LANGUAGE_ID,
+			LEVEL_SECTION,
+			DEL_FLG,
+			CREATE_TIME,
+			CREATE_BY,
+			UPDATE_TIME
+			)																	
+			VALUES  (									
+			#{c010105VueForm.applicantId},
+			#{c010105VueForm.languageId},
+			#{c010105VueForm.levelSection},
+			'0',
+			CURRENT_TIMESTAMP(0),
+			#{c010105VueForm.userCd},
+			CURRENT_TIMESTAMP(0)						
+			)		
+
+		</insert>
+		
+		<update id="lanUpdate" parameterType="Ansin.web.vueForm.C010105VueForm">
+		UPDATE																
+			APPLICANT_LAN_TBL														
+		SET																
+			LEVEL_SECTION =	#{c010105VueForm.levelSection},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY =	#{c010105VueForm.userCd},
+			LANGUAGE_ID = #{c010105VueForm.languageId}	
+		WHERE																
+			APP_LAN_ID = #{c010105VueForm.appLanId}												
+		AND
+			DEL_FLG = '0'														
+		</update>
+		
+		<update id="lanDelete">
+		UPDATE																
+			APPLICANT_LAN_TBL														
+		SET																
+			DEL_FLG	= '1',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}				
+		WHERE																																
+			LANGUAGE_ID = #{languageId}														
+		AND																
+			APPLICANT_ID = #{applicantId}														
+		</update>
+</mapper>

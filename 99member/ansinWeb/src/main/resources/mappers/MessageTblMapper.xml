@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.MessageTblMapper">
+	<resultMap id="BaseResultMap" type="Ansin.web.entity.A0803ListEntity" >
+        <result column="INTERNAL_MESSAGE_ID" property="internalMessageId" jdbcType="INTEGER" />
+        <result column="SUBJECT" property="subject" jdbcType="VARCHAR" />
+        <result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR" />
+        <result column="LAST_NAME" property="lastName" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="aDate" jdbcType="DATE" />
+        <result column="STATUS_FLG" property="status" jdbcType="CHAR" />
+    </resultMap>
+	<resultMap id="BaseResultMap2" type="Ansin.web.entity.MessageEntity" >
+        <result column="INTERNAL_MESSAGE_ID" property="internalMessageId" jdbcType="INTEGER" />
+        <result column="SUBJECT" property="subject" jdbcType="VARCHAR" />
+        <result column="STATUS_FLG" property="stutsFlg" jdbcType="VARCHAR" />
+        <result column="INTERNAL_MESSAGE_TEXT_ID" property="internalMessageTextId" jdbcType="INTEGER" />
+        <result column="INTERNAL_MESSAGE_TEXT" property="internalMessageText" jdbcType="VARCHAR" />
+        <result column="SEND_ID" property="sendId" jdbcType="INTEGER" />
+        <result column="REC_ID" property="recId" jdbcType="INTEGER" />
+        <result column="CREATE_TIME" property="timeString" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMap3" type="Ansin.web.entity.A0803ListEntity" >
+        <result column="INTERNAL_MESSAGE_ID" property="internalMessageId" jdbcType="INTEGER" />
+        <result column="REC_ID" property="recId" jdbcType="INTEGER" />
+        <result column="SUBJECT" property="subject" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="aDate" jdbcType="DATE" />
+        <result column="STATUS_FLG" property="status" jdbcType="CHAR" />
+    </resultMap>
+    
+    
+		<sql id="Base_Column_List">
+			MESSAGE_TBL.INTERNAL_MESSAGE_ID
+			,MESSAGE_TBL.SUBJECT
+			,USER_TBL.FIRST_NAME
+			,USER_TBL.LAST_NAME
+			,MESSAGE_TBL.CREATE_TIME
+			,MESSAGE_TBL.STATUS_FLG
+		</sql>
+		
+		<sql id="Base_Column_List2">
+			MESSAGE_TBL.INTERNAL_MESSAGE_ID
+			,MESSAGE_TBL.SEND_ID
+			,MESSAGE_TBL.REC_ID
+			,MESSAGE_TBL.SUBJECT
+			,MESSAGE_TBL.INTERNAL_MESSAGE_TEXT_ID
+			,MESSAGE_TBL.STATUS_FLG
+			,MESSAGE_TEXT_TBL.INTERNAL_MESSAGE_TEXT
+			,MESSAGE_TBL.CREATE_TIME
+		</sql>
+		
+		<sql id="Base_Column_List3">
+			DISTINCT(MESSAGE_TBL.INTERNAL_MESSAGE_ID)
+			,MESSAGE_TBL.REC_ID
+			,MESSAGE_TBL.SUBJECT
+			,MESSAGE_TBL.CREATE_TIME
+			,MESSAGE_TBL.STATUS_FLG
+		</sql>
+		
+		<insert id="insert">
+		INSERT INTO
+			MESSAGE_TBL
+			(
+			SEND_ID,
+			REC_ID,
+			SUBJECT,
+			INTERNAL_MESSAGE_TEXT_ID,
+			STATUS_FLG,
+			CREATE_TIME,
+			CREATE_BY,
+			UPDATE_TIME
+			)
+		VALUES
+			 <foreach collection="item" item="item" index= "index" separator =",">
+			(
+			#{a0801VueForm.sendId},
+			#{item},
+			#{a0801VueForm.subject},
+			#{a0801VueForm.internalMessageTextId},
+			<choose>
+	            <when test="item != 0">
+	                '0',
+	            </when>
+	            <otherwise>
+	                '2',
+	            </otherwise>
+	        </choose>
+	        CURRENT_TIMESTAMP(0),
+			#{a0801VueForm.sendId},
+			CURRENT_TIMESTAMP(0)
+			)
+			</foreach>
+			
+		</insert>
+		
+		<select id="getAddress" parameterType="Ansin.web.vueForm.A0803VueForm" resultMap="BaseResultMap3">
+			SELECT
+			<include refid="Base_Column_List3"/>
+			FROM
+				MESSAGE_TBL,USER_TBL
+			WHERE
+				MESSAGE_TBL.SEND_ID = #{a0803VueForm.userCd}
+			AND
+				(
+				MESSAGE_TBL.REC_ID = USER_TBL.USER_CD
+					OR
+				MESSAGE_TBL.REC_ID = 0
+				)
+			AND
+				MESSAGE_TBL.DEL_FLG = '0'
+			AND
+				USER_TBL.DEL_FLG = '0'
+			<if test="a0803VueForm.address != null and a0803VueForm.address != ''">
+			AND
+				USER_TBL.FIRST_NAME || USER_TBL.LAST_NAME LIKE '%${a0803VueForm.address}%'
+			</if>
+			<if test="a0803VueForm.subject != null and a0803VueForm.subject != ''">
+			AND
+				MESSAGE_TBL.SUBJECT LIKE '%${a0803VueForm.subject}%'
+			</if>
+			<if test="a0803VueForm.dateFrom != null">
+			AND
+				MESSAGE_TBL.CREATE_TIME &gt;= #{a0803VueForm.dateFrom}
+			</if>
+			<if test="a0803VueForm.dateTo != null">
+			AND
+				MESSAGE_TBL.CREATE_TIME &lt;= #{a0803VueForm.dateTo}
+			</if>
+		</select>
+		
+		
+		<select id="getMessage" parameterType="Ansin.web.vueForm.A0803VueForm" resultMap="BaseResultMap2">
+			SELECT
+				<include refid="Base_Column_List2"/>
+			FROM
+				MESSAGE_TBL,MESSAGE_TEXT_TBL
+			WHERE
+				MESSAGE_TBL.INTERNAL_MESSAGE_TEXT_ID = MESSAGE_TEXT_TBL.INTERNAL_MESSAGE_TEXT_ID
+			AND
+				MESSAGE_TBL.DEL_FLG = '0'
+			AND
+				MESSAGE_TEXT_TBL.DEL_FLG = '0'
+			AND
+				MESSAGE_TBL.INTERNAL_MESSAGE_ID = #{a0803VueForm.internalMessageId}
+			ORDER BY 
+				MESSAGE_TBL.UPDATE_TIME
+			DESC
+		</select>
+		
+		
+		<select id="getSelect" parameterType="Ansin.web.vueForm.A0803VueForm" resultMap="BaseResultMap">
+			SELECT
+				<include refid="Base_Column_List"/>
+			FROM
+				MESSAGE_TBL,USER_TBL
+			WHERE
+				(
+					MESSAGE_TBL.REC_ID = #{a0803VueForm.userCd}
+				OR
+					MESSAGE_TBL.REC_ID = 0
+				)
+			AND
+				MESSAGE_TBL.SEND_ID = USER_TBL.USER_CD
+			AND
+				MESSAGE_TBL.DEL_FLG = '0'
+			AND
+				USER_TBL.DEL_FLG = '0'
+			<if test="a0803VueForm.address != null and a0803VueForm.address != '' ">
+			AND
+				USER_TBL.FIRST_NAME || USER_TBL.LAST_NAME LIKE '%${a0803VueForm.address}%'
+			</if>
+			<if test="a0803VueForm.subject != null and a0803VueForm.subject != ''">
+			AND
+				MESSAGE_TBL.SUBJECT LIKE '%${a0803VueForm.subject}%'
+			</if>
+			<if test="a0803VueForm.dateFrom != null">
+			AND
+				MESSAGE_TBL.CREATE_TIME &gt;= #{a0803VueForm.dateFrom}
+			</if>
+			<if test="a0803VueForm.dateTo != null">
+			AND
+				MESSAGE_TBL.CREATE_TIME &lt;= #{a0803VueForm.dateTo}
+			</if>
+			ORDER BY 
+				MESSAGE_TBL.UPDATE_TIME
+			DESC
+		</select>
+		
+		
+		<update id="flgChange">
+			UPDATE
+				MESSAGE_TBL
+			<set>
+				STATUS_FLG = '1',
+				UPDATE_BY = #{userCd},
+				UPDATE_TIME = CURRENT_TIMESTAMP(0)
+			</set>
+			WHERE
+				INTERNAL_MESSAGE_ID = #{internalMessageId}
+			AND
+				DEL_FLG = '0'
+		</update>
+		
+		
+		
+		<insert id="systemReportInsert">
+		INSERT INTO
+			MESSAGE_TBL
+			(
+			SEND_ID,
+			REC_ID,
+			SUBJECT,
+			INTERNAL_MESSAGE_TEXT_ID,
+			STATUS_FLG,
+			CREATE_TIME,
+			CREATE_BY,
+			UPDATE_TIME
+			)
+		VALUES
+			(
+			#{sendId},
+			#{recId},
+			'システム通知',
+			#{messageTextId},
+			'2',
+	        CURRENT_TIMESTAMP(0),
+			#{sendId},
+			CURRENT_TIMESTAMP(0)
+			)			
+		</insert>
+		
+		
+</mapper>

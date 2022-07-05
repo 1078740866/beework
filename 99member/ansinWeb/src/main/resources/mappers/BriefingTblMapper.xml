@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.BriefingTblMapper">
+
+	<!--DB列名とpropertyの対応 -->
+	<resultMap
+		id="BaseResultMap"
+		type="Ansin.web.entity.BriefingInfoTblEntity">
+		<result
+			column="BRIEFING_ID"
+			property="briefingId"
+			jdbcType="INTEGER" />
+		<result
+			column="COMPANY_ID"
+			property="companyId"
+			jdbcType="INTEGER" />
+		<result
+			column="BRIEFING_TYPE"
+			property="briefingType"
+			jdbcType="CHAR" />
+		<result
+			column="BRIEFING_DATE"
+			property="briefingDate"
+			jdbcType="DATE" />
+		<result
+			column="DATE_FROM"
+			property="dateFrom"
+			jdbcType="TIME" />
+		<result
+			column="DATE_TO"
+			property="dateTo"
+			jdbcType="TIME" />
+		<result
+			column="POSTAL"
+			property="postal"
+			jdbcType="VARCHAR" />
+		<result
+			column="PREFE_NM"
+			property="prefeNm"
+			jdbcType="VARCHAR" />
+		<result
+			column="BRIEFING_ADDRESS1"
+			property="briefingAddress1"
+			jdbcType="VARCHAR" />
+		<result
+			column="BRIEFING_ADDRESS2"
+			property="briefingAddress2"
+			jdbcType="VARCHAR" />
+		<result
+			column="BRIEFING_CONTENT"
+			property="briefingContent"
+			jdbcType="VARCHAR" />
+		<result
+			column="PRO_CNT_PLAN"
+			property="proCntPlan"
+			jdbcType="INTEGER" />
+		<result
+			column="TEA_NM"
+			property="teaNm"
+			jdbcType="VARCHAR" />
+		<result
+			column="TEA_INTRO"
+			property="teaIntro"
+			jdbcType="VARCHAR" />
+		<result
+			column="TEL"
+			property="tel"
+			jdbcType="VARCHAR" />
+		<result
+			column="CHARGE"
+			property="charge"
+			jdbcType="VARCHAR" />
+		<result
+			column="PHOTO_ADDRESS1"
+			property="photoAddress1"
+			jdbcType="VARCHAR" />
+		<result
+			column="PHOTO_ADDRESS2"
+			property="photoAddress2"
+			jdbcType="VARCHAR" />
+		<result
+			column="PHOTO_ADDRESS3"
+			property="photoAddress3"
+			jdbcType="VARCHAR" />
+		<result
+			column="REMARKS"
+			property="remarks"
+			jdbcType="VARCHAR" />
+		<result
+			column="COMPANY_NM"
+			property="companyNm"
+			jdbcType="VARCHAR" />
+		<result
+			column="STATUS_FLG"
+			property="statusFlg"
+			jdbcType="CHAR" />
+		<result
+			column="BRIEFING_NM"
+			property="briefingNm"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMap2" type="Ansin.web.entity.A0601ReportEntity" >
+		<result column="BRIEFING_NM" property="briefingNm" jdbcType="VARCHAR" />
+		<result column="USER_CD" property="userCd" jdbcType="INTEGER" />
+    </resultMap>
+
+	<!--DB列名 -->
+	<sql id="briefingInfoRowList">
+		BRIEFING_INFO_TBL.BRIEFING_ID,
+		BRIEFING_INFO_TBL.COMPANY_ID,
+		BRIEFING_INFO_TBL.BRIEFING_NM,
+		BRIEFING_INFO_TBL.BRIEFING_TYPE,
+		BRIEFING_INFO_TBL.BRIEFING_DATE,
+		BRIEFING_INFO_TBL.DATE_FROM,
+		BRIEFING_INFO_TBL.DATE_TO,
+		BRIEFING_INFO_TBL.POSTAL,
+		BRIEFING_INFO_TBL.PREFE_NM,
+		BRIEFING_INFO_TBL.BRIEFING_ADDRESS1,
+		BRIEFING_INFO_TBL.BRIEFING_ADDRESS2,
+		BRIEFING_INFO_TBL.BRIEFING_CONTENT,
+		BRIEFING_INFO_TBL.PRO_CNT_PLAN,
+		BRIEFING_INFO_TBL.TEA_NM,
+		BRIEFING_INFO_TBL.TEA_INTRO,
+		BRIEFING_INFO_TBL.TEL,
+		BRIEFING_INFO_TBL.CHARGE,
+		BRIEFING_INFO_TBL.PHOTO_ADDRESS1,
+		BRIEFING_INFO_TBL.PHOTO_ADDRESS2,
+		BRIEFING_INFO_TBL.PHOTO_ADDRESS3,
+		BRIEFING_INFO_TBL.REMARKS,
+		BRIEFING_INFO_TBL.STATUS_FLG
+	</sql>
+
+	<!--検索一覧 -->
+	<select
+		id="getBriefingInfoList"
+		parameterType="Ansin.web.vueForm.B0601VueForm"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="briefingInfoRowList" />
+		FROM
+		BRIEFING_INFO_TBL
+		WHERE
+		BRIEFING_INFO_TBL.DEL_FLG = '0'
+		<if
+			test="b0601VueForm.companyId != null">
+			AND
+			BRIEFING_INFO_TBL.COMPANY_ID = #{b0601VueForm.companyId}
+		</if>
+		<if
+			test="b0601VueForm.briefingType != null and b0601VueForm.briefingType != '' ">
+			AND
+			BRIEFING_INFO_TBL.BRIEFING_TYPE =
+			#{b0601VueForm.briefingType}
+		</if>
+		<if
+			test="b0601VueForm.statusFlg != null and b0601VueForm.statusFlg != '' ">
+			AND
+			BRIEFING_INFO_TBL.STATUS_FLG = #{b0601VueForm.statusFlg}
+		</if>
+		<if test="b0601VueForm.briefingDate != null">
+		AND
+			BRIEFING_INFO_TBL.BRIEFING_DATE = #{b0601VueForm.briefingDate}
+		</if>
+		<if test="b0601VueForm.dateFrom != null">
+		AND
+			BRIEFING_INFO_TBL.DATE_FROM &gt;= #{b0601VueForm.dateFrom}
+		</if>
+		<if test="b0601VueForm.dateTo != null">
+		AND
+			BRIEFING_INFO_TBL.DATE_TO &lt;= #{b0601VueForm.dateTo}
+		</if>
+		<if test="b0601VueForm.briefingNm != null and b0601VueForm.briefingNm != ''">
+		AND 
+			BRIEFING_INFO_TBL.BRIEFING_NM LIKE '%${b0601VueForm.briefingNm}%'
+		</if>
+		ORDER BY
+			BRIEFING_INFO_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	
+	<select
+		id="getBrie"
+		parameterType="Ansin.web.vueForm.A020203VueForm"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="briefingInfoRowList" />
+		FROM
+			BRIEFING_INFO_TBL,BRIEFING_APPL_TBL
+		WHERE
+			BRIEFING_INFO_TBL.DEL_FLG = '0'
+		AND
+			BRIEFING_APPL_TBL.DEL_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.BRIEFING_ID = BRIEFING_APPL_TBL.BRIEFING_ID
+		<if
+			test="b0601VueForm.applicantId != null">
+			AND
+			BRIEFING_APPL_TBL.APPLICANT_ID = #{b0601VueForm.applicantId}
+		</if>
+		<if
+			test="b0601VueForm.briefingType != null and b0601VueForm.briefingType != '' ">
+			AND
+			BRIEFING_INFO_TBL.BRIEFING_TYPE =
+			#{b0601VueForm.briefingType}
+		</if>
+		<if
+			test="b0601VueForm.statusFlg != null and b0601VueForm.statusFlg != '' ">
+			AND
+			BRIEFING_INFO_TBL.STATUS_FLG = #{b0601VueForm.statusFlg}
+		</if>
+		<if
+			test="b0601VueForm.dateFrom != null">
+			AND
+				BRIEFING_INFO_TBL.BRIEFING_DATE &gt;=　#{b0601VueForm.dateFrom}
+		</if>
+		<if
+			test="b0601VueForm.dateTo != null">
+			AND
+				BRIEFING_INFO_TBL.BRIEFING_DATE &lt;=　#{b0601VueForm.dateTo}
+		</if>
+		<if test="b0601VueForm.briefingNm != null and b0601VueForm.briefingNm != ''">
+		AND 
+				BRIEFING_INFO_TBL.BRIEFING_NM LIKE '%${b0601VueForm.briefingNm}%'
+		</if>
+		ORDER BY
+			BRIEFING_INFO_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	
+
+	<!--説明会データ削除 -->
+	<update id="briefingInfoDelete">
+		UPDATE
+		BRIEFING_INFO_TBL
+		SET
+			DEL_FLG = '1',
+			UPDATE_BY = #{userCd},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0)
+		WHERE
+		BRIEFING_INFO_TBL.BRIEFING_ID
+		IN
+		<foreach
+			collection="briefingIds"
+			item="briefingIds"
+			index="index"
+			open="("
+			close=")"
+			separator=",">
+			#{briefingIds}
+		</foreach>
+		<if test="companyId != null">
+			AND
+			BRIEFING_INFO_TBL.COMPANY_ID = #{companyId}
+			;
+		</if>
+	</update>
+
+
+	<update
+		id="prefecturesCityUpdate">
+		UPDATE
+		BRIEFING_INFO_TBL
+		<set>
+			STATUS_FLG = '0',
+			DEL_FLG = '0',
+			USE_FLG = '0',
+			<if
+				test="b0602VueForm.briefingNm != null and b0602VueForm.briefingNm != '' ">
+				BRIEFING_NM = #{b0602VueForm.briefingNm},
+			</if>
+			<if
+				test="b0602VueForm.briefingType != null and b0602VueForm.briefingType != '' ">
+				BRIEFING_TYPE =
+				#{b0602VueForm.briefingType},
+			</if>
+			<if
+				test="b0602VueForm.briefingDate != null ">
+				BRIEFING_DATE =
+				#{b0602VueForm.briefingDate},
+			</if>
+			<if
+				test="b0602VueForm.dateFrom != null">
+				DATE_FROM = #{b0602VueForm.dateFrom},
+			</if>
+			<if
+				test="b0602VueForm.dateTo != null">
+				DATE_TO = #{b0602VueForm.dateTo},
+			</if>
+			<if
+				test="b0602VueForm.postal != null and b0602VueForm.postal != '' ">
+				POSTAL
+				= #{b0602VueForm.postal},
+			</if>
+			<if
+				test="b0602VueForm.prefeNm != null and b0602VueForm.prefeNm != '' ">
+				PREFE_NM
+				= #{b0602VueForm.prefeNm},
+			</if>
+			<if
+				test="b0602VueForm.briefingAddress1 != null and b0602VueForm.briefingAddress1 != '' ">
+				BRIEFING_ADDRESS1 =
+				#{b0602VueForm.briefingAddress1},
+			</if>
+			<if
+				test="b0602VueForm.briefingAddress2 != null and b0602VueForm.briefingAddress2 != '' ">
+				BRIEFING_ADDRESS2 =
+				#{b0602VueForm.briefingAddress2},
+			</if>
+			<if
+				test="b0602VueForm.briefingContent != null and b0602VueForm.briefingContent != '' ">
+				BRIEFING_CONTENT =
+				#{b0602VueForm.briefingContent},
+			</if>
+			<if
+				test="b0602VueForm.proCntPlan != null">
+				PRO_CNT_PLAN = #{b0602VueForm.proCntPlan},
+			</if>
+			<if
+				test="b0602VueForm.teaNm != null and b0602VueForm.teaNm != '' ">
+				TEA_NM = #{b0602VueForm.teaNm},
+			</if>
+			<if
+				test="b0602VueForm.teaIntro != null and b0602VueForm.teaIntro != '' ">
+				TEA_INTRO = #{b0602VueForm.teaIntro},
+			</if>
+			<if test="b0602VueForm.tel != null and b0602VueForm.tel != '' ">
+				TEL = #{b0602VueForm.tel},
+			</if>
+			<if
+				test="b0602VueForm.charge != null and b0602VueForm.charge != '' ">
+				CHARGE = #{b0602VueForm.charge},
+			</if>
+			<if
+				test="b0602VueForm.photoAddress1 != null and b0602VueForm.photoAddress1 != '' ">
+				PHOTO_ADDRESS1 = #{b0602VueForm.photoAddress1},
+			</if>
+			<if
+				test="b0602VueForm.photoAddress2 != null and b0602VueForm.photoAddress2 != '' ">
+				PHOTO_ADDRESS2 = #{b0602VueForm.photoAddress2},
+			</if>
+			<if
+				test="b0602VueForm.photoAddress3 != null and b0602VueForm.photoAddress3 != '' ">
+				PHOTO_ADDRESS3 = #{b0602VueForm.photoAddress3},
+			</if>
+			<if
+				test="b0602VueForm.remarks != null and b0602VueForm.remarks != '' ">
+				REMARKS = #{b0602VueForm.remarks},
+			</if>
+			UPDATE_BY = #{b0602VueForm.userCd},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0)
+		</set>
+		WHERE
+		DEL_FLG = '0'
+		<if
+			test="b0602VueForm.companyId != null">
+			AND
+			COMPANY_ID = #{b0602VueForm.companyId}
+		</if>
+		<if
+			test="b0602VueForm.briefingId != null">
+			AND
+			BRIEFING_ID = #{b0602VueForm.briefingId}
+		</if>
+		;
+	</update>
+
+
+	<insert
+		id="prefecturesCityInsert">
+		INSERT INTO
+		BRIEFING_INFO_TBL(
+		BRIEFING_ID,
+		COMPANY_ID,
+		BRIEFING_NM,
+		BRIEFING_TYPE,
+		BRIEFING_DATE,
+		DATE_FROM,
+		DATE_TO,
+		POSTAL,
+		PREFE_NM,
+		BRIEFING_ADDRESS1,
+		BRIEFING_ADDRESS2,
+		BRIEFING_CONTENT,
+		PRO_CNT_PLAN,
+		TEA_NM,
+		TEA_INTRO,
+		TEL,
+		CHARGE,
+		PHOTO_ADDRESS1,
+		PHOTO_ADDRESS2,
+		PHOTO_ADDRESS3,
+		STATUS_FLG,
+		REMARKS,
+		CREATE_TIME,
+		CREATE_BY,
+		UPDATE_TIME
+		)
+		VALUES(
+		DEFAULT,
+		#{b0602VueForm.companyId},
+		#{b0602VueForm.briefingNm},
+		#{b0602VueForm.briefingType},
+		#{b0602VueForm.briefingDate},
+		#{b0602VueForm.dateFrom},
+		#{b0602VueForm.dateTo},
+		#{b0602VueForm.postal},
+		#{b0602VueForm.prefeNm},
+		#{b0602VueForm.briefingAddress1},
+		#{b0602VueForm.briefingAddress2},
+		#{b0602VueForm.briefingContent},
+		#{b0602VueForm.proCntPlan},
+		#{b0602VueForm.teaNm},
+		#{b0602VueForm.teaIntro},
+		#{b0602VueForm.tel},
+		#{b0602VueForm.charge},
+		#{b0602VueForm.photoAddress1},
+		#{b0602VueForm.photoAddress2},
+		#{b0602VueForm.photoAddress3},
+		'0',
+		#{b0602VueForm.remarks},
+		CURRENT_TIMESTAMP(0),
+		#{b0602VueForm.userCd},
+		CURRENT_TIMESTAMP(0)
+		)
+	</insert>
+	
+	<!--C0401説明会推薦一覧 -->
+	<select id="getBriefing" parameterType="Ansin.web.entity.ApplicantConnEntity" resultMap="BaseResultMap">
+		SELECT
+			BRIEFING_INFO_TBL.BRIEFING_ID,
+			BRIEFING_INFO_TBL.COMPANY_ID,
+			BRIEFING_INFO_TBL.BRIEFING_NM,
+			BRIEFING_INFO_TBL.BRIEFING_TYPE,
+			BRIEFING_INFO_TBL.BRIEFING_DATE,
+			BRIEFING_INFO_TBL.DATE_FROM,
+			BRIEFING_INFO_TBL.DATE_TO,
+			BRIEFING_INFO_TBL.POSTAL,
+			BRIEFING_INFO_TBL.PREFE_NM,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS1,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS2,
+			BRIEFING_INFO_TBL.BRIEFING_CONTENT,
+			BRIEFING_INFO_TBL.PRO_CNT_PLAN,
+			BRIEFING_INFO_TBL.TEA_NM,
+			BRIEFING_INFO_TBL.TEA_INTRO,
+			BRIEFING_INFO_TBL.TEL,
+			BRIEFING_INFO_TBL.CHARGE,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS1,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS2,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS3,
+			BRIEFING_INFO_TBL.STATUS_FLG,
+			BRIEFING_INFO_TBL.REMARKS,
+			COMPANY_TBL.COMPANY_NM
+		FROM
+			BRIEFING_INFO_TBL
+		INNER JOIN
+			COMPANY_TBL
+		ON
+			BRIEFING_INFO_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		WHERE																													
+			COMPANY_TBL.DEL_FLG = '0'
+		AND 																													
+			BRIEFING_INFO_TBL.DEL_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.STATUS_FLG = '1'
+		AND 
+			BRIEFING_INFO_TBL.USE_FLG = '0'
+		<!--  AND
+			BRIEFING_INFO_TBL.BRIEFING_ID NOT IN(
+				SELECT BRIEFING_ID FROM BRIEFING_APPL_TBL WHERE APPLICANT_ID = #{app.applicantId} GROUP BY BRIEFING_ID
+			)-->
+		AND
+			BRIEFING_INFO_TBL.PREFE_NM = #{app.prefeNm}
+		AND
+			NOT EXISTS
+			(SELECT COMPANY_ID,BRIEFING_ID FROM BRIEFING_APPL_TBL WHERE APPLICANT_ID = #{app.applicantId}
+			AND BRIEFING_INFO_TBL.COMPANY_ID = BRIEFING_APPL_TBL.COMPANY_ID
+			AND BRIEFING_INFO_TBL.BRIEFING_ID = BRIEFING_APPL_TBL.BRIEFING_ID)
+		ORDER BY
+			BRIEFING_INFO_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	<!--C0401説明会一覧画面 -->
+	<select id="getList" parameterType="Ansin.web.vueForm.C0401ListVueForm" resultMap="BaseResultMap">
+		SELECT
+			BRIEFING_INFO_TBL.BRIEFING_ID,
+			BRIEFING_INFO_TBL.COMPANY_ID,
+			BRIEFING_INFO_TBL.BRIEFING_NM,
+			BRIEFING_INFO_TBL.BRIEFING_TYPE,
+			BRIEFING_INFO_TBL.BRIEFING_DATE,
+			BRIEFING_INFO_TBL.DATE_FROM,
+			BRIEFING_INFO_TBL.DATE_TO,
+			BRIEFING_INFO_TBL.POSTAL,
+			BRIEFING_INFO_TBL.PREFE_NM,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS1,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS2,
+			BRIEFING_INFO_TBL.BRIEFING_CONTENT,
+			BRIEFING_INFO_TBL.PRO_CNT_PLAN,
+			BRIEFING_INFO_TBL.TEA_NM,
+			BRIEFING_INFO_TBL.TEA_INTRO,
+			BRIEFING_INFO_TBL.TEL,
+			BRIEFING_INFO_TBL.CHARGE,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS1,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS2,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS3,
+			BRIEFING_INFO_TBL.STATUS_FLG,
+			BRIEFING_INFO_TBL.REMARKS,
+			COMPANY_TBL.COMPANY_NM
+		FROM
+			BRIEFING_INFO_TBL,COMPANY_TBL
+		WHERE
+			BRIEFING_INFO_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		<!--  AND
+			BRIEFING_INFO_TBL.BRIEFING_ID NOT IN(
+				SELECT BRIEFING_ID FROM BRIEFING_APPL_TBL WHERE APPLICANT_ID = #{c0401ListVueForm.applicantId} GROUP BY BRIEFING_ID
+			)-->
+		<if test="c0401ListVueForm.briefingNm != null and c0401ListVueForm.briefingNm != ''">																												
+		AND 																													
+			BRIEFING_INFO_TBL.BRIEFING_NM LIKE '%${c0401ListVueForm.briefingNm}%'
+		</if>	
+		<if test="c0401ListVueForm.companyNm != null and c0401ListVueForm.companyNm != ''">																										
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${c0401ListVueForm.companyNm}%'
+		</if>
+		<if test="c0401ListVueForm.briefingType != null and c0401ListVueForm.briefingType != ''">																										
+		AND 																													
+			BRIEFING_INFO_TBL.BRIEFING_TYPE = #{c0401ListVueForm.briefingType}
+		</if>
+		<if test="c0401ListVueForm.dateFrom != null">
+		AND 																													
+			BRIEFING_INFO_TBL.BRIEFING_DATE &gt;= #{c0401ListVueForm.dateFrom}																												
+		</if>
+		<if test="c0401ListVueForm.dateTo != null">
+		AND																													
+			BRIEFING_INFO_TBL.BRIEFING_DATE &lt;= #{c0401ListVueForm.dateTo}																												
+		</if>
+		<if test="c0401ListVueForm.prefeNm != null and c0401ListVueForm.prefeNm != ''">
+		AND																													
+			BRIEFING_INFO_TBL.PREFE_NM = #{c0401ListVueForm.prefeNm}																												
+		</if>
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.STATUS_FLG = '1'
+		AND 
+			BRIEFING_INFO_TBL.USE_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.DEL_FLG = '0'	
+		<if test="c0401ListVueForm.applicantId != null">
+		AND
+			NOT EXISTS
+			(SELECT COMPANY_ID,BRIEFING_ID FROM BRIEFING_APPL_TBL WHERE APPLICANT_ID = #{c0401ListVueForm.applicantId}
+			AND BRIEFING_INFO_TBL.COMPANY_ID = BRIEFING_APPL_TBL.COMPANY_ID
+			AND BRIEFING_INFO_TBL.BRIEFING_ID = BRIEFING_APPL_TBL.BRIEFING_ID)
+			
+		</if>
+		ORDER BY
+			BRIEFING_INFO_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	<select id="getBriefingPost" parameterType="Ansin.web.vueForm.C0401ListVueForm" resultMap="BaseResultMap">
+		SELECT
+			BRIEFING_INFO_TBL.BRIEFING_ID,
+			BRIEFING_INFO_TBL.COMPANY_ID,
+			BRIEFING_INFO_TBL.BRIEFING_NM,
+			BRIEFING_INFO_TBL.BRIEFING_TYPE,
+			BRIEFING_INFO_TBL.BRIEFING_DATE,
+			BRIEFING_INFO_TBL.DATE_FROM,
+			BRIEFING_INFO_TBL.DATE_TO,
+			BRIEFING_INFO_TBL.POSTAL,
+			BRIEFING_INFO_TBL.PREFE_NM,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS1,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS2,
+			BRIEFING_INFO_TBL.BRIEFING_CONTENT,
+			BRIEFING_INFO_TBL.PRO_CNT_PLAN,
+			BRIEFING_INFO_TBL.TEA_NM,
+			BRIEFING_INFO_TBL.TEA_INTRO,
+			BRIEFING_INFO_TBL.TEL,
+			BRIEFING_INFO_TBL.CHARGE,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS1,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS2,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS3,
+			BRIEFING_INFO_TBL.STATUS_FLG,
+			BRIEFING_INFO_TBL.REMARKS,
+			COMPANY_TBL.COMPANY_NM
+		FROM
+			BRIEFING_INFO_TBL,COMPANY_TBL,APPLICANT_INFO_TBL,BRIEFING_APPL_TBL
+		WHERE 																													
+			APPLICANT_INFO_TBL.USER_CD = #{c0401ListVueForm.userCd}	
+		AND
+			APPLICANT_INFO_TBL.APPLICANT_ID = BRIEFING_APPL_TBL.APPLICANT_ID
+		AND
+			BRIEFING_INFO_TBL.COMPANY_ID = 	COMPANY_TBL.COMPANY_ID
+		AND 
+			BRIEFING_INFO_TBL.COMPANY_ID = BRIEFING_APPL_TBL.COMPANY_ID
+		AND
+			BRIEFING_INFO_TBL.BRIEFING_ID = BRIEFING_APPL_TBL.BRIEFING_ID	
+		<if test="c0401ListVueForm.briefingNm != null and c0401ListVueForm.briefingNm != ''">																												
+		AND 																													
+			BRIEFING_INFO_TBL.BRIEFING_NM LIKE '%${c0401ListVueForm.briefingNm}	
+		</if>	
+		<if test="c0401ListVueForm.companyNm != null and c0401ListVueForm.companyNm != ''">																										
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${c0401ListVueForm.companyNm}%'
+		</if>
+		<if test="c0401ListVueForm.briefingType != null and c0401ListVueForm.briefingType != ''">																										
+		AND 																													
+			BRIEFING_INFO_TBL.BRIEFING_TYPE = #{c0401ListVueForm.briefingType}
+		</if>
+		<if test="c0401ListVueForm.dateFrom != null">
+		AND 																													
+			BRIEFING_INFO_TBL.DATE_FROM &gt;= #{c0401ListVueForm.dateFrom}																												
+		</if>
+		<if test="c0401ListVueForm.dateTo != null">
+		AND																													
+			BRIEFING_INFO_TBL.DATE_TO &lt;= #{c0401ListVueForm.dateTo}																												
+		</if>
+		<if test="c0401ListVueForm.prefeNm != null and c0401ListVueForm.prefeNm != ''">
+		AND																													
+			BRIEFING_INFO_TBL.PREFE_NM = #{c0401ListVueForm.prefeNm}																												
+		</if>
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'
+		AND 																													
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.STATUS_FLG = '1'
+		AND 
+			BRIEFING_INFO_TBL.USE_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.DEL_FLG = '0'	
+		AND
+			BRIEFING_APPL_TBL.STATUS_FLG = '0'
+		AND
+			BRIEFING_APPL_TBL.DEL_FLG = '0'
+		ORDER BY
+			BRIEFING_INFO_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	<select id="getBriefingLike" parameterType="Ansin.web.vueForm.C0401ListVueForm" resultMap="BaseResultMap">
+		SELECT
+			BRIEFING_INFO_TBL.BRIEFING_ID,
+			BRIEFING_INFO_TBL.COMPANY_ID,
+			BRIEFING_INFO_TBL.BRIEFING_NM,
+			BRIEFING_INFO_TBL.BRIEFING_TYPE,
+			BRIEFING_INFO_TBL.BRIEFING_DATE,
+			BRIEFING_INFO_TBL.DATE_FROM,
+			BRIEFING_INFO_TBL.DATE_TO,
+			BRIEFING_INFO_TBL.POSTAL,
+			BRIEFING_INFO_TBL.PREFE_NM,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS1,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS2,
+			BRIEFING_INFO_TBL.BRIEFING_CONTENT,
+			BRIEFING_INFO_TBL.PRO_CNT_PLAN,
+			BRIEFING_INFO_TBL.TEA_NM,
+			BRIEFING_INFO_TBL.TEA_INTRO,
+			BRIEFING_INFO_TBL.TEL,
+			BRIEFING_INFO_TBL.CHARGE,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS1,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS2,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS3,
+			BRIEFING_INFO_TBL.STATUS_FLG,
+			BRIEFING_INFO_TBL.REMARKS,
+			COMPANY_TBL.COMPANY_NM
+		FROM
+			BRIEFING_INFO_TBL,COMPANY_TBL,APPLICANT_INFO_TBL,BRIEFING_APPL_TBL
+		WHERE 																													
+			APPLICANT_INFO_TBL.USER_CD = #{c0401ListVueForm.userCd}	
+		AND
+			APPLICANT_INFO_TBL.APPLICANT_ID = BRIEFING_APPL_TBL.APPLICANT_ID
+		AND
+			BRIEFING_INFO_TBL.COMPANY_ID = 	COMPANY_TBL.COMPANY_ID
+		AND 
+			BRIEFING_INFO_TBL.COMPANY_ID = BRIEFING_APPL_TBL.COMPANY_ID
+		AND
+			BRIEFING_INFO_TBL.BRIEFING_ID = BRIEFING_APPL_TBL.BRIEFING_ID	
+		<if test="c0401ListVueForm.briefingNm != null and c0401ListVueForm.briefingNm != ''">																												
+		AND 																													
+			BRIEFING_INFO_TBL.BRIEFING_NM LIKE '%${c0401ListVueForm.briefingNm}	
+		</if>	
+		<if test="c0401ListVueForm.companyNm != null and c0401ListVueForm.companyNm != ''">																										
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${c0401ListVueForm.companyNm}%'
+		</if>
+		<if test="c0401ListVueForm.briefingType != null and c0401ListVueForm.briefingType != ''">																										
+		AND 																													
+			BRIEFING_INFO_TBL.BRIEFING_TYPE = #{c0401ListVueForm.briefingType}
+		</if>
+		<if test="c0401ListVueForm.dateFrom != null">
+		AND 																													
+			BRIEFING_INFO_TBL.DATE_FROM &gt;= #{c0401ListVueForm.dateFrom}																												
+		</if>
+		<if test="c0401ListVueForm.dateTo != null">
+		AND																													
+			BRIEFING_INFO_TBL.DATE_TO &lt;= #{c0401ListVueForm.dateTo}																												
+		</if>
+		<if test="c0401ListVueForm.prefeNm != null and c0401ListVueForm.prefeNm != ''">
+		AND																													
+			BRIEFING_INFO_TBL.PREFE_NM = #{c0401ListVueForm.prefeNm}																												
+		</if>
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'
+		AND 																													
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.STATUS_FLG = '1'
+		AND 
+			BRIEFING_INFO_TBL.USE_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.DEL_FLG = '0'	
+		AND
+			BRIEFING_APPL_TBL.STATUS_FLG = '1'
+		AND
+			BRIEFING_APPL_TBL.DEL_FLG = '0'
+		ORDER BY
+			BRIEFING_INFO_TBL.UPDATE_TIME
+		DESC
+	</select>
+
+	<!-- A0701_05_承認一覧画面(説明会) -->
+	<select id="getBrie2" parameterType="Ansin.web.vueForm.A070105VueForm" resultMap="BaseResultMap">
+		SELECT
+			BRIEFING_INFO_TBL.BRIEFING_ID,
+			BRIEFING_INFO_TBL.COMPANY_ID,
+			BRIEFING_INFO_TBL.BRIEFING_NM,
+			BRIEFING_INFO_TBL.BRIEFING_TYPE,
+			BRIEFING_INFO_TBL.BRIEFING_DATE,
+			BRIEFING_INFO_TBL.DATE_FROM,
+			BRIEFING_INFO_TBL.DATE_TO,
+			BRIEFING_INFO_TBL.POSTAL,
+			BRIEFING_INFO_TBL.PREFE_NM,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS1,
+			BRIEFING_INFO_TBL.BRIEFING_ADDRESS2,
+			BRIEFING_INFO_TBL.BRIEFING_CONTENT,
+			BRIEFING_INFO_TBL.PRO_CNT_PLAN,
+			BRIEFING_INFO_TBL.TEA_NM,
+			BRIEFING_INFO_TBL.TEA_INTRO,
+			BRIEFING_INFO_TBL.TEL,
+			BRIEFING_INFO_TBL.CHARGE,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS1,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS2,
+			BRIEFING_INFO_TBL.PHOTO_ADDRESS3,
+			BRIEFING_INFO_TBL.STATUS_FLG,
+			BRIEFING_INFO_TBL.REMARKS,
+			COMPANY_TBL.COMPANY_NM
+		FROM
+			BRIEFING_INFO_TBL,COMPANY_TBL
+		WHERE 																													
+			BRIEFING_INFO_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		<if test="a070105VueForm.briefingNm != null and a070105VueForm.briefingNm != ''">																												
+		AND 																													
+			BRIEFING_INFO_TBL.BRIEFING_NM LIKE '%${a070105VueForm.briefingNm}%'	
+		</if>	
+		<if test="a070105VueForm.companyNm != null and a070105VueForm.companyNm != ''">																										
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${a070105VueForm.companyNm}%'
+		</if>
+		<if test="a070105VueForm.briefingType != null and a070105VueForm.briefingType != ''">																										
+		AND 																													
+			BRIEFING_INFO_TBL.BRIEFING_TYPE = #{a070105VueForm.briefingType}
+		</if>
+		<if test="a070105VueForm.dateFrom != null">
+		AND 																													
+			BRIEFING_INFO_TBL.DATE_FROM &gt;= #{a070105VueForm.dateFrom}																												
+		</if>
+		<if test="a070105VueForm.dateTo != null">
+		AND																													
+			BRIEFING_INFO_TBL.DATE_TO &lt;= #{a070105VueForm.dateTo}																												
+		</if>
+		<if test="a070105VueForm.prefeNm != null and a070105VueForm.prefeNm != ''">
+		AND																													
+			BRIEFING_INFO_TBL.PREFE_NM = #{a070105VueForm.prefeNm}																												
+		</if>
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.STATUS_FLG = '0'
+		AND 
+			BRIEFING_INFO_TBL.USE_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.DEL_FLG = '0'	
+		ORDER BY
+			BRIEFING_INFO_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	<update id="briefingConfirmOrDeny">
+		UPDATE																		
+			BRIEFING_INFO_TBL																
+		SET																		
+			STATUS_FLG = #{statusFlg},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		WHERE																					
+			BRIEFING_ID 																																				
+		IN	
+		<foreach item="list" index="index" collection="list"
+                    open="(" separator="," close=")">
+                    #{list.briefingId}
+        </foreach>	
+        AND
+         	COMPANY_ID  																																				
+		IN	
+		<foreach item="list" index="index" collection="list"
+                    open="(" separator="," close=")">
+                    #{list.companyId}
+         </foreach>	
+	</update>
+	
+	
+	<select id="getName" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT
+			BRIEFING_NM
+		FROM
+			BRIEFING_INFO_TBL
+		WHERE 																						
+			BRIEFING_INFO_TBL.BRIEFING_ID = #{briefingId}
+		AND
+			BRIEFING_INFO_TBL.STATUS_FLG = '0'
+		AND 
+			BRIEFING_INFO_TBL.USE_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.DEL_FLG = '0'	
+	</select>
+	
+	<update id="reportBriefing">
+		UPDATE
+			BRIEFING_INFO_TBL
+		SET
+		 	USE_FLG = '1',
+		 	UPDATE_TIME = CURRENT_TIMESTAMP(0),
+		 	UPDATE_BY = #{userCd}
+		WHERE
+			BRIEFING_ID 
+				IN
+		<foreach item="briefingIds" index="index" collection="briefingIds"
+                	open="(" separator="," close=")">
+        	#{briefingIds}
+       	</foreach>
+	</update>
+	
+	
+	<select id="briefingListSelect" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+    	SELECT
+			BRIEFING_INFO_TBL.BRIEFING_NM,
+			USER_TBL.USER_CD
+		FROM
+			BRIEFING_INFO_TBL
+		INNER JOIN
+			USER_TBL
+		ON
+			USER_TBL.COMPANY_ID = BRIEFING_INFO_TBL.COMPANY_ID
+		WHERE
+			BRIEFING_INFO_TBL.BRIEFING_ID
+				IN
+			<foreach item="briefingIds" index="index" collection="briefingIds"
+	                	open="(" separator="," close=")">
+	        	#{briefingIds}
+	       	</foreach>
+		AND
+			BRIEFING_INFO_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.AUTHORITY = '会社会員管理員(認証済み)'
+		AND
+			USER_TBL.DEL_FLG = '0'
+     </select>
+     
+     
+	<select id="getOne" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+			<include refid="briefingInfoRowList" />
+		FROM
+			BRIEFING_INFO_TBL
+		WHERE
+			BRIEFING_INFO_TBL.DEL_FLG = '0'
+		AND
+			BRIEFING_INFO_TBL.BRIEFING_ID = #{briefingId}
+	</select>
+	
+	
+</mapper>

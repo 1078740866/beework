@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--B0402 面接詳細情報 interviewInfo @author コウ　テンキ @date 2020-10-21 18:19:05 -->
+<mapper namespace="Ansin.web.mapper.InterviewInfoMapper">
+
+	<resultMap
+		type="Ansin.web.entity.InterviewHisTblEntity"
+		id="BaseResultMap">
+		<result
+			property="interviewId"
+			column="INTERVIEW_ID"
+			jdbcType="CHAR" />
+		<result
+			property="applicantId"
+			column="APPLICANT_ID"
+			jdbcType="CHAR" />
+		<result
+			property="photo"
+			column="PHOTO_ADDRESS"
+			jdbcType="VARCHAR" />
+		<result
+			property="firstName"
+			column="FIRST_NAME"
+			jdbcType="VARCHAR" />
+		<result
+			property="lastName"
+			column="LAST_NAME"
+			jdbcType="VARCHAR" />
+		<result
+			property="interviewType"
+			column="INTERVIEW_TYPE"
+			jdbcType="CHAR" />
+		<result
+			property="interviewDate"
+			column="INTERVIEW_DATE"
+			jdbcType="DATE" />
+		<result
+			property="dateFrom"
+			column="DATE_FROM"
+			jdbcType="TIME" />
+		<result
+			property="dateTo"
+			column="DATE_TO"
+			jdbcType="TIME" />
+		<result
+			property="tel"
+			column="TEL"
+			jdbcType="VARCHAR" />
+		<result
+			property="responsible"
+			column="RESPONSIBLE"
+			jdbcType="VARCHAR" />
+		<result
+			property="interviewAddress"
+			column="INTERVIEW_ADDRESS"
+			jdbcType="VARCHAR" />
+		<result
+			property="remarks"
+			column="REMARKS"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		INTERVIEW_HIS_TBL.INTERVIEW_ID,
+		INTERVIEW_HIS_TBL.APPLICANT_ID,
+		USER_TBL.PHOTO_ADDRESS,
+		USER_TBL.FIRST_NAME,
+		USER_TBL.LAST_NAME,
+		INTERVIEW_HIS_TBL.INTERVIEW_TYPE,
+		INTERVIEW_HIS_TBL.INTERVIEW_DATE,
+		INTERVIEW_HIS_TBL.DATE_FROM,
+		INTERVIEW_HIS_TBL.DATE_TO,
+		INTERVIEW_HIS_TBL.TEL,
+		INTERVIEW_HIS_TBL.RESPONSIBLE,
+		INTERVIEW_HIS_TBL.INTERVIEW_ADDRESS,
+		INTERVIEW_HIS_TBL.REMARKS
+	</sql>
+
+	<!--初期表示　転入　面接ID　転出　vueForm -->
+	<select
+		id="getInit"
+		parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		  	INTERVIEW_HIS_TBL
+		INNER JOIN
+			APPLICANT_INFO_TBL
+		ON
+		 	INTERVIEW_HIS_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID 
+		INNER JOIN
+			USER_TBL
+		ON	
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD 
+		INNER JOIN
+			POSITION_TBL	
+		ON
+			INTERVIEW_HIS_TBL.POSITION_ID = POSITION_TBL.POSITION_ID 	
+		AND
+			INTERVIEW_HIS_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID
+		WHERE
+			INTERVIEW_HIS_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.DEL_FLG = '0'
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.USER_STATUS = '0'
+		AND
+			INTERVIEW_HIS_TBL.INTERVIEW_ID = #{interviewId}
+	</select>
+
+	<!--データ更新　転入　対象　転出　更新結果 -->
+	<update
+		id="update"
+		parameterType="Ansin.web.vueForm.B0402VueForm">
+		UPDATE
+		INTERVIEW_HIS_TBL
+		<set>
+			<if
+				test="b0402VueForm.userCd != null">
+				UPDATE_BY =
+				#{b0402VueForm.userCd},
+			</if>
+			<if
+				test="b0402VueForm.interviewType != null and b0402VueForm.interviewType != '' ">
+				INTERVIEW_TYPE =
+				#{b0402VueForm.interviewType},
+			</if>
+			<if test="b0402VueForm.interviewDate != null">
+				INTERVIEW_DATE =
+				#{b0402VueForm.interviewDate},
+			</if>
+			<if test="b0402VueForm.dateFrom != null">
+				DATE_FROM =
+				#{b0402VueForm.dateFrom},
+			</if>
+			<if test="b0402VueForm.dateTo != null">
+				DATE_TO =
+				#{b0402VueForm.dateTo},
+			</if>
+			<if
+				test="b0402VueForm.interviewAddress != null and b0402VueForm.interviewAddress != '' ">
+				INTERVIEW_ADDRESS =
+				#{b0402VueForm.interviewAddress},
+			</if>
+			<if
+				test="b0402VueForm.responsible != null and b0402VueForm.responsible != '' ">
+				RESPONSIBLE =
+				#{b0402VueForm.responsible},
+			</if>
+			<if test="b0402VueForm.tel != null and b0402VueForm.tel != '' ">
+				TEL =
+				#{b0402VueForm.tel},
+			</if>
+			<if
+				test="b0402VueForm.remarks != null and b0402VueForm.remarks != '' ">
+				REMARKS =
+				#{b0402VueForm.remarks},
+			</if>
+			UPDATE_TIME = CURRENT_TIMESTAMP(0)
+		</set>
+		WHERE
+		INTERVIEW_HIS_TBL.DEL_FLG = '0'
+		AND
+		INTERVIEW_HIS_TBL.INTERVIEW_ID
+		=
+		#{b0402VueForm.interviewId}
+		AND
+		INTERVIEW_HIS_TBL.COMPANY_ID =
+		#{b0402VueForm.companyId}
+		AND
+		INTERVIEW_HIS_TBL.POSITION_ID =
+		#{b0402VueForm.positionId}
+		AND
+		INTERVIEW_HIS_TBL.APPLICANT_ID
+		=
+		#{b0402VueForm.applicantId}
+	</update>
+	
+	
+	<!--データ新規 -->
+	<insert
+		id="insert"
+		parameterType="Ansin.web.vueForm.B0402VueForm">
+		INSERT INTO
+			INTERVIEW_HIS_TBL
+			(
+				INTERVIEW_ID
+				,COMPANY_ID
+				,POSITION_ID
+				,APPLICANT_ID
+				,INTERVIEW_TYPE
+				,TEL
+				,RESPONSIBLE
+				,INTERVIEW_ADDRESS
+				,INTERVIEW_DATE
+				,DATE_FROM
+				,DATE_TO
+				,REMARKS
+				,CREATE_TIME
+				,CREATE_BY
+				,UPDATE_TIME
+			)
+		VALUES
+			(
+				DEFAULT
+				,#{b0402VueForm.companyId}
+				,#{b0402VueForm.positionId}
+				,#{b0402VueForm.applicantId}
+				,#{b0402VueForm.interviewType}
+				,#{b0402VueForm.tel}
+				,#{b0402VueForm.responsible}
+				,#{b0402VueForm.interviewAddress}
+				,#{b0402VueForm.interviewDate}
+				,#{b0402VueForm.dateFrom}
+				,#{b0402VueForm.dateTo}
+				,#{b0402VueForm.remarks}
+				,CURRENT_TIMESTAMP(0)
+				,#{b0402VueForm.userCd}
+				,CURRENT_TIMESTAMP(0)
+			)
+	</insert>
+
+</mapper>

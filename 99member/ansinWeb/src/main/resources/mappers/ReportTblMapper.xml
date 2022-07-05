@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ReportTblMapper">
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.A0601ListEntity">
+    	<result column="REPORT_ID" property="reportId" jdbcType="INTEGER"/>
+    	<result column="REPORT_SECTION" property="reportSection" jdbcType="CHAR"/>
+		<result column="TYPE_SECTION" property="typeSection" jdbcType="VARCHAR"/>
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER"/>
+		<result column="POSITION_ID" property="positionId" jdbcType="INTEGER"/>
+		<result column="TRAINING_ID" property="trainingId" jdbcType="INTEGER"/>
+		<result column="BRIEFING_ID" property="briefingId" jdbcType="INTEGER"/>
+		<result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR"/>
+		<result column="POSITION_NM" property="positionNm" jdbcType="VARCHAR"/>
+		<result column="TRAINING_NM" property="trainingNm" jdbcType="VARCHAR"/>
+		<result column="BRIEFING_NM" property="briefingNm" jdbcType="VARCHAR"/>
+		<result column="APPLICANT_ID" property="applicantId" jdbcType="INTEGER"/>
+		<result column="USER_CD" property="userCd" jdbcType="INTEGER"/>
+		<result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR"/>
+		<result column="LAST_NAME" property="lastName" jdbcType="VARCHAR"/>
+		<result column="REPORT_TEXT" property="reportText" jdbcType="VARCHAR"/>
+		<result column="SCREENSHOT" property="screenshot" jdbcType="VARCHAR"/>
+		<result column="PROCESSING_SECTION" property="processingSection" jdbcType="CHAR"/>
+		<result column="CREATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+	<sql id="Base_Column_List">
+		REPORT_TBL.REPORT_ID
+	  , REPORT_TBL.REPORT_SECTION
+	  , REPORT_TBL.TYPE_SECTION
+	  , REPORT_TBL.COMPANY_ID
+	  , COMPANY_TBL.COMPANY_NM
+	  , REPORT_TBL.POSITION_ID
+	  , POSITION_TBL.POSITION_NM
+	  , REPORT_TBL.TRAINING_ID
+	  , TRAINING_INFO_TBL.TRAINING_NM
+	  , REPORT_TBL.BRIEFING_ID
+	  , BRIEFING_INFO_TBL.BRIEFING_NM
+	  , REPORT_TBL.APPLICANT_ID
+	  , USERLIST.USER_CD
+	  , USERLIST.FIRST_NAME
+	  , USERLIST.LAST_NAME
+	  , REPORT_TBL.REPORT_TEXT
+	  , REPORT_TBL.SCREENSHOT 
+	  , REPORT_TBL.PROCESSING_SECTION
+	  , REPORT_TBL.CREATE_TIME 
+	</sql>
+	
+	
+	<!-- 通報一覧取得 -->
+    <select id="getReportAll" resultMap="BaseResultMap" >
+	   	SELECT
+       		<include refid="Base_Column_List" />
+		FROM
+		  	REPORT_TBL 
+		LEFT JOIN 
+			COMPANY_TBL 
+		ON 
+			REPORT_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID 
+		LEFT JOIN 
+			POSITION_TBL 
+		ON 
+			REPORT_TBL.POSITION_ID = POSITION_TBL.POSITION_ID 
+		AND 
+			REPORT_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID 
+		LEFT JOIN 
+			TRAINING_INFO_TBL 
+		ON 
+			REPORT_TBL.TRAINING_ID = TRAINING_INFO_TBL.TRAINING_ID 
+		AND
+			REPORT_TBL.COMPANY_ID = TRAINING_INFO_TBL.COMPANY_ID 
+		LEFT JOIN 
+			BRIEFING_INFO_TBL 
+		ON 
+			REPORT_TBL.BRIEFING_ID = BRIEFING_INFO_TBL.BRIEFING_ID 
+		AND
+			REPORT_TBL.COMPANY_ID = BRIEFING_INFO_TBL.COMPANY_ID 
+		LEFT JOIN ( 
+		    SELECT
+		    	USER_TBL.USER_CD
+		      , USER_TBL.FIRST_NAME
+		      , USER_TBL.LAST_NAME
+		      , APPLICANT_INFO_TBL.APPLICANT_ID 
+		    FROM
+		      	USER_TBL 
+		    INNER JOIN 
+		    	APPLICANT_INFO_TBL 
+		    ON 
+		    	USER_TBL.USER_CD = APPLICANT_INFO_TBL.USER_CD
+		  ) USERLIST 
+		ON 
+			USERLIST.APPLICANT_ID = REPORT_TBL.APPLICANT_ID 
+		WHERE
+		  	REPORT_TBL.DEL_FLG = '0'
+		AND
+			REPORT_TBL.PROCESSING_SECTION = '0'
+		<if test="a0601VueForm.typeSection != null and a0601VueForm.typeSection != ''">
+		AND
+			REPORT_TBL.TYPE_SECTION = #{a0601VueForm.typeSection}
+		</if> 
+		<if test="a0601VueForm.reportSection != null and a0601VueForm.reportSection != ''">
+		AND
+			REPORT_TBL.REPORT_SECTION = #{a0601VueForm.reportSection}
+		</if> 
+		ORDER BY
+		  	REPORT_TBL.UPDATE_TIME 
+		DESC
+		LIMIT 
+			#{a0601VueForm.limit}
+		OFFSET
+			#{a0601VueForm.offset}
+    </select>
+    
+    
+    <!-- 通報状態変更 -->
+    <update id="changeFlg">
+    	UPDATE 
+    		REPORT_TBL
+    	<set>
+    		PROCESSING_SECTION = #{a0601VueForm.statusFlg},
+    		UPDATE_BY = #{a0601VueForm.userCd},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0)
+    	</set>
+    	WHERE
+    		DEL_FLG = '0'
+    	<if test="a0601VueForm.reportIds != null">
+    	AND
+    		REPORT_ID 
+    			IN
+    		<foreach item="List" index="index" collection="a0601VueForm.reportIds"
+                    open="(" separator="," close=")">
+                    #{List}
+        	</foreach>	
+    	</if>
+    </update>
+
+
+
+	<!-- 通報状態変更後データ取得 -->
+    <select id="getChangeData" resultMap="BaseResultMap" >
+	   	SELECT
+       		<include refid="Base_Column_List" />
+		FROM
+		  	REPORT_TBL 
+		LEFT JOIN 
+			COMPANY_TBL 
+		ON 
+			REPORT_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID 
+		LEFT JOIN 
+			POSITION_TBL 
+		ON 
+			REPORT_TBL.POSITION_ID = POSITION_TBL.POSITION_ID 
+		AND 
+			REPORT_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID 
+		LEFT JOIN 
+			TRAINING_INFO_TBL 
+		ON 
+			REPORT_TBL.TRAINING_ID = TRAINING_INFO_TBL.TRAINING_ID 
+		AND
+			REPORT_TBL.COMPANY_ID = TRAINING_INFO_TBL.COMPANY_ID 
+		LEFT JOIN 
+			BRIEFING_INFO_TBL 
+		ON 
+			REPORT_TBL.BRIEFING_ID = BRIEFING_INFO_TBL.BRIEFING_ID 
+		AND
+			REPORT_TBL.COMPANY_ID = BRIEFING_INFO_TBL.COMPANY_ID 
+		LEFT JOIN ( 
+		    SELECT
+		    	USER_TBL.USER_CD
+		      , USER_TBL.FIRST_NAME
+		      , USER_TBL.LAST_NAME
+		      , APPLICANT_INFO_TBL.APPLICANT_ID 
+		    FROM
+		      	USER_TBL 
+		    INNER JOIN 
+		    	APPLICANT_INFO_TBL 
+		    ON 
+		    	USER_TBL.USER_CD = APPLICANT_INFO_TBL.USER_CD
+		  ) USERLIST 
+		ON 
+			USERLIST.APPLICANT_ID = REPORT_TBL.APPLICANT_ID 
+		WHERE
+		  	REPORT_TBL.DEL_FLG = '0'
+		AND
+			REPORT_TBL.REPORT_ID IN
+		<foreach collection="reportIds" item="reportIds" open="(" separator="," close=")" index="index">
+			#{reportIds}
+		</foreach>
+		ORDER BY
+		  	REPORT_TBL.UPDATE_TIME 
+		DESC
+    </select>
+
+
+	<!-- 件数データ取得 -->
+    <select id="getCount" resultType="java.lang.Integer">
+	   	SELECT
+       		COUNT(*)
+		FROM
+			REPORT_TBL
+		WHERE
+			REPORT_TBL.DEL_FLG = '0'
+		AND
+			REPORT_TBL.PROCESSING_SECTION = '0'
+		<if test="a0601VueForm.typeSection != null and a0601VueForm.typeSection != ''">
+		AND
+			REPORT_TBL.TYPE_SECTION = #{a0601VueForm.typeSection}
+		</if> 
+		<if test="a0601VueForm.reportSection != null and a0601VueForm.reportSection != ''">
+		AND
+			REPORT_TBL.REPORT_SECTION = #{a0601VueForm.reportSection}
+		</if> 
+    </select>
+
+	
+
+</mapper>

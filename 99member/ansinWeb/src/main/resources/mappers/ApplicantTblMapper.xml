@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ApplicationTblMapper" >
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.ApplicationTblEntity" >
+		<result column="company_id" property="companyId" jdbcType="CHAR" />
+		<result column="position_id" property="positionId" jdbcType="CHAR" />
+		<result column="applicant_id" property="applicantId" jdbcType="CHAR" />
+		<result column="application_status" property="applicationStatus" jdbcType="CHAR" />
+		<result column="del_flg" property="delFlg" jdbcType="CHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_by" property="createBy" jdbcType="CHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="CHAR" />
+    </resultMap>
+
+
+	<sql id="Base_Column_List">
+		APPLICATION_TBL.COMPANY_ID
+		,APPLICATION_TBL.POSITION_ID
+		,APPLICATION_TBL.APPLICANT_ID
+		,APPLICATION_TBL.APPLICATION_STATUS
+		,APPLICATION_TBL.DEL_FLG
+		,APPLICATION_TBL.CREATE_TIME
+		,APPLICATION_TBL.CREATE_BY
+		,APPLICATION_TBL.UPDATE_TIME
+		,APPLICATION_TBL.UPDATE_BY
+	</sql>
+
+
+    <select id="getAll" parameterType="java.lang.String" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM APPLICATION_TBL
+	   WHERE
+	     APPLICATION_TBL.DEL_FLG = 0
+	   AND
+	     APPLICATION_TBL.COMPANY_ID = #{companyId}
+	   AND
+		 APPLICATION_TBL.POSITION_ID = #{positionId}
+    </select>
+    
+    
+    <select id="getOne" parameterType="java.lang.String" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM APPLICATION_TBL
+	   WHERE
+	     APPLICATION_TBL.DEL_FLG = 0
+	   AND
+	     APPLICATION_TBL.COMPANY_ID = #{companyId}
+	   AND
+		 APPLICATION_TBL.POSITION_ID = #{positionId}
+	   AND
+		 APPLICATION_TBL.APPLICANT_ID = #{applicantId}
+    </select>
+    
+    
+	<select id="getCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		FROM
+			APPLICATION_TBL
+		WHERE
+			APPLICATION_TBL.DEL_FLG = '0'
+		AND
+			APPLICATION_TBL.COMPANY_ID = #{companyId}
+		AND
+			(
+				APPLICATION_TBL.APP_COM_STATUS = '0'
+				OR
+				APPLICATION_TBL.APP_COM_STATUS = '1'
+			)
+	</select>
+	
+	<insert id="insertPost" parameterType="java.util.List">
+		INSERT INTO 
+			APPLICATION_TBL (
+			COMPANY_ID,				
+			POSITION_ID,				
+			APPLICANT_ID,			
+			APP_COM_STATUS,			
+			APP_APP_STATUS,			
+			DEL_FLG,					
+			CREATE_TIME,				
+			CREATE_BY,				
+			UPDATE_TIME
+			)	
+			VALUES 
+			<foreach item="List" index="index" collection="c0201VueForm"
+                     separator=","> 
+			(
+			#{List.companyId},
+			#{List.positionId},
+			#{List.applicantId},	
+			'0',
+			'0',
+			'0',
+			CURRENT_TIMESTAMP(0),
+			#{List.userCd},	
+			CURRENT_TIMESTAMP(0)											
+			)
+			</foreach>				
+	</insert>
+	
+	<insert id="insertLike" parameterType="java.util.List">
+	INSERT INTO 
+			APPLICATION_TBL (
+			COMPANY_ID,				
+			POSITION_ID,				
+			APPLICANT_ID,			
+			APP_COM_STATUS,			
+			APP_APP_STATUS,			
+			DEL_FLG,					
+			CREATE_TIME,				
+			CREATE_BY,				
+			UPDATE_TIME
+			)	
+			VALUES 
+			<foreach item="List" index="index" collection="c0201VueForm"
+                    separator=","> 
+            (
+			#{List.companyId},
+			#{List.positionId},
+			#{List.applicantId},	
+			'0',
+			'1',
+			'0',
+			CURRENT_TIMESTAMP(0),
+			#{List.userCd},	
+			CURRENT_TIMESTAMP(0)											
+			)
+			</foreach>				
+	</insert>
+	
+	<update id="updateLike">
+		UPDATE 										
+			APPLICATION_TBL									
+		SET										
+			APP_APP_STATUS = '0',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}					
+		WHERE										
+			APPLICANT_ID = #{applicantId}						
+		AND 										
+			APPLICATION_TBL.DEL_FLG = '0'
+		<foreach item="c0201VueForm" index="index" collection="c0201VueForm"
+                   open="AND(" separator="OR" close=")">
+			(
+	              COMPANY_ID =
+	             #{c0201VueForm.companyId}
+			AND										
+				  POSITION_ID =  
+	              #{c0201VueForm.positionId})		
+        </foreach>	   								
+			
+	</update>
+	
+	<delete id="deleteApplication">
+	DELETE FROM 
+	APPLICATION_TBL 
+	WHERE 
+	<foreach item="c0201VueForm" index="index" collection="c0201VueForm"
+                   open="(" separator="OR" close=")AND">
+			(
+	              COMPANY_ID =
+	             #{c0201VueForm.companyId}
+			AND										
+				  POSITION_ID =  
+	              #{c0201VueForm.positionId})		
+    </foreach>	   	
+    
+    APPLICANT_ID = #{applicantId}
+    AND
+    APPLICATION_TBL.DEL_FLG = '0'								
+	
+	</delete>
+	
+	<update id="deleteAppl">
+	UPDATE
+		APPLICATION_TBL 
+	<set>
+	SET
+		APPLICATION_TBL.DEL_FLG = '1',
+		UPDATE_TIME = CURRENT_TIMESTAMP(0),
+		UPDATE_BY = #{a020205VueForm.userCd}	
+	</set>
+	WHERE 
+	    POSITION_ID =
+			<foreach item="a020205VueForm" index="index" collection="a020205VueForm"
+	                    separator=",">
+	                     #{a020205VueForm.positionId}
+	         </foreach>
+    AND
+    	APPLICANT_ID = #{a020205VueForm.applicantId}
+    AND
+    	APPLICATION_TBL.DEL_FLG = '0'								
+	</update>
+	
+
+</mapper>

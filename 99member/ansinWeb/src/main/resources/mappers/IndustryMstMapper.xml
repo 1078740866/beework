@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Ansin.web.mapper.IndustryMstMapper">
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.IndustryMstEntity">
+		<result column="INDUSTRY_ID" property="industryId" jdbcType="INTEGER"/>
+		<result column="INDUSTRY_NM" property="industryNm" jdbcType="VARCHAR"/>
+		<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+    </resultMap>
+
+
+	<sql id="Base_Column_List">
+		INDUSTRY_MST.INDUSTRY_ID
+		,INDUSTRY_MST.INDUSTRY_NM
+		,INDUSTRY_MST.DEL_FLG
+		,INDUSTRY_MST.CREATE_TIME
+		,INDUSTRY_MST.CREATE_BY
+		,INDUSTRY_MST.UPDATE_TIME
+		,INDUSTRY_MST.UPDATE_BY
+	</sql>
+
+
+    <select id="getAll" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM INDUSTRY_MST
+	   WHERE
+	   INDUSTRY_MST.DEL_FLG = '0'
+    </select>
+    
+    
+    <select id="getOne" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM INDUSTRY_MST
+	   WHERE
+	     INDUSTRY_MST.DEL_FLG = '0'
+	   AND
+	     INDUSTRY_MST.INDUSTRY_ID = #{industryId}
+    </select>
+    
+    
+
+
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ComConsTblMapper" >
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.ComConsTblEntity" >
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="CONS_ID" property="consId" jdbcType="INTEGER" />
+		<result column="CONS_HONEY" property="consHoney" jdbcType="INTEGER" />
+		<result column="EARN_POINT" property="earnPoint" jdbcType="INTEGER" />
+		<result column="ITEM_ID" property="itemId" jdbcType="INTEGER" />
+		<result column="ITEM_NM" property="itemNm" jdbcType="VARCHAR" />
+		<result column="COUPON_ID" property="couponId" jdbcType="INTEGER" />
+		<result column="DEL_FLG" property="delFlg" jdbcType="CHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+    </resultMap>
+
+
+	<sql id="Base_Column_List">
+		COMCONS_HIS_TBL.COMPANY_ID
+		,COMCONS_HIS_TBL.CONS_ID
+		,COMCONS_HIS_TBL.CONS_HONEY
+		,COMCONS_HIS_TBL.EARN_POINT
+		,COMCONS_HIS_TBL.ITEM_ID
+		,ITEM_MST.ITEM_NM
+		,COMCONS_HIS_TBL.COUPON_ID
+		,COMCONS_HIS_TBL.DEL_FLG
+		,COMCONS_HIS_TBL.CREATE_TIME
+		,COMCONS_HIS_TBL.CREATE_BY
+		,COMCONS_HIS_TBL.UPDATE_TIME
+		,COMCONS_HIS_TBL.UPDATE_BY
+		
+	</sql>
+	
+	
+	<sql id="Base_Column_List2">
+		COMPANY_ID
+		,CONS_ID
+		,CONS_HONEY
+		,EARN_POINT
+		,ITEM_ID
+		,COUPON_ID
+		,CREATE_TIME
+		,CREATE_BY
+		,UPDATE_TIME
+	</sql>
+	
+
+    <select id="getComconsTblEntityList" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM 
+	  		COMCONS_HIS_TBL,ITEM_MST
+	   WHERE
+	     	COMCONS_HIS_TBL.DEL_FLG = '0'
+	   AND
+	     	COMCONS_HIS_TBL.ITEM_ID = ITEM_MST.ITEM_ID
+	   AND
+	     	COMCONS_HIS_TBL.COMPANY_ID = #{comcons.companyId}
+	   <if test="dateFrom != null">
+	   AND
+	     	COMCONS_HIS_TBL.UPDATE_TIME &gt;= #{dateFrom}
+	   </if>
+	   <if test="dateTo != null">
+	   AND
+	     	COMCONS_HIS_TBL.UPDATE_TIME &lt;= #{dateTo}
+	   </if>
+	   <if test="comcons.itemId != null and comcons.itemId != ''">
+	   AND
+	     	COMCONS_HIS_TBL.ITEM_ID = #{comcons.itemId}
+	   </if>
+	   ORDER BY 
+	     	COMCONS_HIS_TBL.UPDATE_TIME
+	   DESC
+    </select>
+    
+    
+    <insert id="gerCons">
+    	INSERT INTO
+    		COMCONS_HIS_TBL
+    		(
+    		<include refid="Base_Column_List2"/>
+    		)
+    	VALUES(
+    			#{comConsVueForm.companyId},
+    			DEFAULT,
+    			#{comConsVueForm.consHoney},
+    			#{comConsVueForm.earnPoint},
+    			#{comConsVueForm.itemId},
+    			#{comConsVueForm.couponId},
+    			CURRENT_TIMESTAMP(0),
+    			#{comConsVueForm.userCd},
+    			CURRENT_TIMESTAMP(0)
+    		)
+    </insert>
+
+</mapper>

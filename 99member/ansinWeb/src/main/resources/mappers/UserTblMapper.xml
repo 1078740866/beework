@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.UserTblMapper">
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.UserTblEntity">
+        <result column="user_cd" property="userCd" jdbcType="INTEGER" />
+        <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+        <result column="company_id" property="companyId" jdbcType="INTEGER" />
+        <result column="authority" property="authority" jdbcType="CHAR" />
+        <result column="first_name_kana" property="firstNameKana" jdbcType="VARCHAR" />
+        <result column="first_name" property="firstName" jdbcType="VARCHAR" />
+        <result column="last_name_kana" property="lastNameKana" jdbcType="VARCHAR" />
+        <result column="last_name" property="lastName" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="CHAR" />
+        <result column="country_zip" property="countryZip" jdbcType="INTEGER" />
+        <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+        <result column="user_mail" property="userMail" jdbcType="VARCHAR" />
+        <result column="photo_address" property="photoAddress" jdbcType="VARCHAR" />
+        <result column="user_status" property="userStatus" jdbcType="CHAR" />
+        <result column="del_flg" property="delFlg" jdbcType="CHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="create_by" property="createBy" jdbcType="CHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="CHAR" />
+        <result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="BaseResultMap2" type="Ansin.web.entity.B0003UserEntity">
+        <result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR" />
+        <result column="LAST_NAME" property="lastName" jdbcType="VARCHAR" />
+        <result column="AUTHORITY" property="authority" jdbcType="VARCHAR" />
+        <result column="LEVEL_NM" property="levelNm" jdbcType="VARCHAR" />
+        <result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR" />
+        <result column="REMAINDER" property="remainder" jdbcType="INTEGER" />
+        <result column="PHOTO_ADDRESS" property="photo" jdbcType="VARCHAR" />
+    </resultMap>
+	<resultMap id="BaseResultMap3" type="Ansin.web.entity.A0802ListEntity">
+        <result column="USER_CD" property="userCd" jdbcType="INTEGER" />
+        <result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR" />
+        <result column="LAST_NAME" property="lastName" jdbcType="VARCHAR" />
+        <result column="AUTHORITY" property="authority" jdbcType="VARCHAR" />
+        <result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR" />
+        <result column="USER_MAIL" property="userMail" jdbcType="VARCHAR" />
+       	<result column="USER_TEL" property="userTel" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List" >
+        USER_TBL.USER_CD
+        ,USER_TBL.PWD
+        ,USER_TBL.COMPANY_ID
+        ,USER_TBL.AUTHORITY
+        ,USER_TBL.FIRST_NAME_KANA
+        ,USER_TBL.FIRST_NAME
+        ,USER_TBL.LAST_NAME_KANA
+        ,USER_TBL.LAST_NAME
+        ,USER_TBL.SEX
+        ,USER_TBL.COUNTRY_ZIP
+        ,USER_TBL.USER_TEL
+        ,USER_TBL.USER_MAIL
+		,USER_TBL.PHOTO_ADDRESS
+		,USER_TBL.USER_STATUS
+		,USER_TBL.DEL_FLG
+		,USER_TBL.CREATE_TIME
+		,USER_TBL.CREATE_BY
+		,USER_TBL.UPDATE_TIME
+        ,USER_TBL.UPDATE_BY
+ 	</sql>
+
+	<sql id="insertUserTbl">
+		USER_CD
+		,PWD
+		,COMPANY_ID
+		,AUTHORITY
+		,FIRST_NAME_KANA
+		,FIRST_NAME
+		,LAST_NAME_KANA
+		,LAST_NAME
+		,SEX
+		,COUNTRY_ZIP
+		,USER_TEL
+		,USER_MAIL
+		,PHOTO_ADDRESS
+		,CREATE_TIME
+		,CREATE_BY
+		,UPDATE_TIME
+	</sql>
+
+	<sql id="getB0003User">
+		USER_TBL.FIRST_NAME
+		,USER_TBL.LAST_NAME
+		,USER_TBL.AUTHORITY
+		,MEMBER_LEVEL_MST.LEVEL_NM
+		,COMPANY_TBL.COMPANY_NM
+		,COMPANY_TBL.REMAINDER
+		,USER_TBL.PHOTO_ADDRESS
+	</sql>
+
+	<sql id="getAddress">
+		USER_TBL.USER_CD
+		,USER_TBL.FIRST_NAME
+		,USER_TBL.LAST_NAME
+		,USER_TBL.AUTHORITY
+		,COMPANY_TBL.COMPANY_NM
+		,USER_TBL.USER_MAIL
+		,USER_TBL.USER_TEL
+	</sql>
+	
+	
+	<sql id="Base_Column_List2" >
+        USER_TBL.USER_CD
+        ,USER_TBL.PWD
+        ,USER_TBL.COMPANY_ID
+        ,USER_TBL.AUTHORITY
+        ,USER_TBL.FIRST_NAME_KANA
+        ,USER_TBL.FIRST_NAME
+        ,USER_TBL.LAST_NAME_KANA
+        ,USER_TBL.LAST_NAME
+        ,USER_TBL.SEX
+        ,USER_TBL.COUNTRY_ZIP
+        ,USER_TBL.USER_TEL
+        ,USER_TBL.USER_MAIL
+		,USER_TBL.PHOTO_ADDRESS
+		,USER_TBL.USER_STATUS
+		,USER_TBL.DEL_FLG
+		,USER_TBL.CREATE_TIME
+		,USER_TBL.CREATE_BY
+		,USER_TBL.UPDATE_TIME
+        ,USER_TBL.UPDATE_BY
+        ,COMPANY_TBL.COMPANY_NM
+ 	</sql>
+	
+	
+
+    <select id="loginB" parameterType="Ansin.web.vueForm.A0001VueForm" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 USER_TBL
+	   INNER JOIN
+	   	 COMPANY_TBL
+	   ON
+	     USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	   WHERE
+	     USER_TBL.USER_MAIL = #{a0001VueForm.userMail}
+	   AND
+	     USER_TBL.PWD = #{a0001VueForm.password}
+	   AND
+	     USER_TBL.DEL_FLG = '0'
+	   AND
+	     COMPANY_TBL.DEL_FLG = '0'
+	</select>
+
+	<select id="loginC" parameterType="Ansin.web.vueForm.A0001VueForm" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 USER_TBL
+	   INNER JOIN
+	   	 COMPANY_TBL
+	   ON
+	     USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	   WHERE
+	     USER_TBL.USER_MAIL = #{a0001VueForm.userMail}
+	   AND
+	     USER_TBL.PWD = #{a0001VueForm.password}
+	   AND
+	     USER_TBL.DEL_FLG = '0'
+	   AND
+	     COMPANY_TBL.DEL_FLG = '0'
+	   AND
+	     USER_TBL.AUTHORITY = '応募者'
+	</select>
+
+	<select id="loginA" parameterType="Ansin.web.vueForm.A0001VueForm" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 USER_TBL
+	   INNER JOIN
+	   	 COMPANY_TBL
+	   ON
+	     USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	   WHERE
+	     USER_TBL.USER_MAIL = #{a0001VueForm.userMail}
+	   AND
+	     USER_TBL.PWD = #{a0001VueForm.password}
+	   AND
+	     USER_TBL.DEL_FLG = '0'
+	   AND
+	     COMPANY_TBL.DEL_FLG = '0'
+	</select>
+
+	<select id="getUserInfo" resultMap="BaseResultMap2">
+		SELECT
+			<include refid="getB0003User"/>
+		FROM
+			USER_TBL,COMPANY_TBL,MEMBER_LEVEL_MST
+		WHERE
+			USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		AND
+			COMPANY_TBL.LEVEL_ID = MEMBER_LEVEL_MST.LEVEL_ID
+		AND
+			USER_TBL.COMPANY_ID = #{companyId}
+		AND
+			USER_TBL.USER_CD = #{userCd}
+		AND
+			USER_TBL.DEL_FLG = '0'
+		AND
+	    	USER_TBL.USER_STATUS = '0'
+	    AND
+	    	COMPANY_TBL.DEL_FLG = '0'
+	    AND
+	    	COMPANY_TBL.VALIDITY_SECTION = '0'
+	    AND
+	    	MEMBER_LEVEL_MST.DEL_FLG = '0'
+	    ORDER BY
+			USER_TBL.UPDATE_TIME
+		DESC
+	</select>
+
+	<insert
+		id="insertUserInfo"
+		parameterType="Ansin.web.entity.UserTblEntity">
+		INSERT INTO
+		user_tbl
+		(
+		<include refid="insertUserTbl"/>
+		)
+		VALUES
+		(DEFAULT, #{pwd}, #{companyId}, #{authority},
+		#{firstNameKana}, #{firstName},
+		#{lastNameKana}, #{lastName}, #{sex},
+		#{countryZip}, #{userTel},
+		#{userMail}, #{photoAddress},
+		CURRENT_TIMESTAMP(0) ,'SYSTEM',CURRENT_TIMESTAMP(0))
+	</insert>
+
+
+	<select
+		id="getUserInfoAll"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+			USER_TBL
+		ORDER BY
+			USER_TBL.UPDATE_TIME
+		DESC
+	</select>
+
+	<select id="userEmailCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT
+			count(USER_CD)
+		FROM
+			USER_TBL
+		WHERE
+			USER_TBL.DEL_FLG = '0'
+		AND
+	    	USER_TBL.USER_STATUS = '0'
+	    AND
+	    	USER_TBL.USER_MAIL = #{userMail}
+	</select>
+
+	<select id="getUserInfoBymail" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 USER_TBL
+	   INNER JOIN
+	   	 COMPANY_TBL
+	   ON
+	     USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	   WHERE
+	     USER_TBL.USER_MAIL = #{mail}
+	   AND
+	     USER_TBL.USER_STATUS = '0'
+	   AND
+	     USER_TBL.DEL_FLG = '0'
+	   AND
+	     COMPANY_TBL.DEL_FLG = '0'
+	   ORDER BY
+		 USER_TBL.UPDATE_TIME
+	   DESC
+	</select>
+
+
+	<select id="getUserList" parameterType="Ansin.web.vueForm.A0301VueForm" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			USER_TBL
+		WHERE
+			USER_TBL.AUTHORITY IN(
+						     	'システム管理者(認証済み)'
+						     	,'システム管理者(未認証)'
+						     )
+		<if test="a0301VueForm.userName != null and a0301VueForm.userName != ''">
+		AND
+			USER_TBL.FIRST_NAME || USER_TBL.LAST_NAME LIKE '%${a0301VueForm.userName}%'
+		</if>
+		<if test="a0301VueForm.userMail != null and a0301VueForm.userMail != ''">
+		AND
+			USER_TBL.USER_MAIL LIKE '%${a0301VueForm.userMail}%'
+		</if>
+		<if test="a0301VueForm.userTel != null and a0301VueForm.userTel != ''">
+		AND
+			USER_TBL.USER_TEL = #{a0301VueForm.userTel}
+		</if>
+		ORDER BY
+			USER_TBL.UPDATE_TIME
+		DESC
+	</select>
+
+	<update id="changeUse">
+		UPDATE
+			USER_TBL
+		SET
+			<if test="a0301VueForm.userStatusCd != null and a0301VueForm.userStatusCd != ''">
+			USER_STATUS = #{a0301VueForm.userStatusCd},
+			</if>
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = 'SYSTEM'
+		WHERE
+			USER_CD
+		IN
+			<foreach item="list" index="index" collection="a0301VueForm.userCdList"
+                    open="(" separator="," close=")">
+                    #{list}
+        	</foreach>
+	   </update>
+
+	<select id="getPassword" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+	SELECT
+		 PWD
+	FROM
+		USER_TBL
+	WHERE
+		USER_CD = #{userCd}
+	</select>
+
+	<update id="updateUserInfo" parameterType="Ansin.web.vueForm.A0002VueForm">
+	UPDATE
+		USER_TBL
+	SET
+	<if test="a0002VueForm.firstNameKana != null and a0002VueForm.firstNameKana != ''">
+		FIRST_NAME_KANA = #{a0002VueForm.firstNameKana},
+    </if>
+    <if test="a0002VueForm.firstName != null and a0002VueForm.firstName != ''">
+    	FIRST_NAME = #{a0002VueForm.firstName},
+ 	</if>
+ 	<if test="a0002VueForm.lastNameKana != null and a0002VueForm.lastNameKana != ''">
+ 		LAST_NAME_KANA = #{a0002VueForm.lastNameKana},
+	</if>
+	<if test="a0002VueForm.lastName != null and a0002VueForm.lastName != ''">
+		LAST_NAME = #{a0002VueForm.lastName},
+	</if>
+	<if test="a0002VueForm.sex != null and a0002VueForm.sex != ''">
+		SEX = #{a0002VueForm.sex},
+	</if>
+	<if test="a0002VueForm.countryZip != null and a0002VueForm.countryZip != ''">
+		COUNTRY_ZIP = #{a0002VueForm.countryZip},
+	</if>
+	<if test="a0002VueForm.userTel != null and a0002VueForm.userTel != ''">
+		USER_TEL = #{a0002VueForm.userTel},
+	</if>
+	<if test="a0002VueForm.photoAddress != null and a0002VueForm.photoAddress != ''">
+		PHOTO_ADDRESS = #{a0002VueForm.photoAddress},
+	</if>
+		UPDATE_TIME = CURRENT_TIMESTAMP(0)
+	WHERE
+		USER_CD = #{a0002VueForm.userCd}
+
+	</update>
+
+
+	<update id="updateUserPwd" parameterType="Ansin.web.vueForm.A0902VueForm">
+	UPDATE
+		USER_TBL
+	SET
+	 	PWD = #{a0902VueForm.newPwd}
+	where
+		USER_CD = #{a0902VueForm.userCd}
+	</update>
+
+	<update id="changeDel">
+		UPDATE
+			USER_TBL
+		SET
+			<if test="a0301VueForm.delFlg != null and a0301VueForm.delFlg != ''">
+			DEL_FLG = #{a0301VueForm.delFlg},
+			</if>
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = 'SYSTEM'
+		WHERE
+			USER_CD
+		IN
+			<foreach item="list" index="index" collection="a0301VueForm.userCdList"
+                    open="(" separator="," close=")">
+                    #{list}
+        	</foreach>
+
+	</update>
+	<select id="getAddressList" parameterType="Ansin.web.vueForm.A0802VueForm" resultMap="BaseResultMap3">
+		SELECT
+		<include refid="getAddress"/>
+		FROM
+			USER_TBL,COMPANY_TBL
+		WHERE
+			USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		AND
+			USER_TBL.DEL_FLG = '0'
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		<if test="a0802VueForm.userMail != null and a0802VueForm.userMail != ''">
+		AND
+			USER_TBL.USER_MAIL LIKE '%${a0802VueForm.userMail}%'
+		</if>
+		<if test="a0802VueForm.companyNm != null and a0802VueForm.companyNm != ''">
+		AND
+			COMPANY_TBL.COMPANY_NM LIKE '%${a0802VueForm.companyNm}%'
+		</if>
+		<if test="a0802VueForm.userName != null and a0802VueForm.userName != ''">
+		AND
+			USER_TBL.FIRST_NAME || USER_TBL.LAST_NAME LIKE '%${a0802VueForm.userName}%'
+		</if>
+		AND 
+			USER_TBL.USER_STATUS = '0'
+		ORDER BY
+			USER_TBL.UPDATE_TIME
+		DESC
+	</select>
+
+	
+	<!-- B0805会員管理一覧画面(会社会員管理者) -->
+	<select id="getEmployeeAll" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+			USER_TBL
+		WHERE
+	 		AUTHORITY IN (
+	 			'会社会員(未認証)'
+	 			,'会社会員(認証済み)'
+	 		)
+	 	<if test="a070101VueForm.userMail != null and a070101VueForm.userMail != ''">
+		AND
+			USER_MAIL = #{a070101VueForm.userMail}
+		</if>
+		<if test="a070101VueForm.userName != null and a070101VueForm.userName != ''">
+		AND
+			FIRST_NAME||LAST_NAME LIKE '%${a070101VueForm.userName}%'
+		</if>
+		AND
+			DEL_FLG = '0'
+		AND
+			COMPANY_ID = #{companyId}
+		ORDER BY
+			USER_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	
+	<!-- すべてユーザー承認一覧画面(スーパー管理者) -->
+	<select id="getCheckAll" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List2" />
+		FROM
+			USER_TBL
+		INNER JOIN
+			COMPANY_TBL
+		ON
+			USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		WHERE
+	 		USER_TBL.AUTHORITY IN(
+	 						'会社会員(未認証)'
+	 						,'システム管理者(未認証)'
+	 					) 
+	 	<if test="a070101VueForm.userMail != null and a070101VueForm.userMail != ''">
+		AND
+			USER_TBL.USER_MAIL = #{a070101VueForm.userMail}
+		</if>
+		<if test="a070101VueForm.userName != null and a070101VueForm.userName != ''">
+		AND
+			USER_TBL.FIRST_NAME || USER_TBL.LAST_NAME LIKE '%${a070101VueForm.userName}%'
+		</if>
+		AND
+			USER_TBL.USER_STATUS = '0'
+		AND
+			USER_TBL.DEL_FLG = '0'
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		ORDER BY
+			USER_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	<!-- システム管理者承認 -->
+	<update id="updateUserStatusA">
+		UPDATE
+			USER_TBL
+		SET
+			AUTHORITY = 'システム管理者(認証済み)',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		WHERE
+		    USER_STATUS	= '0'
+		AND
+			DEL_FLG = '0'
+		AND
+            USER_CD IN
+		<foreach item="userCdList" index="index" collection="userCdList"
+                	open="(" separator="," close=")">
+        	#{userCdList}
+       	</foreach>
+	</update>
+
+	<!-- 会社会員管理員承認 -->
+	<update id="updateUserStatusB">
+		UPDATE
+			USER_TBL
+		SET
+			AUTHORITY = '会社会員管理員(認証済み)',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		WHERE
+		    USER_STATUS	= '0'
+		AND
+			DEL_FLG = '0'
+		AND
+        	USER_CD IN
+		<foreach item="userCdList" index="index" collection="userCdList"
+                	open="(" separator="," close=")">
+        	#{userCdList}
+       	</foreach>
+	</update>
+	
+	<!-- 会社会員承認 -->
+	<update id="updateUserStatusC">
+		UPDATE
+			USER_TBL
+		SET
+			AUTHORITY = '会社会員(認証済み)',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		WHERE
+		    USER_STATUS	= '0'
+		AND
+			DEL_FLG = '0'
+		AND
+        	USER_CD IN
+        <foreach item="userCdList" index="index" collection="userCdList"
+                	open="(" separator="," close=")">
+        	#{userCdList}
+       	</foreach>
+	</update>
+	
+	<!-- 拒否 -->
+	<update id="rejectUserStatus">
+		UPDATE
+			USER_TBL
+		SET
+			USER_STATUS	= '1',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		WHERE
+			DEL_FLG = '0'
+		AND
+        	USER_CD IN
+		<foreach item="userCdList" index="index" collection="userCdList"
+                	open="(" separator="," close=")">
+        	#{userCdList}
+       	</foreach>
+	</update>
+	
+
+	<!-- A0901個人情報画面 -->
+	<select id="getUserInfoA" parameterType="Ansin.web.entity.UserTblEntity" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 USER_TBL
+	   INNER JOIN
+	   	 COMPANY_TBL
+	   ON
+	     USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	   WHERE
+	     USER_TBL.USER_STATUS = '0'
+	   AND
+	     USER_TBL.DEL_FLG = '0'
+	   AND
+	     COMPANY_TBL.DEL_FLG = '0'
+	   AND
+	   	 USER_TBL.USER_CD = #{userCd}
+	   AND
+	     	USER_TBL.AUTHORITY IN(
+						     	'システム管理者(認証済み)'
+						     )
+	   ORDER BY
+	   	 USER_TBL.UPDATE_TIME
+	   DESC
+	</select>
+
+	<select id="getUserInfoB" parameterType="Ansin.web.entity.UserTblEntity" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 USER_TBL
+	   INNER JOIN
+	   	 COMPANY_TBL
+	   ON
+	     USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	   WHERE
+	     USER_TBL.USER_STATUS = '0'
+	   AND
+	     USER_TBL.DEL_FLG = '0'
+	   AND
+	     COMPANY_TBL.DEL_FLG = '0'
+	   AND
+		 USER_TBL.USER_CD = #{userCd}
+	   AND
+	     USER_TBL.AUTHORITY IN(
+						     	'会社会員管理員(認証済み)'
+						     	,'会社会員(認証済み)'
+						     )
+		ORDER BY
+			USER_TBL.UPDATE_TIME
+		DESC
+	</select>
+	
+	<select id="getUserInfoC" parameterType="Ansin.web.entity.UserTblEntity" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 USER_TBL
+	   INNER JOIN
+	   	 COMPANY_TBL
+	   ON
+	     USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	   WHERE
+	     USER_TBL.USER_STATUS = '0'
+	   AND
+	     USER_TBL.DEL_FLG = '0'
+	   AND
+	     COMPANY_TBL.DEL_FLG = '0'
+	   AND
+		 USER_TBL.USE_CD = #{userCd}
+	   AND
+	     	USER_TBL.AUTHORITY = '応募者'
+	   ORDER BY
+			USER_TBL.UPDATE_TIME
+	   DESC
+	</select>
+		<select id="getName" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+			SELECT
+				FIRST_NAME,
+				LAST_NAME
+			FROM
+				USER_TBL
+			WHERE
+				USER_TBL.DEL_FLG = '0'
+            AND
+				USER_TBL.USER_CD = #{userCd}
+		    ORDER BY
+				USER_TBL.UPDATE_TIME
+			DESC
+		</select>
+
+	<update id="updateUserPwdW" parameterType="Ansin.web.entity.UserTblEntity">
+		UPDATE
+			USER_TBL
+		SET
+		 	PWD = #{pwd}
+		WHERE
+			USER_MAIL = #{userMail}
+	</update>
+	
+	
+	<update id="userStatusChange">
+		UPDATE
+			USER_TBL
+		SET
+		 	USER_STATUS = '1',
+		 	UPDATE_TIME = CURRENT_TIMESTAMP(0),
+		 	UPDATE_BY = #{userCd}
+		WHERE
+			USER_CD 
+				IN
+			<foreach item="userCds" index="index" collection="userCds"
+                	open="(" separator="," close=")">
+        	#{userCds}
+       	</foreach>
+	</update>
+	
+	<!-- c010101 -->
+	
+	<select id="getUserInfoByUserCd" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 USER_TBL
+	   INNER JOIN
+	   	 COMPANY_TBL
+	   ON
+	     USER_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	   WHERE
+	     USER_TBL.USER_CD = #{userCd}
+	   AND
+	     USER_TBL.USER_STATUS = '0'
+	   AND
+	     USER_TBL.DEL_FLG = '0'
+	   AND
+	     COMPANY_TBL.DEL_FLG = '0'
+	   ORDER BY
+		 USER_TBL.UPDATE_TIME
+	   DESC
+	</select>
+	
+</mapper>

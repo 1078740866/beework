@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.CouMstMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.CouMstEntity">
+			<result column="COUNTRY_ID" property="countryId" jdbcType="INTEGER"/>
+			<result column="COUNTRY_NM" property="countryNm" jdbcType="VARCHAR"/>
+			<result column="COUNTRY_ZIP" property="countryZip" jdbcType="VARCHAR"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		
+		<sql id="Base_Column_List">
+				COU_MST.COUNTRY_ID,					
+				COU_MST.COUNTRY_NM,
+				COU_MST.COUNTRY_ZIP
+		</sql>
+		
+		<select id="getAll" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				COU_MST										
+			WHERE													
+				COU_MST.DEL_FLG = '0'											
+		</select>
+		
+</mapper>

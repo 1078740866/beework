@@ -1,0 +1,15 @@
+2020-05-26 10:43:56.267 [main] INFO  Ansin.web.AnsinWebApplication - Starting AnsinWebApplication on LAPTOP-P47LA936 with PID 12536 (C:\eclipse\FreamWork\ansinWeb-workspace\ansinWeb\target\classes started by rokenu in C:\eclipse\FreamWork\ansinWeb-workspace\ansinWeb)
+2020-05-26 10:43:56.269 [main] INFO  Ansin.web.AnsinWebApplication - No active profile set, falling back to default profiles: default
+2020-05-26 10:43:58.215 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8088 (http)
+2020-05-26 10:43:58.227 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-05-26 10:43:58.228 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-05-26 10:43:58.231 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.34]
+2020-05-26 10:43:58.334 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-05-26 10:43:58.334 [main] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1989 ms
+2020-05-26 10:43:58.985 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-26 10:43:59.324 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-05-26 10:43:59.368 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8088 (http) with context path ''
+2020-05-26 10:43:59.374 [main] INFO  Ansin.web.AnsinWebApplication - Started AnsinWebApplication in 3.622 seconds (JVM running for 4.616)
+2020-05-26 10:44:22.908 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-26 10:44:22.908 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-05-26 10:44:22.918 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 10 ms

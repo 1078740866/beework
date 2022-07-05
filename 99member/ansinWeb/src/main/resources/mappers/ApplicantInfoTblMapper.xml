@@ -1,0 +1,1356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ApplicantInfoTblMapper" >
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.ApplicantInfoTblEntity" >
+        <result column="applicant_id" property="applicantId" jdbcType="INTEGER" />
+		<result column="user_cd" property="userCd" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="applicant_postal" property="applicantPostal" jdbcType="VARCHAR" />
+		<result column="country_id" property="countryId" jdbcType="INTEGER" />
+		<result column="prefe_nm" property="prefeNm" jdbcType="VARCHAR" />
+		<result column="address1" property="address1" jdbcType="VARCHAR" />
+		<result column="address2" property="address2" jdbcType="VARCHAR" />
+		<result column="station" property="station" jdbcType="VARCHAR" />
+		<result column="hope_land1" property="hopeLand1" jdbcType="INTEGER" />
+		<result column="hope_land2" property="hopeLand2" jdbcType="INTEGER" />
+		<result column="hope_land3" property="hopeLand3" jdbcType="INTEGER" />
+		<result column="photo" property="photo" jdbcType="VARCHAR" />
+		<result column="work_situation" property="workSituation" jdbcType="CHAR" />
+		<result column="graduation_school" property="graduationSchool" jdbcType="VARCHAR" />
+		<result column="graduation_major" property="graduationMajor" jdbcType="VARCHAR" />
+		<result column="work_years" property="workYears" jdbcType="INTEGER" />
+		<result column="industry_id1" property="industryId1" jdbcType="INTEGER" />
+		<result column="jobtype_id1_1" property="jobtypeId1_1" jdbcType="INTEGER" />
+		<result column="jobtype_id1_2" property="jobtypeId1_2" jdbcType="INTEGER" />
+		<result column="jobtype_id1_3" property="jobtypeId1_3" jdbcType="INTEGER" />
+		<result column="industry_id2" property="industryId2" jdbcType="INTEGER" />
+		<result column="jobtype_id2_1" property="jobtypeId2_1" jdbcType="INTEGER" />
+		<result column="jobtype_id2_2" property="jobtypeId2_2" jdbcType="INTEGER" />
+		<result column="jobtype_id2_3" property="jobtypeId2_3" jdbcType="INTEGER" />
+		<result column="industry_id3" property="industryId3" jdbcType="INTEGER" />
+		<result column="jobtype_id3_1" property="jobtypeId3_1" jdbcType="INTEGER" />
+		<result column="jobtype_id3_2" property="jobtypeId3_2" jdbcType="INTEGER" />
+		<result column="jobtype_id3_3" property="jobtypeId3_3" jdbcType="INTEGER" />
+		<result column="final_education" property="finaEducation" jdbcType="VARCHAR" />
+		<result column="hope_salary_from" property="hopeSalaryFrom" jdbcType="INTEGER" />
+		<result column="hope_salary_to" property="hopeSalaryTo" jdbcType="INTEGER" />
+		<result column="introduce" property="introduce" jdbcType="VARCHAR" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+		<result column="specialty" property="specialty" jdbcType="VARCHAR" />
+		<result column="interest" property="interest" jdbcType="VARCHAR" />
+		<result column="remainder" property="remainder" jdbcType="INTEGER" />
+		<result column="point" property="point" jdbcType="INTEGER" />
+		<result column="level_id" property="levelId" jdbcType="INTEGER" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="del_flg" property="delFlg" jdbcType="CHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_by" property="createBy" jdbcType="CHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="CHAR" />
+    </resultMap>
+
+
+    <resultMap id="BaseResultMap2" type="Ansin.web.entity.A0201ListEntity" >
+		<result column="APPLICANT_ID" property="applicantId" jdbcType="INTEGER" />
+		<result column="USER_CD" property="userCd" jdbcType="INTEGER" />
+		<result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR" />
+		<result column="LAST_NAME" property="lastName" jdbcType="VARCHAR" />
+		<result column="industry_id1" property="industryId1" jdbcType="INTEGER" />
+		<result column="jobtype_id1_1" property="jobtypeId1_1" jdbcType="INTEGER" />
+		<result column="jobtype_id1_2" property="jobtypeId1_2" jdbcType="INTEGER" />
+		<result column="jobtype_id1_3" property="jobtypeId1_3" jdbcType="INTEGER" />
+		<result column="industry_id2" property="industryId2" jdbcType="INTEGER" />
+		<result column="jobtype_id2_1" property="jobtypeId2_1" jdbcType="INTEGER" />
+		<result column="jobtype_id2_2" property="jobtypeId2_2" jdbcType="INTEGER" />
+		<result column="jobtype_id2_3" property="jobtypeId2_3" jdbcType="INTEGER" />
+		<result column="industry_id3" property="industryId3" jdbcType="INTEGER" />
+		<result column="jobtype_id3_1" property="jobtypeId3_1" jdbcType="INTEGER" />
+		<result column="jobtype_id3_2" property="jobtypeId3_2" jdbcType="INTEGER" />
+		<result column="jobtype_id3_3" property="jobtypeId3_3" jdbcType="INTEGER" />
+		<result column="industry_nm1" property="industryNm1" jdbcType="VARCHAR" />
+		<result column="industry_nm2" property="industryNm2" jdbcType="VARCHAR" />
+		<result column="industry_nm3" property="industryNm3" jdbcType="VARCHAR" />
+		<result column="jobtype_nm1_1" property="jobtypeNm1_1" jdbcType="VARCHAR" />
+		<result column="jobtype_nm1_2" property="jobtypeNm1_2" jdbcType="VARCHAR" />
+		<result column="jobtype_nm1_3" property="jobtypeNm1_3" jdbcType="VARCHAR" />
+		<result column="jobtype_nm2_1" property="jobtypeNm2_1" jdbcType="VARCHAR" />
+		<result column="jobtype_nm2_2" property="jobtypeNm2_2" jdbcType="VARCHAR" />
+		<result column="jobtype_nm2_3" property="jobtypeNm2_3" jdbcType="VARCHAR" />
+		<result column="jobtype_nm3_1" property="jobtypeNm3_1" jdbcType="VARCHAR" />
+		<result column="jobtype_nm3_2" property="jobtypeNm3_2" jdbcType="VARCHAR" />
+		<result column="jobtype_nm3_3" property="jobtypeNm3_3" jdbcType="VARCHAR" />
+		<result column="hope_land1" property="hopeLand1" jdbcType="INTEGER" />
+		<result column="hope_land2" property="hopeLand2" jdbcType="INTEGER" />
+		<result column="hope_land3" property="hopeLand3" jdbcType="INTEGER" />
+		<result column="hope_landnm1" property="hopeLandNm1" jdbcType="VARCHAR" />
+		<result column="hope_landnm2" property="hopeLandNm2" jdbcType="VARCHAR" />
+		<result column="hope_landnm3" property="hopeLandNm3" jdbcType="VARCHAR" />
+		<result column="PREFE_NM" property="prefeNm" jdbcType="VARCHAR" />
+		<result column="STATION" property="station" jdbcType="VARCHAR" />
+		<result column="ADDRESS1" property="address1" jdbcType="VARCHAR" />
+		<result column="FINAL_EDUCATION" property="finalEducation" jdbcType="VARCHAR" />
+		<result column="GRADUATION_SCHOOL" property="graduationSchool" jdbcType="VARCHAR" />
+		<result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+		<result column="WORK_SITUATION" property="workSituation" jdbcType="INTEGER" />
+		<result column="SEX" property="sex" jdbcType="CHAR" />
+		<result column="COUNTRY_ID" property="countryId" jdbcType="INTEGER" />
+		<result column="COUNTRY_NM" property="countryNm" jdbcType="VARCHAR" />
+		<result column="HOPE_SALARY_FROM" property="hopeSalaryFrom" jdbcType="INTEGER" />
+		<result column="HOPE_SALARY_TO" property="hopeSalaryTo" jdbcType="INTEGER" />
+		<result column="USER_MAIL" property="userMail" jdbcType="VARCHAR" />
+		<result column="PHOTO" property="photo" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+	<resultMap id="BaseResultMap3" type="Ansin.web.entity.ApplicantConnEntity" >
+        <result column="applicant_id" property="applicantId" jdbcType="INTEGER" />
+		<result column="user_cd" property="userCd" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="applicant_postal" property="applicantPostal" jdbcType="VARCHAR" />
+		<result column="country_id" property="countryId" jdbcType="INTEGER" />
+		<result column="prefe_nm" property="prefeNm" jdbcType="VARCHAR" />
+		<result column="address1" property="address1" jdbcType="VARCHAR" />
+		<result column="address2" property="address2" jdbcType="VARCHAR" />
+		<result column="station" property="station" jdbcType="VARCHAR" />
+		<result column="HOPE_LANDID1" property="hopeLand1" jdbcType="INTEGER" />
+		<result column="HOPE_LANDID2" property="hopeLand2" jdbcType="INTEGER" />
+		<result column="HOPE_LANDID3" property="hopeLand3" jdbcType="INTEGER" />
+		<result column="photo" property="photo" jdbcType="VARCHAR" />
+		<result column="work_situation" property="workSituation" jdbcType="CHAR" />
+		<result column="graduation_school" property="graduationSchool" jdbcType="VARCHAR" />
+		<result column="graduation_major" property="graduationMajor" jdbcType="VARCHAR" />
+		<result column="work_years" property="workYears" jdbcType="INTEGER" />
+		<result column="industry_id1" property="industryId1" jdbcType="INTEGER" />
+		<result column="jobtype_id1_1" property="jobtypeId1_1" jdbcType="INTEGER" />
+		<result column="jobtype_id1_2" property="jobtypeId1_2" jdbcType="INTEGER" />
+		<result column="jobtype_id1_3" property="jobtypeId1_3" jdbcType="INTEGER" />
+		<result column="industry_id2" property="industryId2" jdbcType="INTEGER" />
+		<result column="jobtype_id2_1" property="jobtypeId2_1" jdbcType="INTEGER" />
+		<result column="jobtype_id2_2" property="jobtypeId2_2" jdbcType="INTEGER" />
+		<result column="jobtype_id2_3" property="jobtypeId2_3" jdbcType="INTEGER" />
+		<result column="industry_id3" property="industryId3" jdbcType="INTEGER" />
+		<result column="jobtype_id3_1" property="jobtypeId3_1" jdbcType="INTEGER" />
+		<result column="jobtype_id3_2" property="jobtypeId3_2" jdbcType="INTEGER" />
+		<result column="jobtype_id3_3" property="jobtypeId3_3" jdbcType="INTEGER" />
+		<result column="final_education" property="finalEducation" jdbcType="VARCHAR" />
+		<result column="hope_salary_from" property="hopeSalaryFrom" jdbcType="INTEGER" />
+		<result column="hope_salary_to" property="hopeSalaryTo" jdbcType="INTEGER" />
+		<result column="introduce" property="introduce" jdbcType="VARCHAR" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+		<result column="specialty" property="specialty" jdbcType="VARCHAR" />
+		<result column="interest" property="interest" jdbcType="VARCHAR" />
+		<result column="remainder" property="remainder" jdbcType="INTEGER" />
+		<result column="point" property="point" jdbcType="INTEGER" />
+		<result column="level_id" property="levelId" jdbcType="INTEGER" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="del_flg" property="delFlg" jdbcType="CHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_by" property="createBy" jdbcType="CHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="CHAR" />
+		<result column="country_nm" property="countryNm" jdbcType="VARCHAR" />
+		<result column="industry_nm1" property="industryNm1" jdbcType="VARCHAR" />
+		<result column="industry_nm2" property="industryNm2" jdbcType="VARCHAR" />
+		<result column="industry_nm3" property="industryNm3" jdbcType="VARCHAR" />
+		<result column="jobtype_nm1_1" property="jobtypeNm1_1" jdbcType="VARCHAR" />
+		<result column="jobtype_nm1_2" property="jobtypeNm1_2" jdbcType="VARCHAR" />
+		<result column="jobtype_nm1_3" property="jobtypeNm1_3" jdbcType="VARCHAR" />
+		<result column="jobtype_nm2_1" property="jobtypeNm2_1" jdbcType="VARCHAR" />
+		<result column="jobtype_nm2_2" property="jobtypeNm2_2" jdbcType="VARCHAR" />
+		<result column="jobtype_nm2_3" property="jobtypeNm2_3" jdbcType="VARCHAR" />
+		<result column="jobtype_nm3_1" property="jobtypeNm3_1" jdbcType="VARCHAR" />
+		<result column="jobtype_nm3_2" property="jobtypeNm3_2" jdbcType="VARCHAR" />
+		<result column="jobtype_nm3_3" property="jobtypeNm3_3" jdbcType="VARCHAR" />
+		<result column="HOPE_LANDNM1" property="hopeLandNm1" jdbcType="VARCHAR" />
+		<result column="HOPE_LANDNM2" property="hopeLandNm2" jdbcType="VARCHAR" />
+		<result column="HOPE_LANDNM3" property="hopeLandNm3" jdbcType="VARCHAR" />
+    </resultMap>
+	<resultMap id="BaseResultMap4" type="Ansin.web.entity.UserTblEntity" >
+        <result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR" />
+		<result column="LAST_NAME" property="lastName" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+	<sql id="Base_Column_List">
+		APPLICANT_INFO_TBL.APPLICANT_ID
+		,APPLICANT_INFO_TBL.USER_CD
+		,APPLICANT_INFO_TBL.BIRTHDAY
+		,APPLICANT_INFO_TBL.APPLICANT_POSTAL
+		,APPLICANT_INFO_TBL.COUNTRY_ID
+		,APPLICANT_INFO_TBL.PREFE_NM
+		,APPLICANT_INFO_TBL.ADDRESS1
+		,APPLICANT_INFO_TBL.ADDRESS2
+		,APPLICANT_INFO_TBL.STATION
+		,APPLICANT_INFO_TBL.HOPE_LAND1
+		,APPLICANT_INFO_TBL.HOPE_LAND2
+		,APPLICANT_INFO_TBL.HOPE_LAND3
+		,APPLICANT_INFO_TBL.PHOTO
+		,APPLICANT_INFO_TBL.WORK_SITUATION
+		,APPLICANT_INFO_TBL.GRADUATION_SCHOOL
+		,APPLICANT_INFO_TBL.GRADUATION_MAJOR
+		,APPLICANT_INFO_TBL.WORK_YEARS
+		,APPLICANT_INFO_TBL.INDUSTRY_ID1
+		,APPLICANT_INFO_TBL.JOBTYPE_ID1_1
+		,APPLICANT_INFO_TBL.JOBTYPE_ID1_2
+		,APPLICANT_INFO_TBL.JOBTYPE_ID1_3
+		,APPLICANT_INFO_TBL.INDUSTRY_ID2
+		,APPLICANT_INFO_TBL.JOBTYPE_ID2_1
+		,APPLICANT_INFO_TBL.JOBTYPE_ID2_2
+		,APPLICANT_INFO_TBL.JOBTYPE_ID2_3
+		,APPLICANT_INFO_TBL.INDUSTRY_ID3
+		,APPLICANT_INFO_TBL.JOBTYPE_ID3_1
+		,APPLICANT_INFO_TBL.JOBTYPE_ID3_2
+		,APPLICANT_INFO_TBL.JOBTYPE_ID3_3
+		,APPLICANT_INFO_TBL.FINAL_EDUCATION
+		,APPLICANT_INFO_TBL.HOPE_SALARY_FROM
+		,APPLICANT_INFO_TBL.HOPE_SALARY_TO
+		,APPLICANT_INFO_TBL.INTRODUCE
+		,APPLICANT_INFO_TBL.REASON
+		,APPLICANT_INFO_TBL.SPECIALTY
+		,APPLICANT_INFO_TBL.INTEREST
+		,APPLICANT_INFO_TBL.REMAINDER
+		,APPLICANT_INFO_TBL.POINT
+		,APPLICANT_INFO_TBL.LEVEL_ID
+		,APPLICANT_INFO_TBL.REMARKS
+		,APPLICANT_INFO_TBL.DEL_FLG
+		,APPLICANT_INFO_TBL.CREATE_TIME
+		,APPLICANT_INFO_TBL.CREATE_BY
+		,APPLICANT_INFO_TBL.UPDATE_TIME
+		,APPLICANT_INFO_TBL.UPDATE_BY
+	</sql>
+
+
+	<sql id="Base_Column_List2">
+		APPLICANT_INFO_TBL.APPLICANT_ID
+		,APPLICANT_INFO_TBL.USER_CD
+		,USER_TBL.FIRST_NAME
+		,USER_TBL.LAST_NAME
+		,INDUSTRY_SELECT.INDUSTRY_ID1
+		,INDUSTRY_SELECT.INDUSTRY_ID2
+		,INDUSTRY_SELECT.INDUSTRY_ID3
+		,INDUSTRY_SELECT.INDUSTRY_NM1
+		,INDUSTRY_SELECT.INDUSTRY_NM2
+		,INDUSTRY_SELECT.INDUSTRY_NM3
+		,JOBTYPE_SELECT.JOBTYPE_ID1_1
+		,JOBTYPE_SELECT.JOBTYPE_ID1_2
+		,JOBTYPE_SELECT.JOBTYPE_ID1_3
+		,JOBTYPE_SELECT.JOBTYPE_ID2_1
+		,JOBTYPE_SELECT.JOBTYPE_ID2_2
+		,JOBTYPE_SELECT.JOBTYPE_ID2_3
+		,JOBTYPE_SELECT.JOBTYPE_ID3_1
+		,JOBTYPE_SELECT.JOBTYPE_ID3_2
+		,JOBTYPE_SELECT.JOBTYPE_ID3_3
+		,JOBTYPE_SELECT.JOBTYPE_NM1_1
+		,JOBTYPE_SELECT.JOBTYPE_NM1_2
+		,JOBTYPE_SELECT.JOBTYPE_NM1_3
+		,JOBTYPE_SELECT.JOBTYPE_NM2_1
+		,JOBTYPE_SELECT.JOBTYPE_NM2_2
+		,JOBTYPE_SELECT.JOBTYPE_NM2_3
+		,JOBTYPE_SELECT.JOBTYPE_NM3_1
+		,JOBTYPE_SELECT.JOBTYPE_NM3_2
+		,JOBTYPE_SELECT.JOBTYPE_NM3_3
+		,PREFECTURES_SELECT.HOPE_LANDID1
+		,PREFECTURES_SELECT.HOPE_LANDID2
+		,PREFECTURES_SELECT.HOPE_LANDID3
+		,PREFECTURES_SELECT.HOPE_LANDNM1
+		,PREFECTURES_SELECT.HOPE_LANDNM2
+		,PREFECTURES_SELECT.HOPE_LANDNM3
+		,APPLICANT_INFO_TBL.PREFE_NM
+		,APPLICANT_INFO_TBL.STATION
+		,APPLICANT_INFO_TBL.ADDRESS1
+		,APPLICANT_INFO_TBL.FINAL_EDUCATION
+		,APPLICANT_INFO_TBL.GRADUATION_SCHOOL
+		,APPLICANT_INFO_TBL.BIRTHDAY
+		,APPLICANT_INFO_TBL.WORK_SITUATION
+		,USER_TBL.SEX
+		,COU_MST.COUNTRY_ID
+		,COU_MST.COUNTRY_NM
+		,APPLICANT_INFO_TBL.HOPE_SALARY_FROM
+		,APPLICANT_INFO_TBL.HOPE_SALARY_TO
+		,USER_TBL.USER_MAIL
+		,APPLICANT_INFO_TBL.PHOTO
+	</sql>
+
+
+	<sql id="Base_Column_List3">
+		APPLICANT_INFO_TBL.APPLICANT_ID
+		,APPLICANT_INFO_TBL.USER_CD
+		,APPLICANT_INFO_TBL.BIRTHDAY
+		,APPLICANT_INFO_TBL.APPLICANT_POSTAL
+		,APPLICANT_INFO_TBL.COUNTRY_ID
+		,APPLICANT_INFO_TBL.PREFE_NM
+		,APPLICANT_INFO_TBL.ADDRESS1
+		,APPLICANT_INFO_TBL.ADDRESS2
+		,APPLICANT_INFO_TBL.STATION
+		,APPLICANT_INFO_TBL.PHOTO
+		,APPLICANT_INFO_TBL.WORK_SITUATION
+		,APPLICANT_INFO_TBL.GRADUATION_SCHOOL
+		,APPLICANT_INFO_TBL.GRADUATION_MAJOR
+		,APPLICANT_INFO_TBL.WORK_YEARS
+		,APPLICANT_INFO_TBL.FINAL_EDUCATION
+		,APPLICANT_INFO_TBL.HOPE_SALARY_FROM
+		,APPLICANT_INFO_TBL.HOPE_SALARY_TO
+		,APPLICANT_INFO_TBL.INTRODUCE
+		,APPLICANT_INFO_TBL.REASON
+		,APPLICANT_INFO_TBL.SPECIALTY
+		,APPLICANT_INFO_TBL.INTEREST
+		,APPLICANT_INFO_TBL.REMAINDER
+		,APPLICANT_INFO_TBL.POINT
+		,APPLICANT_INFO_TBL.LEVEL_ID
+		,APPLICANT_INFO_TBL.REMARKS
+		,APPLICANT_INFO_TBL.DEL_FLG
+		,APPLICANT_INFO_TBL.CREATE_TIME
+		,APPLICANT_INFO_TBL.CREATE_BY
+		,APPLICANT_INFO_TBL.UPDATE_TIME
+		,APPLICANT_INFO_TBL.UPDATE_BY
+		,COU_MST.COUNTRY_ID
+		,COU_MST.COUNTRY_NM
+		,INDUSTRY_SELECT.INDUSTRY_ID1
+		,INDUSTRY_SELECT.INDUSTRY_ID2
+		,INDUSTRY_SELECT.INDUSTRY_ID3
+		,INDUSTRY_SELECT.INDUSTRY_NM1
+		,INDUSTRY_SELECT.INDUSTRY_NM2
+		,INDUSTRY_SELECT.INDUSTRY_NM3
+		,JOBTYPE_SELECT.JOBTYPE_ID1_1
+		,JOBTYPE_SELECT.JOBTYPE_ID1_2
+		,JOBTYPE_SELECT.JOBTYPE_ID1_3
+		,JOBTYPE_SELECT.JOBTYPE_ID2_1
+		,JOBTYPE_SELECT.JOBTYPE_ID2_2
+		,JOBTYPE_SELECT.JOBTYPE_ID2_3
+		,JOBTYPE_SELECT.JOBTYPE_ID3_1
+		,JOBTYPE_SELECT.JOBTYPE_ID3_2
+		,JOBTYPE_SELECT.JOBTYPE_ID3_3
+		,JOBTYPE_SELECT.JOBTYPE_NM1_1
+		,JOBTYPE_SELECT.JOBTYPE_NM1_2
+		,JOBTYPE_SELECT.JOBTYPE_NM1_3
+		,JOBTYPE_SELECT.JOBTYPE_NM2_1
+		,JOBTYPE_SELECT.JOBTYPE_NM2_2
+		,JOBTYPE_SELECT.JOBTYPE_NM2_3
+		,JOBTYPE_SELECT.JOBTYPE_NM3_1
+		,JOBTYPE_SELECT.JOBTYPE_NM3_2
+		,JOBTYPE_SELECT.JOBTYPE_NM3_3
+		,PREFECTURES_SELECT.HOPE_LANDID1
+		,PREFECTURES_SELECT.HOPE_LANDID2
+		,PREFECTURES_SELECT.HOPE_LANDID3
+		,PREFECTURES_SELECT.HOPE_LANDNM1
+		,PREFECTURES_SELECT.HOPE_LANDNM2
+		,PREFECTURES_SELECT.HOPE_LANDNM3
+	</sql>
+
+
+	<select id="getAll"  resultMap="BaseResultMap" >
+		SELECT
+		 	<include refid="Base_Column_List" />
+		FROM
+			APPLICANT_INFO_TBL
+		WHERE
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+	</select>
+
+	<select id="getList" parameterType="Ansin.web.vueForm.A0201VueForm" resultMap="BaseResultMap2" >
+		SELECT
+			<include refid="Base_Column_List2"/>
+		FROM
+			APPLICANT_INFO_TBL
+		LEFT JOIN
+			USER_TBL
+		ON
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD
+		LEFT JOIN
+			COU_MST
+		ON
+			APPLICANT_INFO_TBL.COUNTRY_ID = COU_MST.COUNTRY_ID
+		LEFT JOIN
+			(
+			SELECT
+	      		A.APPLICANT_ID
+			    , B.INDUSTRY_ID INDUSTRY_ID1
+				, C.INDUSTRY_ID INDUSTRY_ID2
+				, D.INDUSTRY_ID INDUSTRY_ID3
+			    , B.INDUSTRY_NM INDUSTRY_NM1
+			    , C.INDUSTRY_NM INDUSTRY_NM2
+			    , D.INDUSTRY_NM INDUSTRY_NM3
+			FROM
+			    APPLICANT_INFO_TBL A
+			LEFT JOIN
+				INDUSTRY_MST B
+			ON
+				A.INDUSTRY_ID1 = B.INDUSTRY_ID
+			LEFT JOIN
+				INDUSTRY_MST C
+			ON
+				A.INDUSTRY_ID2 = C.INDUSTRY_ID
+			LEFT JOIN
+				INDUSTRY_MST D
+			ON
+				A.INDUSTRY_ID3 = D.INDUSTRY_ID
+			WHERE
+				B.DEL_FLG = '0'
+			AND
+				C.DEL_FLG = '0'
+			AND
+				D.DEL_FLG = '0'
+			) INDUSTRY_SELECT
+		ON
+			INDUSTRY_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		LEFT JOIN
+			(
+			SELECT
+	      		A.APPLICANT_ID
+			    , B.JOBTYPE_ID JOBTYPE_ID1_1
+				, C.JOBTYPE_ID JOBTYPE_ID1_2
+				, D.JOBTYPE_ID JOBTYPE_ID1_3
+				, E.JOBTYPE_ID JOBTYPE_ID2_1
+				, F.JOBTYPE_ID JOBTYPE_ID2_2
+				, G.JOBTYPE_ID JOBTYPE_ID2_3
+				, H.JOBTYPE_ID JOBTYPE_ID3_1
+				, I.JOBTYPE_ID JOBTYPE_ID3_2
+				, J.JOBTYPE_ID JOBTYPE_ID3_3
+			    , B.JOBTYPE_NM JOBTYPE_NM1_1
+				, C.JOBTYPE_NM JOBTYPE_NM1_2
+				, D.JOBTYPE_NM JOBTYPE_NM1_3
+				, E.JOBTYPE_NM JOBTYPE_NM2_1
+				, F.JOBTYPE_NM JOBTYPE_NM2_2
+				, G.JOBTYPE_NM JOBTYPE_NM2_3
+				, H.JOBTYPE_NM JOBTYPE_NM3_1
+				, I.JOBTYPE_NM JOBTYPE_NM3_2
+				, J.JOBTYPE_NM JOBTYPE_NM3_3
+			FROM
+			    APPLICANT_INFO_TBL A
+			LEFT JOIN
+				JOBTYPE_MST B
+		    ON
+		    	A.JOBTYPE_ID1_1 = B.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST C
+		    ON
+		        A.JOBTYPE_ID1_2 = C.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST D
+		    ON
+		        A.JOBTYPE_ID1_3 = D.JOBTYPE_ID
+			LEFT JOIN
+				JOBTYPE_MST E
+		    ON
+		       	A.JOBTYPE_ID2_1 = E.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST F
+		    ON
+		        A.JOBTYPE_ID2_2 = F.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST G
+		    ON
+		        A.JOBTYPE_ID2_3 = G.JOBTYPE_ID
+			LEFT JOIN
+				JOBTYPE_MST H
+		    ON
+		        A.JOBTYPE_ID3_1 = H.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST I
+		    ON
+		    	A.JOBTYPE_ID3_2 = I.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST J
+		    ON
+		        A.JOBTYPE_ID3_3 = J.JOBTYPE_ID
+			WHERE
+				B.DEL_FLG = '0'
+			AND
+				C.DEL_FLG = '0'
+			AND
+				D.DEL_FLG = '0'
+			AND
+				E.DEL_FLG = '0'
+			AND
+				F.DEL_FLG = '0'
+			AND
+				G.DEL_FLG = '0'
+			AND
+				H.DEL_FLG = '0'
+			AND
+				I.DEL_FLG = '0'
+			AND
+				J.DEL_FLG = '0'
+			) JOBTYPE_SELECT
+		ON
+			JOBTYPE_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		LEFT JOIN
+			(
+			SELECT
+	      		A.APPLICANT_ID
+			    , B.PREFE_ID as HOPE_LANDID1
+				, C.PREFE_ID as HOPE_LANDID2
+				, D.PREFE_ID as HOPE_LANDID3
+			    , B.PREFE_NM as HOPE_LANDNM1
+			    , C.PREFE_NM as HOPE_LANDNM2
+			    , D.PREFE_NM as HOPE_LANDNM3
+			FROM
+			    APPLICANT_INFO_TBL A
+			LEFT JOIN
+				PREFECTURES_MST B
+			ON
+				A.HOPE_LAND1 = B.PREFE_ID
+			LEFT JOIN
+				PREFECTURES_MST C
+		    ON
+			    A.HOPE_LAND2 = C.PREFE_ID
+			LEFT JOIN
+				PREFECTURES_MST D
+			ON
+				A.HOPE_LAND3 = D.PREFE_ID
+			WHERE
+				B.DEL_FLG = '0'
+			AND
+				C.DEL_FLG = '0'
+			AND
+				D.DEL_FLG = '0'
+			) PREFECTURES_SELECT
+		ON
+			PREFECTURES_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		<if test="a0201VueForm.languageId != null or a0201VueForm.levelSection != null and a0201VueForm.levelSection != ''">
+			INNER JOIN
+	            APPLICANT_LAN_TBL
+	        ON
+	            APPLICANT_INFO_TBL.APPLICANT_ID = APPLICANT_LAN_TBL.APPLICANT_ID   
+	        AND
+				APPLICANT_LAN_TBL.DEL_FLG = '0'
+        </if>  
+        WHERE
+        	USER_TBL.DEL_FLG = '0'
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+        <if test="a0201VueForm.languageId != null">
+		AND
+			APPLICANT_LAN_TBL.LANGUAGE_ID = #{a0201VueForm.languageId}
+		</if>
+		<if test="a0201VueForm.levelSection != null and a0201VueForm.levelSection != ''">
+		AND
+			APPLICANT_LAN_TBL.LEVEL_SECTION &gt;= #{a0201VueForm.levelSection}
+		</if>
+		<if test="a0201VueForm.industryId != null">
+		AND
+			#{a0201VueForm.industryId} IN(INDUSTRY_SELECT.INDUSTRY_ID1,INDUSTRY_SELECT.INDUSTRY_ID2,INDUSTRY_SELECT.INDUSTRY_ID3)
+		</if>
+		<if test="a0201VueForm.jobtypeId != null">
+		AND
+			#{a0201VueForm.jobtypeId} IN(JOBTYPE_SELECT.JOBTYPE_ID1_1,JOBTYPE_SELECT.JOBTYPE_ID1_2,JOBTYPE_SELECT.JOBTYPE_ID1_3
+										,JOBTYPE_SELECT.JOBTYPE_ID2_1,JOBTYPE_SELECT.JOBTYPE_ID2_2,JOBTYPE_SELECT.JOBTYPE_ID2_3
+										,JOBTYPE_SELECT.JOBTYPE_ID3_1,JOBTYPE_SELECT.JOBTYPE_ID3_2,JOBTYPE_SELECT.JOBTYPE_ID3_3
+										)
+		</if>
+		<if test="a0201VueForm.hopeLand != null">
+		AND
+			#{a0201VueForm.hopeLand} IN(PREFECTURES_SELECT.HOPE_LANDID1,PREFECTURES_SELECT.HOPE_LANDID2,PREFECTURES_SELECT.HOPE_LANDID3)
+		</if>
+		<if test="a0201VueForm.ambiguousBox != null and a0201VueForm.ambiguousBox != ''">
+		AND
+			USER_TBL.FIRST_NAME || USER_TBL.LAST_NAME LIKE '%${a0201VueForm.ambiguousBox}%'
+		</if>
+		<if test="a0201VueForm.degree != null and a0201VueForm.degree != ''">
+		AND
+			APPLICANT_INFO_TBL.FINAL_EDUCATION = #{a0201VueForm.degree}
+		</if>
+		<if test="a0201VueForm.birthdayFrom != null">
+		AND
+			APPLICANT_INFO_TBL.BIRTHDAY &gt;= #{a0201VueForm.birthdayFrom}
+		</if>
+		<if test="a0201VueForm.birthdayTo != null">
+		AND
+			APPLICANT_INFO_TBL.BIRTHDAY &lt;= #{a0201VueForm.birthdayTo}
+		</if>
+		<if test="a0201VueForm.hopeSalaryFrom != null">
+		AND
+			APPLICANT_INFO_TBL.HOPE_SALARY_FROM &gt;= #{a0201VueForm.hopeSalaryFrom}
+		</if>
+		<if test="a0201VueForm.hopeSalaryTo != null">
+		AND
+			APPLICANT_INFO_TBL.HOPE_SALARY_TO &lt;= #{a0201VueForm.hopeSalaryTo}
+		</if>
+		<if test="a0201VueForm.workYears != null">
+		AND
+			APPLICANT_INFO_TBL.WORK_YEARS &lt;= #{a0201VueForm.workYears}
+		</if>
+		<if test="a0201VueForm.prefeNm != null and a0201VueForm.prefeNm != ''">
+		AND
+			APPLICANT_INFO_TBL.PREFE_NM = #{a0201VueForm.prefeNm}
+		</if>
+		<if test="a0201VueForm.sex != null">
+		AND
+			USER_TBL.SEX = #{a0201VueForm.sex}
+		</if>
+		GROUP BY
+			APPLICANT_INFO_TBL.APPLICANT_ID
+			,APPLICANT_INFO_TBL.USER_CD
+			,USER_TBL.FIRST_NAME
+			,USER_TBL.LAST_NAME
+			,INDUSTRY_SELECT.INDUSTRY_ID1
+			,INDUSTRY_SELECT.INDUSTRY_ID2
+			,INDUSTRY_SELECT.INDUSTRY_ID3
+			,INDUSTRY_SELECT.INDUSTRY_NM1
+			,INDUSTRY_SELECT.INDUSTRY_NM2
+			,INDUSTRY_SELECT.INDUSTRY_NM3
+			,JOBTYPE_SELECT.JOBTYPE_ID1_1
+			,JOBTYPE_SELECT.JOBTYPE_ID1_2
+			,JOBTYPE_SELECT.JOBTYPE_ID1_3
+			,JOBTYPE_SELECT.JOBTYPE_ID2_1
+			,JOBTYPE_SELECT.JOBTYPE_ID2_2
+			,JOBTYPE_SELECT.JOBTYPE_ID2_3
+			,JOBTYPE_SELECT.JOBTYPE_ID3_1
+			,JOBTYPE_SELECT.JOBTYPE_ID3_2
+			,JOBTYPE_SELECT.JOBTYPE_ID3_3
+			,JOBTYPE_SELECT.JOBTYPE_NM1_1
+			,JOBTYPE_SELECT.JOBTYPE_NM1_2
+			,JOBTYPE_SELECT.JOBTYPE_NM1_3
+			,JOBTYPE_SELECT.JOBTYPE_NM2_1
+			,JOBTYPE_SELECT.JOBTYPE_NM2_2
+			,JOBTYPE_SELECT.JOBTYPE_NM2_3
+			,JOBTYPE_SELECT.JOBTYPE_NM3_1
+			,JOBTYPE_SELECT.JOBTYPE_NM3_2
+			,JOBTYPE_SELECT.JOBTYPE_NM3_3
+			,PREFECTURES_SELECT.HOPE_LANDID1
+			,PREFECTURES_SELECT.HOPE_LANDID2
+			,PREFECTURES_SELECT.HOPE_LANDID3
+			,PREFECTURES_SELECT.HOPE_LANDNM1
+			,PREFECTURES_SELECT.HOPE_LANDNM2
+			,PREFECTURES_SELECT.HOPE_LANDNM3
+			,APPLICANT_INFO_TBL.PREFE_NM
+			,APPLICANT_INFO_TBL.STATION
+			,APPLICANT_INFO_TBL.ADDRESS1
+			,APPLICANT_INFO_TBL.FINAL_EDUCATION
+			,APPLICANT_INFO_TBL.GRADUATION_SCHOOL
+			,APPLICANT_INFO_TBL.BIRTHDAY
+			,APPLICANT_INFO_TBL.WORK_SITUATION
+			,USER_TBL.SEX
+			,COU_MST.COUNTRY_ID
+			,COU_MST.COUNTRY_NM
+			,APPLICANT_INFO_TBL.HOPE_SALARY_FROM
+			,APPLICANT_INFO_TBL.HOPE_SALARY_TO
+			,USER_TBL.USER_MAIL
+			,APPLICANT_INFO_TBL.PHOTO
+		ORDER BY
+			APPLICANT_INFO_TBL.UPDATE_TIME
+		DESC
+	</select>
+
+
+    <select id="getOne" parameterType="java.lang.String" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 APPLICANT_INFO_TBL
+	   WHERE
+	     APPLICANT_INFO_TBL.APPLICANT_ID = #{applicantId}
+	   AND
+	     APPLICANT_INFO_TBL.DEL_FLG = '0'
+
+    </select>
+
+
+    <select id="getApplicantInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap3">
+		SELECT
+			<include refid="Base_Column_List3"/>
+		FROM
+			APPLICANT_INFO_TBL
+		LEFT JOIN
+			COU_MST
+		ON
+			COU_MST.COUNTRY_ID = APPLICANT_INFO_TBL.COUNTRY_ID
+		LEFT JOIN
+			(
+			SELECT
+	      		A.APPLICANT_ID
+			    , B.INDUSTRY_ID INDUSTRY_ID1
+				, C.INDUSTRY_ID INDUSTRY_ID2
+				, D.INDUSTRY_ID INDUSTRY_ID3
+			    , B.INDUSTRY_NM INDUSTRY_NM1
+			    , C.INDUSTRY_NM INDUSTRY_NM2
+			    , D.INDUSTRY_NM INDUSTRY_NM3
+			FROM
+			    APPLICANT_INFO_TBL A
+			LEFT JOIN
+				INDUSTRY_MST B
+			ON
+				A.INDUSTRY_ID1 = B.INDUSTRY_ID
+			AND 
+				B.DEL_FLG = '0'
+			LEFT JOIN
+				INDUSTRY_MST C
+			ON
+				A.INDUSTRY_ID2 = C.INDUSTRY_ID
+			AND 
+				C.DEL_FLG = '0'
+			LEFT JOIN
+				INDUSTRY_MST D
+			ON
+				A.INDUSTRY_ID3 = D.INDUSTRY_ID
+			AND 
+				D.DEL_FLG = '0'
+			) INDUSTRY_SELECT
+		ON
+			INDUSTRY_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		LEFT JOIN
+			(
+			SELECT
+	      		A.APPLICANT_ID
+			    , B.JOBTYPE_ID JOBTYPE_ID1_1
+				, C.JOBTYPE_ID JOBTYPE_ID1_2
+				, D.JOBTYPE_ID JOBTYPE_ID1_3
+				, E.JOBTYPE_ID JOBTYPE_ID2_1
+				, F.JOBTYPE_ID JOBTYPE_ID2_2
+				, G.JOBTYPE_ID JOBTYPE_ID2_3
+				, H.JOBTYPE_ID JOBTYPE_ID3_1
+				, I.JOBTYPE_ID JOBTYPE_ID3_2
+				, J.JOBTYPE_ID JOBTYPE_ID3_3
+			    , B.JOBTYPE_NM JOBTYPE_NM1_1
+				, C.JOBTYPE_NM JOBTYPE_NM1_2
+				, D.JOBTYPE_NM JOBTYPE_NM1_3
+				, E.JOBTYPE_NM JOBTYPE_NM2_1
+				, F.JOBTYPE_NM JOBTYPE_NM2_2
+				, G.JOBTYPE_NM JOBTYPE_NM2_3
+				, H.JOBTYPE_NM JOBTYPE_NM3_1
+				, I.JOBTYPE_NM JOBTYPE_NM3_2
+				, J.JOBTYPE_NM JOBTYPE_NM3_3
+			FROM
+			    APPLICANT_INFO_TBL A
+			LEFT JOIN
+				JOBTYPE_MST B
+		    ON
+		    	A.JOBTYPE_ID1_1 = B.JOBTYPE_ID
+		    AND 
+		    	B.DEL_FLG = '0'
+		    LEFT JOIN
+		    	JOBTYPE_MST C
+		    ON
+		        A.JOBTYPE_ID1_2 = C.JOBTYPE_ID
+		    AND 
+		    	C.DEL_FLG = '0'
+		    LEFT JOIN
+		    	JOBTYPE_MST D
+		    ON
+		        A.JOBTYPE_ID1_3 = D.JOBTYPE_ID
+		    AND 
+		    	D.DEL_FLG = '0'
+			LEFT JOIN
+				JOBTYPE_MST E
+		    ON
+		       	A.JOBTYPE_ID2_1 = E.JOBTYPE_ID
+		    AND 
+		    	E.DEL_FLG = '0'
+		    LEFT JOIN
+		    	JOBTYPE_MST F
+		    ON
+		        A.JOBTYPE_ID2_2 = F.JOBTYPE_ID
+		    AND 
+		    	F.DEL_FLG = '0'
+		    LEFT JOIN
+		    	JOBTYPE_MST G
+		    ON
+		        A.JOBTYPE_ID2_3 = G.JOBTYPE_ID
+		    AND 
+		    	G.DEL_FLG = '0'
+			LEFT JOIN
+				JOBTYPE_MST H
+		    ON
+		        A.JOBTYPE_ID3_1 = H.JOBTYPE_ID
+		    AND 
+		    	H.DEL_FLG = '0'
+		    LEFT JOIN
+		    	JOBTYPE_MST I
+		    ON
+		    	A.JOBTYPE_ID3_2 = I.JOBTYPE_ID
+		   	AND 
+		    	I.DEL_FLG = '0'
+		    LEFT JOIN
+		    	JOBTYPE_MST J
+		    ON
+		        A.JOBTYPE_ID3_3 = J.JOBTYPE_ID
+		    AND 
+		    	J.DEL_FLG = '0'
+			) JOBTYPE_SELECT
+		ON
+			JOBTYPE_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		LEFT JOIN
+			(
+			SELECT
+	      		A.APPLICANT_ID
+			    , B.PREFE_ID as HOPE_LANDID1
+				, C.PREFE_ID as HOPE_LANDID2
+				, D.PREFE_ID as HOPE_LANDID3
+			    , B.PREFE_NM as HOPE_LANDNM1
+			    , C.PREFE_NM as HOPE_LANDNM2
+			    , D.PREFE_NM as HOPE_LANDNM3
+			FROM
+			    APPLICANT_INFO_TBL A
+			LEFT JOIN
+				PREFECTURES_MST B
+			ON
+				A.HOPE_LAND1 = B.PREFE_ID
+			AND 
+				B.DEL_FLG = '0'
+			LEFT JOIN
+				PREFECTURES_MST C
+		    ON
+			    A.HOPE_LAND2 = C.PREFE_ID
+			AND 
+				C.DEL_FLG = '0'
+			LEFT JOIN
+				PREFECTURES_MST D
+			ON
+				A.HOPE_LAND3 = D.PREFE_ID
+			AND 
+				D.DEL_FLG = '0'
+			) PREFECTURES_SELECT
+		ON
+			PREFECTURES_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		WHERE
+			APPLICANT_INFO_TBL.USER_CD = #{userCd}
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			COU_MST.DEL_FLG = '0'
+    </select>
+
+
+    <select id="getAppl" parameterType="java.lang.Integer" resultMap="BaseResultMap3">
+	    SELECT
+			<include refid="Base_Column_List3"/>
+		FROM
+			APPLICANT_INFO_TBL
+		LEFT JOIN
+			COU_MST
+		ON
+			APPLICANT_INFO_TBL.COUNTRY_ID = COU_MST.COUNTRY_ID
+		LEFT JOIN
+			(
+				SELECT
+		      		A.APPLICANT_ID
+				    , B.INDUSTRY_ID INDUSTRY_ID1
+					, C.INDUSTRY_ID INDUSTRY_ID2
+					, D.INDUSTRY_ID INDUSTRY_ID3
+				    , B.INDUSTRY_NM INDUSTRY_NM1
+				    , C.INDUSTRY_NM INDUSTRY_NM2
+				    , D.INDUSTRY_NM INDUSTRY_NM3
+				FROM
+				    APPLICANT_INFO_TBL A
+				LEFT JOIN
+					INDUSTRY_MST B
+				ON
+					A.INDUSTRY_ID1 = B.INDUSTRY_ID
+				LEFT JOIN
+					INDUSTRY_MST C
+				ON
+					A.INDUSTRY_ID2 = C.INDUSTRY_ID
+				LEFT JOIN
+					INDUSTRY_MST D
+				ON
+					A.INDUSTRY_ID3 = D.INDUSTRY_ID
+				WHERE
+					B.DEL_FLG = '0'
+				AND
+					C.DEL_FLG = '0'
+				AND
+					D.DEL_FLG = '0'
+			) INDUSTRY_SELECT
+		ON
+			APPLICANT_INFO_TBL.APPLICANT_ID = INDUSTRY_SELECT.APPLICANT_ID
+		LEFT JOIN
+			(
+				SELECT
+		      		A.APPLICANT_ID
+				    , B.JOBTYPE_ID JOBTYPE_ID1_1
+					, C.JOBTYPE_ID JOBTYPE_ID1_2
+					, D.JOBTYPE_ID JOBTYPE_ID1_3
+					, E.JOBTYPE_ID JOBTYPE_ID2_1
+					, F.JOBTYPE_ID JOBTYPE_ID2_2
+					, G.JOBTYPE_ID JOBTYPE_ID2_3
+					, H.JOBTYPE_ID JOBTYPE_ID3_1
+					, I.JOBTYPE_ID JOBTYPE_ID3_2
+					, J.JOBTYPE_ID JOBTYPE_ID3_3
+				    , B.JOBTYPE_NM JOBTYPE_NM1_1
+					, C.JOBTYPE_NM JOBTYPE_NM1_2
+					, D.JOBTYPE_NM JOBTYPE_NM1_3
+					, E.JOBTYPE_NM JOBTYPE_NM2_1
+					, F.JOBTYPE_NM JOBTYPE_NM2_2
+					, G.JOBTYPE_NM JOBTYPE_NM2_3
+					, H.JOBTYPE_NM JOBTYPE_NM3_1
+					, I.JOBTYPE_NM JOBTYPE_NM3_2
+					, J.JOBTYPE_NM JOBTYPE_NM3_3
+				FROM
+				    APPLICANT_INFO_TBL A
+				LEFT JOIN
+					JOBTYPE_MST B
+			    ON
+			    	A.JOBTYPE_ID1_1 = B.JOBTYPE_ID
+			    LEFT JOIN
+			    	JOBTYPE_MST C
+			    ON
+			        A.JOBTYPE_ID1_2 = C.JOBTYPE_ID
+			    LEFT JOIN
+			    	JOBTYPE_MST D
+			    ON
+			        A.JOBTYPE_ID1_3 = D.JOBTYPE_ID
+				LEFT JOIN
+					JOBTYPE_MST E
+			    ON
+			       	A.JOBTYPE_ID2_1 = E.JOBTYPE_ID
+			    LEFT JOIN
+			    	JOBTYPE_MST F
+			    ON
+			        A.JOBTYPE_ID2_2 = F.JOBTYPE_ID
+			    LEFT JOIN
+			    	JOBTYPE_MST G
+			    ON
+			        A.JOBTYPE_ID2_3 = G.JOBTYPE_ID
+				LEFT JOIN
+					JOBTYPE_MST H
+			    ON
+			        A.JOBTYPE_ID3_1 = H.JOBTYPE_ID
+			    LEFT JOIN
+			    	JOBTYPE_MST I
+			    ON
+			    	A.JOBTYPE_ID3_2 = I.JOBTYPE_ID
+			    LEFT JOIN
+			    	JOBTYPE_MST J
+			    ON
+			        A.JOBTYPE_ID3_3 = J.JOBTYPE_ID
+				WHERE
+					B.DEL_FLG = '0'
+				AND
+					C.DEL_FLG = '0'
+				AND
+					D.DEL_FLG = '0'
+				AND
+					E.DEL_FLG = '0'
+				AND
+					F.DEL_FLG = '0'
+				AND
+					G.DEL_FLG = '0'
+				AND
+					H.DEL_FLG = '0'
+				AND
+					I.DEL_FLG = '0'
+				AND
+					J.DEL_FLG = '0'
+			) JOBTYPE_SELECT
+		ON
+			JOBTYPE_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		LEFT JOIN
+			(
+				SELECT
+		      		A.APPLICANT_ID
+				    , B.PREFE_ID as HOPE_LANDID1
+					, C.PREFE_ID as HOPE_LANDID2
+					, D.PREFE_ID as HOPE_LANDID3
+				    , B.PREFE_NM as HOPE_LANDNM1
+				    , C.PREFE_NM as HOPE_LANDNM2
+				    , D.PREFE_NM as HOPE_LANDNM3
+				FROM
+				    APPLICANT_INFO_TBL A
+				LEFT JOIN
+					PREFECTURES_MST B
+				ON
+					A.HOPE_LAND1 = B.PREFE_ID
+				LEFT JOIN
+					PREFECTURES_MST C
+			    ON
+				    A.HOPE_LAND2 = C.PREFE_ID
+				LEFT JOIN
+					PREFECTURES_MST D
+				ON
+					A.HOPE_LAND3 = D.PREFE_ID
+				WHERE
+					B.DEL_FLG = '0'
+				AND
+					C.DEL_FLG = '0'
+				AND
+					D.DEL_FLG = '0'
+			) PREFECTURES_SELECT
+		ON
+			PREFECTURES_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		WHERE
+			APPLICANT_INFO_TBL.APPLICANT_ID = #{applicantId}
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			COU_MST.DEL_FLG = '0'
+    </select>
+
+
+    <insert id="insertApplicant" parameterType="Ansin.web.vueForm.C010101VueForm">
+    INSERT INTO APPLICANT_INFO_TBL (
+			APPLICANT_ID,
+			USER_CD,
+			BIRTHDAY,
+			APPLICANT_POSTAL,
+			COUNTRY_ID,
+			PREFE_NM,
+			ADDRESS1,
+			ADDRESS2,
+			STATION,
+			HOPE_LAND1,
+			HOPE_LAND2,
+			HOPE_LAND3,
+			PHOTO,
+			WORK_SITUATION,
+			GRADUATION_SCHOOL,
+			GRADUATION_MAJOR,
+			WORK_YEARS,
+			INDUSTRY_ID1,
+			JOBTYPE_ID1_1,
+			JOBTYPE_ID1_2,
+			JOBTYPE_ID1_3,
+			INDUSTRY_ID2,
+			JOBTYPE_ID2_1,
+			JOBTYPE_ID2_2,
+			JOBTYPE_ID2_3,
+			INDUSTRY_ID3,
+			JOBTYPE_ID3_1,
+			JOBTYPE_ID3_2,
+			JOBTYPE_ID3_3,
+			FINAL_EDUCATION,
+			HOPE_SALARY_FROM,
+			HOPE_SALARY_TO,
+			INTRODUCE,
+			REASON,
+			SPECIALTY,
+			INTEREST,
+			REMAINDER,
+			POINT,
+			LEVEL_ID,
+			REMARKS,
+			DEL_FLG,
+			CREATE_TIME,
+			CREATE_BY,
+			UPDATE_TIME
+			)
+    VALUES  (
+				default,
+				#{c010101VueForm.userCd},
+				#{c010101VueForm.birthday},
+				#{c010101VueForm.applicantPostal},
+				#{c010101VueForm.countryId},
+				#{c010101VueForm.prefeNm},
+				#{c010101VueForm.address1},
+				#{c010101VueForm.address2},
+				#{c010101VueForm.station},
+				#{c010101VueForm.hopeLand1},
+				#{c010101VueForm.hopeLand2},
+				#{c010101VueForm.hopeLand3},
+				#{c010101VueForm.photo},
+				#{c010101VueForm.workSituation},
+				#{c010101VueForm.graduationSchool},
+				#{c010101VueForm.graduationMajor},
+				#{c010101VueForm.workYears},
+				#{c010101VueForm.industryId1},
+				#{c010101VueForm.jobtypeId1_1},
+				#{c010101VueForm.jobtypeId1_2},
+				#{c010101VueForm.jobtypeId1_3},
+				#{c010101VueForm.industryId2},
+				#{c010101VueForm.jobtypeId2_1},
+				#{c010101VueForm.jobtypeId2_2},
+				#{c010101VueForm.jobtypeId2_3},
+				#{c010101VueForm.industryId3},
+				#{c010101VueForm.jobtypeId3_1},
+				#{c010101VueForm.jobtypeId3_2},
+				#{c010101VueForm.jobtypeId3_3},
+				#{c010101VueForm.finalEducation},
+				#{c010101VueForm.hopeSalaryFrom},
+				#{c010101VueForm.hopeSalaryTo},
+				#{c010101VueForm.introduce},
+				#{c010101VueForm.reason},
+				#{c010101VueForm.specialty},
+				#{c010101VueForm.interest},
+				0,
+				0,
+				0,
+				#{c010101VueForm.remarks},
+				'0',
+				CURRENT_TIMESTAMP(0),
+				#{c010101VueForm.userCd},
+				CURRENT_TIMESTAMP(0)
+				)
+    </insert>
+
+    <update id="updateApplicant" parameterType="Ansin.web.vueForm.C010101VueForm">
+		UPDATE
+				APPLICANT_INFO_TBL
+		<set>
+				BIRTHDAY = #{c010101VueForm.birthday},
+				APPLICANT_POSTAL = #{c010101VueForm.applicantPostal},
+				COUNTRY_ID = #{c010101VueForm.countryId},
+				PREFE_NM = #{c010101VueForm.prefeNm},
+				ADDRESS1 = #{c010101VueForm.address1},
+				ADDRESS2 = #{c010101VueForm.address2},
+				STATION = #{c010101VueForm.station},
+				HOPE_LAND1 = #{c010101VueForm.hopeLand1},
+				HOPE_LAND2 = #{c010101VueForm.hopeLand2},
+				HOPE_LAND3 = #{c010101VueForm.hopeLand3},
+				PHOTO = #{c010101VueForm.photo},
+				WORK_SITUATION = #{c010101VueForm.workSituation},
+				GRADUATION_SCHOOL = #{c010101VueForm.graduationSchool},
+				GRADUATION_MAJOR = #{c010101VueForm.graduationMajor},
+				WORK_YEARS = #{c010101VueForm.workYears},
+				INDUSTRY_ID1 = #{c010101VueForm.industryId1},
+				JOBTYPE_ID1_1 = #{c010101VueForm.jobtypeId1_1},
+				JOBTYPE_ID1_2 = #{c010101VueForm.jobtypeId1_2},
+				JOBTYPE_ID1_3 = #{c010101VueForm.jobtypeId1_3},
+				INDUSTRY_ID2 = #{c010101VueForm.industryId2},
+				JOBTYPE_ID2_1 = #{c010101VueForm.jobtypeId2_1},
+				JOBTYPE_ID2_2 = #{c010101VueForm.jobtypeId2_2},
+				JOBTYPE_ID2_3 = #{c010101VueForm.jobtypeId2_3},
+				INDUSTRY_ID3 = #{c010101VueForm.industryId3},
+				JOBTYPE_ID3_1 = #{c010101VueForm.jobtypeId3_1},
+				JOBTYPE_ID3_2 = #{c010101VueForm.jobtypeId3_2},
+				JOBTYPE_ID3_3 = #{c010101VueForm.jobtypeId3_3},
+				FINAL_EDUCATION = #{c010101VueForm.finalEducation},
+				HOPE_SALARY_FROM = #{c010101VueForm.hopeSalaryFrom},
+				HOPE_SALARY_TO = #{c010101VueForm.hopeSalaryTo},
+				INTRODUCE =	#{c010101VueForm.introduce},
+				REASON = #{c010101VueForm.reason},
+				SPECIALTY =	#{c010101VueForm.specialty},
+				INTEREST = #{c010101VueForm.interest},
+				REMARKS = #{c010101VueForm.remarks},
+				UPDATE_TIME = CURRENT_TIMESTAMP(0),
+				UPDATE_BY = #{c010101VueForm.userCd}
+		</set>
+		WHERE
+			APPLICANT_ID = #{c010101VueForm.applicantId}
+		<if test="c010101VueForm.userCd != null">
+		AND
+			USER_CD = #{c010101VueForm.userCd}
+		</if>
+		AND
+			DEL_FLG = '0'
+    </update>
+
+	<select id="getApplicantIds" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT
+		APPLICANT_ID
+	FROM
+		APPLICANT_INFO_TBL
+	WHERE
+		APPLICANT_INFO_TBL.USER_CD = #{userCd}
+
+	</select>
+
+
+	<update id="deleteApplicant">
+		UPDATE
+			APPLICANT_INFO_TBL
+		SET
+			DEL_FLG = '1'
+		WHERE
+			APPLICANT_ID
+		IN
+			<foreach item="list" index="index" collection="applicantIds"
+	                    open="(" separator="," close=")">
+	                    #{list}
+	        </foreach>
+		AND
+			DEL_FLG = '0'
+	</update>
+
+
+	<select id="getTerms" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+			APPLICANT_ID,
+			USER_CD,
+			INDUSTRY_ID1,
+			JOBTYPE_ID1_1,
+			JOBTYPE_ID1_2,
+			JOBTYPE_ID1_3,
+			INDUSTRY_ID2,
+			JOBTYPE_ID2_1,
+			JOBTYPE_ID2_2,
+			JOBTYPE_ID2_3,
+			INDUSTRY_ID3,
+			JOBTYPE_ID3_1,
+			JOBTYPE_ID3_2,
+			JOBTYPE_ID3_3     
+		FROM
+			APPLICANT_INFO_TBL
+		WHERE
+			APPLICANT_INFO_TBL.USER_CD = #{userCd}
+	</select>
+	
+	<select id="getName" parameterType="java.lang.Integer" resultMap="BaseResultMap4">
+		SELECT
+			USER_TBL.FIRST_NAME,
+			USER_TBL.LAST_NAME  
+		FROM
+			APPLICANT_INFO_TBL,USER_TBL
+		WHERE
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD
+		AND
+			APPLICANT_INFO_TBL.APPLICANT_ID = #{applicantId}
+	</select>
+	
+	
+	
+	<select id="getApplicant" parameterType="java.lang.Integer" resultMap="BaseResultMap3">
+		SELECT
+			<include refid="Base_Column_List3"/>
+		FROM
+			APPLICANT_INFO_TBL
+		LEFT JOIN
+			COU_MST
+		ON
+			COU_MST.COUNTRY_ID = APPLICANT_INFO_TBL.COUNTRY_ID
+		LEFT JOIN
+			(
+			SELECT
+	      		A.APPLICANT_ID
+			    , B.INDUSTRY_ID INDUSTRY_ID1
+				, C.INDUSTRY_ID INDUSTRY_ID2
+				, D.INDUSTRY_ID INDUSTRY_ID3
+			    , B.INDUSTRY_NM INDUSTRY_NM1
+			    , C.INDUSTRY_NM INDUSTRY_NM2
+			    , D.INDUSTRY_NM INDUSTRY_NM3
+			FROM
+			    APPLICANT_INFO_TBL A
+			LEFT JOIN
+				INDUSTRY_MST B
+			ON
+				A.INDUSTRY_ID1 = B.INDUSTRY_ID
+			LEFT JOIN
+				INDUSTRY_MST C
+			ON
+				A.INDUSTRY_ID2 = C.INDUSTRY_ID
+			LEFT JOIN
+				INDUSTRY_MST D
+			ON
+				A.INDUSTRY_ID3 = D.INDUSTRY_ID
+			WHERE
+				B.DEL_FLG = '0'
+			AND
+				C.DEL_FLG = '0'
+			AND
+				D.DEL_FLG = '0'
+			) INDUSTRY_SELECT
+		ON
+			INDUSTRY_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		LEFT JOIN
+			(
+			SELECT
+	      		A.APPLICANT_ID
+			    , B.JOBTYPE_ID JOBTYPE_ID1_1
+				, C.JOBTYPE_ID JOBTYPE_ID1_2
+				, D.JOBTYPE_ID JOBTYPE_ID1_3
+				, E.JOBTYPE_ID JOBTYPE_ID2_1
+				, F.JOBTYPE_ID JOBTYPE_ID2_2
+				, G.JOBTYPE_ID JOBTYPE_ID2_3
+				, H.JOBTYPE_ID JOBTYPE_ID3_1
+				, I.JOBTYPE_ID JOBTYPE_ID3_2
+				, J.JOBTYPE_ID JOBTYPE_ID3_3
+			    , B.JOBTYPE_NM JOBTYPE_NM1_1
+				, C.JOBTYPE_NM JOBTYPE_NM1_2
+				, D.JOBTYPE_NM JOBTYPE_NM1_3
+				, E.JOBTYPE_NM JOBTYPE_NM2_1
+				, F.JOBTYPE_NM JOBTYPE_NM2_2
+				, G.JOBTYPE_NM JOBTYPE_NM2_3
+				, H.JOBTYPE_NM JOBTYPE_NM3_1
+				, I.JOBTYPE_NM JOBTYPE_NM3_2
+				, J.JOBTYPE_NM JOBTYPE_NM3_3
+			FROM
+			    APPLICANT_INFO_TBL A
+			LEFT JOIN
+				JOBTYPE_MST B
+		    ON
+		    	A.JOBTYPE_ID1_1 = B.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST C
+		    ON
+		        A.JOBTYPE_ID1_2 = C.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST D
+		    ON
+		        A.JOBTYPE_ID1_3 = D.JOBTYPE_ID
+			LEFT JOIN
+				JOBTYPE_MST E
+		    ON
+		       	A.JOBTYPE_ID2_1 = E.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST F
+		    ON
+		        A.JOBTYPE_ID2_2 = F.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST G
+		    ON
+		        A.JOBTYPE_ID2_3 = G.JOBTYPE_ID
+			LEFT JOIN
+				JOBTYPE_MST H
+		    ON
+		        A.JOBTYPE_ID3_1 = H.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST I
+		    ON
+		    	A.JOBTYPE_ID3_2 = I.JOBTYPE_ID
+		    LEFT JOIN
+		    	JOBTYPE_MST J
+		    ON
+		        A.JOBTYPE_ID3_3 = J.JOBTYPE_ID
+			WHERE
+				B.DEL_FLG = '0'
+			AND
+				C.DEL_FLG = '0'
+			AND
+				D.DEL_FLG = '0'
+			AND
+				E.DEL_FLG = '0'
+			AND
+				F.DEL_FLG = '0'
+			AND
+				G.DEL_FLG = '0'
+			AND
+				H.DEL_FLG = '0'
+			AND
+				I.DEL_FLG = '0'
+			AND
+				J.DEL_FLG = '0'
+			) JOBTYPE_SELECT
+		ON
+			JOBTYPE_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		LEFT JOIN
+			(
+			SELECT
+	      		A.APPLICANT_ID
+			    , B.PREFE_ID as HOPE_LANDID1
+				, C.PREFE_ID as HOPE_LANDID2
+				, D.PREFE_ID as HOPE_LANDID3
+			    , B.PREFE_NM as HOPE_LANDNM1
+			    , C.PREFE_NM as HOPE_LANDNM2
+			    , D.PREFE_NM as HOPE_LANDNM3
+			FROM
+			    APPLICANT_INFO_TBL A
+			LEFT JOIN
+				PREFECTURES_MST B
+			ON
+				A.HOPE_LAND1 = B.PREFE_ID
+			LEFT JOIN
+				PREFECTURES_MST C
+		    ON
+			    A.HOPE_LAND2 = C.PREFE_ID
+			LEFT JOIN
+				PREFECTURES_MST D
+			ON
+				A.HOPE_LAND3 = D.PREFE_ID
+			WHERE
+				B.DEL_FLG = '0'
+			AND
+				C.DEL_FLG = '0'
+			AND
+				D.DEL_FLG = '0'
+			) PREFECTURES_SELECT
+		ON
+			PREFECTURES_SELECT.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		WHERE
+			APPLICANT_INFO_TBL.APPLICANT_ID = #{applicantId}
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			COU_MST.DEL_FLG = '0'
+    </select>
+	
+	
+
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.B0201ListMapper" >
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.B0201Entity" >
+		<result column="position_id" property="positionId" jdbcType="INTEGER" />
+		<result column="applicant_id" property="applicantId" jdbcType="INTEGER" />
+		<result column="industry_id1" property="industryId1" jdbcType="INTEGER" />
+		<result column="jobtype_id1_1" property="jobtypeId1_1" jdbcType="INTEGER" />
+		<result column="last_name" property="lastName" jdbcType="VARCHAR" />
+		<result column="first_name" property="firstName" jdbcType="VARCHAR" />
+		<result column="industry_nm" property="industryNm" jdbcType="VARCHAR" />
+		<result column="jobtype_nm" property="jobtypeNm" jdbcType="VARCHAR" />
+		<result column="address1" property="address1" jdbcType="VARCHAR" />
+		<result column="address2" property="address2" jdbcType="VARCHAR" />
+		<result column="station" property="station" jdbcType="VARCHAR" />
+		<result column="graduation_school" property="graduationSchool" jdbcType="VARCHAR" />
+		<result column="final_education" property="finalEducation" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="work_years" property="workYears" jdbcType="INTEGER" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="position_nm" property="positionNm" jdbcType="VARCHAR" />
+		<result column="app_app_status" property="applicationStatus" jdbcType="CHAR" />
+    </resultMap>
+
+
+	<sql id="Base_Column_List">
+		APPLICATION_TBL.POSITION_ID,
+		APPLICATION_TBL.APPLICANT_ID,
+		APPLICANT_INFO_TBL.INDUSTRY_ID1,
+		APPLICANT_INFO_TBL.JOBTYPE_ID1_1,
+		USER_TBL.LAST_NAME,
+		USER_TBL.FIRST_NAME,
+		INDUSTRY_MST.INDUSTRY_NM,
+		JOBTYPE_MST.JOBTYPE_NM,
+		APPLICANT_INFO_TBL.ADDRESS1,
+		APPLICANT_INFO_TBL.ADDRESS2,
+		APPLICANT_INFO_TBL.STATION,
+		APPLICANT_INFO_TBL.GRADUATION_SCHOOL,
+		APPLICANT_INFO_TBL.FINAL_EDUCATION,
+		APPLICANT_INFO_TBL.BIRTHDAY,
+		APPLICANT_INFO_TBL.WORK_YEARS,
+		APPLICANT_INFO_TBL.UPDATE_TIME,
+		POSITION_TBL.POSITION_NM,
+		APPLICATION_TBL.APP_APP_STATUS
+	</sql>
+
+    <select id="getAll" parameterType="Ansin.web.dto.B0201SearchDto" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+        FROM
+			APPLICATION_TBL 
+	  	INNER JOIN 
+	  		APPLICANT_INFO_TBL 
+	    ON 
+	    	APPLICATION_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID 
+	    AND 
+	    	APPLICANT_INFO_TBL.DEL_FLG = '0' 
+		<if test="searchDto.workYearsFrom != null">
+		AND
+		  APPLICANT_INFO_TBL.WORK_YEARS &gt;= #{searchDto.workYearsFrom}
+		</if>
+		<if test="searchDto.workYearsTo != null">
+		AND
+		  APPLICANT_INFO_TBL.WORK_YEARS &lt;= #{searchDto.workYearsTo}
+		</if>
+		<if test="searchDto.ageFrom != null">
+		AND
+		  APPLICANT_INFO_TBL.BIRTHDAY &gt; to_date(#{searchDto.ageFrom},'YYYY-mm-DD')
+		</if>
+		<if test="searchDto.ageTo != null">
+		AND
+		  APPLICANT_INFO_TBL.BIRTHDAY &lt; to_date(#{searchDto.ageTo},'YYYY-mm-DD')
+		</if>
+		<if test="searchDto.address != null and searchDto.address != ''">
+		AND
+		  APPLICANT_INFO_TBL.ADDRESS1 || APPLICANT_INFO_TBL.ADDRESS2 LIKE '%${searchDto.address}%'
+		</if>
+	  	INNER JOIN 
+	  		USER_TBL 
+	    ON
+	    	APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD 
+	    AND 
+	    	USER_TBL.DEL_FLG = '0' 
+	    <if test="searchDto.name != null and searchDto.name != ''">
+	   	AND
+	     	USER_TBL.FIRST_NAME || USER_TBL.LAST_NAME LIKE '%${searchDto.name}%'
+	   	</if>
+	  	INNER JOIN 
+	  		INDUSTRY_MST 
+	    ON 
+	    	APPLICANT_INFO_TBL.INDUSTRY_ID1 = INDUSTRY_MST.INDUSTRY_ID 
+	    AND 
+	    	INDUSTRY_MST.DEL_FLG = '0' 
+	 	INNER JOIN 
+	 		JOBTYPE_MST 
+	    ON 
+	    	APPLICANT_INFO_TBL.jobtype_id1_1 = JOBTYPE_MST.JOBTYPE_ID 
+	    AND 
+	    	JOBTYPE_MST.DEL_FLG = '0' 
+	  	INNER JOIN 
+	  		POSITION_TBL 
+	    ON 
+	    	APPLICATION_TBL.POSITION_ID = POSITION_TBL.POSITION_ID 
+	    AND 
+	    	POSITION_TBL.DEL_FLG = '0' 
+	    <if test="searchDto.positionId != null">
+		AND
+			POSITION_TBL.POSITION_ID = #{searchDto.positionId}
+		</if>
+	  	INNER JOIN 
+	  		APPLICANT_EDU_TBL 
+	    ON 
+	    	APPLICANT_INFO_TBL.APPLICANT_ID = APPLICANT_EDU_TBL.APPLICANT_ID 
+	    <if test="searchDto.eduSectionId != null and searchDto.eduSectionId != ''">
+	   	AND
+		 	APPLICANT_EDU_TBL.EDU_SECTION = #{searchDto.eduSectionId}
+	   	</if>
+	   	<if test="searchDto.degreeId != null and searchDto.degreeId != ''">
+	   	AND
+		 	APPLICANT_EDU_TBL.DEGREE = #{searchDto.degreeId}
+	   	</if>
+		WHERE
+			APPLICATION_TBL.DEL_FLG = '0' 
+		<if test="searchDto.applicationStatus != null and searchDto.applicationStatus != ''">
+       	AND
+	     	APPLICATION_TBL.APP_APP_STATUS =  #{searchDto.applicationStatus}
+	   	</if>
+	   	AND
+	   	 	APPLICATION_TBL.COMPANY_ID	= #{searchDto.companyId} 
+		GROUP BY
+			APPLICATION_TBL.POSITION_ID
+			, APPLICATION_TBL.APPLICANT_ID
+			, APPLICANT_INFO_TBL.INDUSTRY_ID1
+			, APPLICANT_INFO_TBL.JOBTYPE_ID1_1
+			, USER_TBL.LAST_NAME
+			, USER_TBL.FIRST_NAME
+			, INDUSTRY_MST.INDUSTRY_NM
+			, JOBTYPE_MST.JOBTYPE_NM
+			, APPLICANT_INFO_TBL.ADDRESS1
+			, APPLICANT_INFO_TBL.ADDRESS2
+			, APPLICANT_INFO_TBL.STATION
+			, APPLICANT_INFO_TBL.GRADUATION_SCHOOL
+			, APPLICANT_INFO_TBL.FINAL_EDUCATION
+			, APPLICANT_INFO_TBL.BIRTHDAY
+			, APPLICANT_INFO_TBL.WORK_YEARS
+			, APPLICANT_INFO_TBL.UPDATE_TIME
+			, POSITION_TBL.POSITION_NM
+			, APPLICATION_TBL.APP_APP_STATUS
+		ORDER BY
+		  	APPLICANT_INFO_TBL.UPDATE_TIME 
+		DESC
+    </select>
+
+
+    <update id="deleteMultiple">
+       UPDATE
+		 APPLICATION_TBL
+	   SET
+		 APP_APP_STATUS = #{applicationStatus}
+	   WHERE
+		 APPLICATION_TBL.COMPANY_ID	= #{companyId}
+	   AND
+		 APPLICATION_TBL.POSITION_ID IN
+		 <foreach collection="positionIdList" item="positionId" index="index" open="(" close=")" separator=",">
+		   #{positionId, jdbcType=INTEGER}
+		</foreach>
+	   AND
+		 APPLICATION_TBL.APPLICANT_ID IN
+		 <foreach collection="applicantIdList" item="applicantId" index="index" open="(" close=")" separator=",">
+		  #{applicantId, jdbcType=INTEGER}
+		</foreach>
+	   	AND
+		  APPLICATION_TBL.DEL_FLG =	'0'
+
+    </update>
+
+
+
+</mapper>

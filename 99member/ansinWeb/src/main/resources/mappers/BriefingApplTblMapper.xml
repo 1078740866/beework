@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="Ansin.web.mapper.BriefingApplTblMapper">
+
+	<resultMap
+		id="BaseResultMap"
+		type="Ansin.web.entity.BriefingApplTblEntity">
+		<result
+			column="COMPANY_ID"
+			property="companyId"
+			jdbcType="INTEGER" />
+		<result
+			column="BRIEFING_ID"
+			property="briefingId"
+			jdbcType="INTEGER" />
+		<result
+			column="APPLICANT_ID"
+			property="applicantId"
+			jdbcType="INTEGER" />
+		<result
+			column="USER_CD"
+			property="userCd"
+			jdbcType="INTEGER" />
+		<result
+			column="BIRTHDAY"
+			property="birthday"
+			jdbcType="DATE" />
+		<result
+			column="FIRST_NAME"
+			property="firstName"
+			jdbcType="VARCHAR" />
+		<result
+			column="LAST_NAME"
+			property="lastName"
+			jdbcType="VARCHAR" />
+		<result
+			column="PREFE_NM"
+			property="prefeNm"
+			jdbcType="VARCHAR" />
+		<result
+			column="STATION"
+			property="station"
+			jdbcType="VARCHAR" />
+		<result
+			column="SEX"
+			property="sex"
+			jdbcType="CHAR" />
+		<result
+			column="GRADUATION_SCHOOL"
+			property="graduationSchool"
+			jdbcType="VARCHAR" />
+		<result
+			column="GRADUATION_MAJOR"
+			property="graduationMajor"
+			jdbcType="VARCHAR" />
+		<result
+			column="USER_TEL"
+			property="userTel"
+			jdbcType="VARCHAR" />
+		<result
+			column="WORK_SITUATION"
+			property="workSituation"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--TBL: BRIEFING_INFO_TBL, APPLICANT_INFO_TBL, USER_TBL -->
+	<sql id="BriefingApplSql">
+		BRIEFING_APPL_TBL.COMPANY_ID,
+		BRIEFING_APPL_TBL.BRIEFING_ID,
+		BRIEFING_APPL_TBL.APPLICANT_ID,
+		USER_TBL.USER_CD,
+		USER_TBL.FIRST_NAME,
+		USER_TBL.LAST_NAME,
+		APPLICANT_INFO_TBL.BIRTHDAY,
+		USER_TBL.SEX,
+		APPLICANT_INFO_TBL.PREFE_NM,
+		APPLICANT_INFO_TBL.STATION,
+		APPLICANT_INFO_TBL.GRADUATION_SCHOOL,
+		APPLICANT_INFO_TBL.GRADUATION_MAJOR,
+		USER_TBL.USER_TEL,
+		APPLICANT_INFO_TBL.WORK_SITUATION
+	</sql>
+
+	<select
+		id="briefingApplList"
+		parameterType="Ansin.web.vueForm.B0603VueForm"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="BriefingApplSql" />
+		FROM
+			BRIEFING_APPL_TBL,APPLICANT_INFO_TBL,USER_TBL,BRIEFING_INFO_TBL
+		WHERE
+			BRIEFING_APPL_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID
+		AND
+			APPLICANT_INFO_TBL.USER_CD = USER_TBL.USER_CD
+		AND
+			BRIEFING_INFO_TBL.COMPANY_ID = BRIEFING_APPL_TBL.COMPANY_ID
+		AND
+			BRIEFING_INFO_TBL.BRIEFING_ID = BRIEFING_APPL_TBL.BRIEFING_ID
+		<if
+			test="b0603VueForm.briefingId != null">
+			AND
+			BRIEFING_APPL_TBL.BRIEFING_ID = #{b0603VueForm.briefingId}
+		</if>
+		<if
+			test="b0603VueForm.companyId != null">
+			AND
+			BRIEFING_APPL_TBL.COMPANY_ID = #{b0603VueForm.companyId}
+		</if>
+		AND
+			BRIEFING_APPL_TBL.DEL_FLG = '0'
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.USER_STATUS = '0'
+		<if test="b0603VueForm.name != null and b0603VueForm.name != ''">
+			AND
+			USER_TBL.FIRST_NAME || USER_TBL.LAST_NAME LIKE
+			'%${b0603VueForm.name}%'
+		</if>
+		ORDER BY
+			BRIEFING_APPL_TBL.UPDATE_TIME
+		DESC
+	</select>
+
+	<!--C0401説明会一覧画面 -->
+	
+	<insert id="insertPost" parameterType="java.util.List">
+	    	INSERT INTO 
+				BRIEFING_APPL_TBL
+				  	(	
+					COMPANY_ID,
+					BRIEFING_ID,
+					APPLICANT_ID,
+					STATUS_FLG,
+					DEL_FLG,
+					CREATE_TIME,
+					CREATE_BY,
+					UPDATE_TIME
+					)
+			VALUES
+			<foreach item="List" index="index" collection="c0401VueForm"
+	                     separator=","> 
+				(
+				#{List.companyId},
+				#{List.briefingId},
+				#{List.applicantId},	
+				'0',
+				'0',
+				CURRENT_TIMESTAMP(0),
+				#{List.userCd},	
+				CURRENT_TIMESTAMP(0)											
+				)
+			</foreach>
+	</insert>
+	
+	<insert id="insertLike" parameterType="java.util.List">
+		    	INSERT INTO 
+				BRIEFING_APPL_TBL
+				  	(	
+					COMPANY_ID,
+					BRIEFING_ID,
+					APPLICANT_ID,
+					STATUS_FLG,
+					DEL_FLG,
+					CREATE_TIME,
+					CREATE_BY,
+					UPDATE_TIME
+					)
+			VALUES
+			<foreach item="List" index="index" collection="c0401VueForm"
+	                     separator=","> 
+				(
+				#{List.companyId},
+				#{List.briefingId},
+				#{List.applicantId},	
+				'1',
+				'0',
+				CURRENT_TIMESTAMP(0),
+				#{List.userCd},	
+				CURRENT_TIMESTAMP(0)											
+				)
+			</foreach>
+	</insert>
+	
+	<update id="updateLike">
+		UPDATE 										
+			BRIEFING_APPL_TBL									
+		SET										
+			STATUS_FLG = '0',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}					
+		WHERE										
+			APPLICANT_ID = #{applicantId}						
+		AND 										
+			BRIEFING_APPL_TBL.DEL_FLG = '0'
+         <foreach item="c0401VueForm" index="index" collection="c0401VueForm"
+                   open="AND(" separator="OR" close=")">
+			(
+	              COMPANY_ID =
+	             #{c0401VueForm.companyId}
+			AND										
+				  BRIEFING_ID =  
+	              #{c0401VueForm.briefingId})		
+        </foreach>		
+	</update>
+	
+	
+	<delete id="deleteBriefingAppl">
+		DELETE FROM 
+			BRIEFING_APPL_TBL 
+		WHERE 
+	    <foreach item="c0401VueForm" index="index" collection="c0401VueForm"
+                   open="(" separator="OR" close=")AND">
+			(
+	              COMPANY_ID =
+	             #{c0401VueForm.companyId}
+			AND										
+				  BRIEFING_ID =  
+	              #{c0401VueForm.briefingId})		
+    	</foreach>	
+	    	APPLICANT_ID = #{applicantId}
+	    AND
+	    	BRIEFING_APPL_TBL.DEL_FLG = '0'
+	</delete>
+	
+	<update id="deleteBrie">
+		UPDATE 										
+			BRIEFING_APPL_TBL									
+		SET										
+			STATUS_FLG = '1',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}					
+		WHERE										
+			APPLICANT_ID = #{applicantId}						
+		AND 										
+			BRIEFING_APPL_TBL.DEL_FLG = '0'
+		AND										
+			  BRIEFING_ID IN  
+			  <foreach item="c0401VueForm" index="index" collection="c0401VueForm"
+                 open="(" separator="," close=")">
+              #{c0401VueForm.briefingId}		
+         </foreach>	
+	</update>
+	
+</mapper>

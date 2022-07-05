@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ApplicantWorkHisTblMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.ApplicantWorkHisTblEntity">
+			<result column="WORK_HIS_ID" property="workHisId" jdbcType="INTEGER"/>
+			<result column="APPLICANT_ID" property="applicantId" jdbcType="INTEGER"/>
+			<result column="INDUSTRY_ID1" property="industryId1" jdbcType="INTEGER"/>
+			<result column="JOBTYPE_ID1_1" property="jobtypeId1_1" jdbcType="INTEGER"/>
+			<result column="JOBTYPE_ID1_2" property="jobtypeId1_2" jdbcType="INTEGER"/>
+			<result column="JOBTYPE_ID1_3" property="jobtypeId1_3" jdbcType="INTEGER"/>
+			<result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR"/>
+			<result column="WORK_CONTENT" property="workContent" jdbcType="VARCHAR"/>
+			<result column="WORK_PLACE" property="workPlace" jdbcType="VARCHAR"/>
+			<result column="WORK_DATE_FROM" property="workDateFrom" jdbcType="DATE"/>
+			<result column="WORK_DATE_TO" property="workDateTo" jdbcType="DATE"/>
+			<result column="WORK_POSITION" property="workPosition" jdbcType="VARCHAR"/>
+			<result column="INTRODUCTION" property="introduction" jdbcType="VARCHAR"/>
+			<result column="WORK_SKILL" property="workSkill" jdbcType="VARCHAR"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		
+		<sql id="Base_Column_List">
+				APPLICANT_WORK_HIS_TBL.WORK_HIS_ID
+				,APPLICANT_WORK_HIS_TBL.APPLICANT_ID
+				,APPLICANT_WORK_HIS_TBL.INDUSTRY_ID1
+				,APPLICANT_WORK_HIS_TBL.JOBTYPE_ID1_1
+				,APPLICANT_WORK_HIS_TBL.JOBTYPE_ID1_2
+				,APPLICANT_WORK_HIS_TBL.JOBTYPE_ID1_3
+				,APPLICANT_WORK_HIS_TBL.COMPANY_NM
+				,APPLICANT_WORK_HIS_TBL.WORK_CONTENT
+				,APPLICANT_WORK_HIS_TBL.WORK_PLACE
+				,APPLICANT_WORK_HIS_TBL.WORK_DATE_FROM
+				,APPLICANT_WORK_HIS_TBL.WORK_DATE_TO
+				,APPLICANT_WORK_HIS_TBL.WORK_POSITION
+				,APPLICANT_WORK_HIS_TBL.INTRODUCTION
+				,APPLICANT_WORK_HIS_TBL.WORK_SKILL
+				,APPLICANT_WORK_HIS_TBL.DEL_FLG
+				,APPLICANT_WORK_HIS_TBL.CREATE_TIME
+				,APPLICANT_WORK_HIS_TBL.CREATE_BY
+				,APPLICANT_WORK_HIS_TBL.UPDATE_TIME
+				,APPLICANT_WORK_HIS_TBL.UPDATE_BY
+		</sql>
+		
+		<select id="getApplicantWorkHis" parameterType="java.lang.Integer" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				APPLICANT_WORK_HIS_TBL									
+			WHERE
+			    APPLICANT_WORK_HIS_TBL.APPLICANT_ID = #{applicantId}	
+			AND    												
+				APPLICANT_WORK_HIS_TBL.DEL_FLG = '0'											
+		</select>
+		
+		<insert id="workHisInsert" parameterType="Ansin.web.vueForm.C010104VueForm">
+		   	INSERT INTO APPLICANT_WORK_HIS_TBL
+		   	 (													
+			WORK_HIS_ID,
+			APPLICANT_ID,
+			INDUSTRY_ID1,
+			JOBTYPE_ID1_1,
+			JOBTYPE_ID1_2,
+			JOBTYPE_ID1_3,
+			COMPANY_NM,
+			WORK_CONTENT,
+			WORK_PLACE,
+			WORK_DATE_FROM,
+			WORK_DATE_TO,
+			WORK_POSITION,
+			INTRODUCTION,
+			WORK_SKILL,
+			DEL_FLG,
+			CREATE_TIME,
+			CREATE_BY,
+			UPDATE_TIME										
+			)													
+			VALUES  (													
+			default,
+			#{c010104VueForm.applicantId},
+			#{c010104VueForm.industryId1},
+			#{c010104VueForm.jobtypeId1_1},
+			#{c010104VueForm.jobtypeId1_2},
+			#{c010104VueForm.jobtypeId1_3},
+			#{c010104VueForm.companyNm},
+			#{c010104VueForm.workContent},
+			#{c010104VueForm.workPlace},
+			#{c010104VueForm.workDateFrom},
+			#{c010104VueForm.workDateTo},
+			#{c010104VueForm.workPosition},
+			#{c010104VueForm.introduction},
+			#{c010104VueForm.workSkill},
+			'0',
+			CURRENT_TIMESTAMP(0),
+			#{c010104VueForm.userCd},
+			CURRENT_TIMESTAMP(0)					
+)
+		</insert>
+		
+		<update id="workHisUpdate" parameterType="Ansin.web.vueForm.C010104VueForm">																
+		UPDATE																
+				APPLICANT_WORK_HIS_TBL														
+		SET																
+				INDUSTRY_ID1 = #{c010104VueForm.industryId1},
+				JOBTYPE_ID1_1 =	#{c010104VueForm.jobtypeId1_1},
+				JOBTYPE_ID1_2 =	#{c010104VueForm.jobtypeId1_2},
+				JOBTYPE_ID1_3 =	#{c010104VueForm.jobtypeId1_3},
+				COMPANY_NM = #{c010104VueForm.companyNm},
+				WORK_CONTENT = #{c010104VueForm.workContent},
+				WORK_PLACE = #{c010104VueForm.workPlace},
+				WORK_DATE_FROM = #{c010104VueForm.workDateFrom},
+				WORK_DATE_TO =	#{c010104VueForm.workDateTo},
+				WORK_POSITION =	#{c010104VueForm.workPosition},
+				INTRODUCTION = #{c010104VueForm.introduction},
+				WORK_SKILL = #{c010104VueForm.workSkill},
+				UPDATE_TIME = CURRENT_TIMESTAMP(0),
+				UPDATE_BY =	#{c010104VueForm.userCd}				
+		WHERE																
+				APPLICANT_ID = #{c010104VueForm.applicantId}														
+		AND																
+				WORK_HIS_ID = #{c010104VueForm.workHisId}														
+		AND																
+				DEL_FLG = '0'														
+		</update>
+		
+		<update id="workHisDelete">
+		UPDATE																
+			APPLICANT_WORK_HIS_TBL														
+		SET																
+			DEL_FLG	= '1',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}				
+		WHERE																
+			APPLICANT_ID = #{applicantId}														
+		AND																
+			WORK_HIS_ID = #{workHisId}														
+														
+		</update>
+</mapper>

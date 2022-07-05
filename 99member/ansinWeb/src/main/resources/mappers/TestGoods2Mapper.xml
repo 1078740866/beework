@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.TestGoods2Mapper" >
+    <resultMap id="TestGoods2Map" type="Ansin.web.entity.TestGoods2Entity" >
+        <result column="GOODS_DETAILS" property="goodsDetail" jdbcType="VARCHAR" />
+        <result column="GOODS_PHOTO" property="goodsPhoto" jdbcType="VARCHAR" />
+        <result column="GOODS_LINK" property="goodsLink" jdbcType="VARCHAR" />
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+        <result column="GOODS_TAG" property="goodsTag" jdbcType="VARCHAR" />
+        <result column="GOODS_PRICE" property="goodsPrice" jdbcType="VARCHAR" />
+        
+    </resultMap>
+    
+    
+     <sql id="Test_goods2_List" >
+       	TEST_GOODS2.GOODS_DETAILS,
+       	TEST_GOODS2.GOODS_PHOTO,
+       	TEST_GOODS2.GOODS_LINK,
+       	TEST_GOODS2.GOODS_NAME,
+       	TEST_GOODS2.GOODS_TAG,
+       	TEST_GOODS2.GOODS_PRICE
+   </sql>
+    
+    
+    <select id="getAllGoods2" parameterType="Ansin.web.vueForm.G01VueForm" resultMap="TestGoods2Map" >																					
+		SELECT																				
+		<include refid="Test_goods2_List" />	
+		FROM																				
+			TEST_GOODS2		
+		ORDER BY 
+			TEST_GOODS2.GOODS_DETAILS
+		LIMIT 200
+		
+    </select>
+    
+    
+     
+    
+</mapper>

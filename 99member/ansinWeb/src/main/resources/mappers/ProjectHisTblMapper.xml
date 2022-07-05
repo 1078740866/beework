@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ProjectHisTblMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.ProjectHisTblEntity">
+			<result column="PROJECT_ID" property="projectId" jdbcType="INTEGER"/>
+			<result column="APPLICANT_ID" property="applicantId" jdbcType="INTEGER"/>
+			<result column="PROJECT_NM" property="projectNm" jdbcType="VARCHAR"/>
+			<result column="PRO_DATE_FROM" property="proDateFrom" jdbcType="DATE"/>
+			<result column="PRO_DATE_TO" property="proDateTo" jdbcType="DATE"/>
+			<result column="PRO_CONTENT" property="proContent" jdbcType="VARCHAR"/>
+			<result column="PRO_DUTIES" property="proDuties" jdbcType="VARCHAR"/>
+			<result column="PRO_TEC" property="proTec" jdbcType="VARCHAR"/>
+			<result column="PRO_ROLE" property="proRole" jdbcType="VARCHAR"/>
+			<result column="PRO_CNT" property="proCnt" jdbcType="INTEGER"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		
+		<sql id="Base_Column_List">
+						PROJECT_HIS_TBL.PROJECT_ID
+						,PROJECT_HIS_TBL.APPLICANT_ID
+						,PROJECT_HIS_TBL.PROJECT_NM
+						,PROJECT_HIS_TBL.PRO_DATE_FROM
+						,PROJECT_HIS_TBL.PRO_DATE_TO
+						,PROJECT_HIS_TBL.PRO_CONTENT
+						,PROJECT_HIS_TBL.PRO_DUTIES
+						,PROJECT_HIS_TBL.PRO_TEC
+						,PROJECT_HIS_TBL.PRO_ROLE
+						,PROJECT_HIS_TBL.PRO_CNT
+						,PROJECT_HIS_TBL.DEL_FLG
+						,PROJECT_HIS_TBL.CREATE_TIME
+						,PROJECT_HIS_TBL.CREATE_BY
+						,PROJECT_HIS_TBL.UPDATE_TIME
+						,PROJECT_HIS_TBL.UPDATE_BY
+		</sql>
+		
+		<select id="getAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				PROJECT_HIS_TBL									
+			WHERE
+			    PROJECT_HIS_TBL.APPLICANT_ID = #{applicantId}	
+			AND    												
+				PROJECT_HIS_TBL.DEL_FLG = '0'			
+		</select>
+		
+		<insert id="projectHisInsert" parameterType="Ansin.web.vueForm.C010107VueForm">
+		   	INSERT INTO PROJECT_HIS_TBL (
+			PROJECT_ID,
+			APPLICANT_ID,
+			PROJECT_NM,
+			PRO_DATE_FROM,
+			PRO_DATE_TO,
+			PRO_CONTENT,
+			PRO_DUTIES,
+			PRO_TEC,
+			PRO_ROLE,
+			PRO_CNT,
+			DEL_FLG,
+			CREATE_TIME,
+			CREATE_BY,
+			UPDATE_TIME
+			)													
+			VALUES  (
+			default,
+			#{c010107VueForm.applicantId},
+			#{c010107VueForm.projectNm},
+			#{c010107VueForm.proDateFrom},
+			#{c010107VueForm.proDateTo},
+			#{c010107VueForm.proContent},
+			#{c010107VueForm.proDuties},
+			#{c010107VueForm.proTec},
+			#{c010107VueForm.proRole},
+			#{c010107VueForm.proCnt},
+			'0',
+			CURRENT_TIMESTAMP(0),
+			#{c010107VueForm.userCd},
+			CURRENT_TIMESTAMP(0)
+			)
+		</insert>
+		
+		<update id="projectHisUpdate" parameterType="Ansin.web.vueForm.C010107VueForm">
+		UPDATE																
+			PROJECT_HIS_TBL														
+		SET																
+			PROJECT_NM = #{c010107VueForm.projectNm},
+			PRO_DATE_FROM =	#{c010107VueForm.proDateFrom},
+			PRO_DATE_TO	= #{c010107VueForm.proDateTo},
+			PRO_CONTENT	= #{c010107VueForm.proContent},
+			PRO_DUTIES = #{c010107VueForm.proDuties},
+			PRO_TEC	= #{c010107VueForm.proTec},
+			PRO_ROLE = #{c010107VueForm.proRole},
+			PRO_CNT = #{c010107VueForm.proCnt},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY =	#{c010107VueForm.userCd}				
+		WHERE																
+			APPLICANT_ID = #{c010107VueForm.applicantId}														
+		AND																
+			PROJECT_ID = #{c010107VueForm.projectId}														
+		AND																
+			DEL_FLG = '0'														
+												
+		</update>
+		
+		<update id="projectHisDelete">
+		UPDATE																
+			PROJECT_HIS_TBL														
+		SET																
+			DEL_FLG	= '1',
+			UPDATE_TIME	= CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}				
+		WHERE																
+			APPLICANT_ID = #{applicantId}														
+		AND																
+			PROJECT_ID = #{projectId}														
+														
+		</update>
+</mapper>

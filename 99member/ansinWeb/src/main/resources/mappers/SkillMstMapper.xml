@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.SkillMstMapper">
+		<resultMap id="BaseResultMap" type="Ansin.web.entity.SkillMstEntity">
+			<result column="SKILL_ID" property="skillId" jdbcType="INTEGER"/>
+			<result column="INDUSTRY_ID" property="industryId" jdbcType="INTEGER"/>
+			<result column="JOBTYPE_ID" property="jobtypeId" jdbcType="INTEGER"/>
+			<result column="SKILL_NM" property="skillNm" jdbcType="VARCHAR"/>
+			<result column="DEL_FLG" property="delFlg" jdbcType="CHAR"/>
+			<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="CREATE_BY" property="createBy" jdbcType="CHAR"/>
+			<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+			<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR"/>
+		</resultMap>
+		
+		<sql id="Base_Column_List">
+				SKILL_MST.SKILL_ID,					
+				SKILL_MST.INDUSTRY_ID,
+				SKILL_MST.JOBTYPE_ID,
+				SKILL_MST.SKILL_NM
+		</sql>
+		
+		<select id="getAll" resultMap="BaseResultMap">												
+			SELECT													
+				<include refid="Base_Column_List" />			
+			FROM													
+				SKILL_MST										
+			WHERE													
+				SKILL_MST.DEL_FLG = '0'											
+		</select>
+		
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.JobtypeMstMapper">
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.JobtypeMstEntity">
+    	<result column="jobtype_id" property="jobtypeId" jdbcType="INTEGER"/>
+		<result column="industry_id" property="industryId" jdbcType="INTEGER"/>
+		<result column="jobtype_nm" property="jobtypeNm" jdbcType="VARCHAR"/>
+		<result column="del_flg" property="delFlg" jdbcType="CHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="create_by" property="createBy" jdbcType="CHAR"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="update_by" property="updateBy" jdbcType="CHAR"/>
+    </resultMap>
+
+
+	<sql id="Base_Column_List">
+		JOBTYPE_MST.JOBTYPE_ID
+		,JOBTYPE_MST.INDUSTRY_ID
+		,JOBTYPE_MST.JOBTYPE_NM
+		,JOBTYPE_MST.DEL_FLG
+		,JOBTYPE_MST.CREATE_TIME
+		,JOBTYPE_MST.CREATE_BY
+		,JOBTYPE_MST.UPDATE_TIME
+		,JOBTYPE_MST.UPDATE_BY
+	</sql>
+
+
+    <select id="getAll" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM 
+	   		JOBTYPE_MST
+	   WHERE
+	        DEL_FLG = '0'
+	   
+    </select>
+    
+    
+    <select id="getOne" parameterType="java.lang.String" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM JOBTYPE_MST
+	   WHERE
+	     JOBTYPE_MST.DEL_FLG = '0'
+	   AND
+	     JOBTYPE_MST.JOBTYPE_ID = #{jobtypeId}
+    </select>
+    
+    
+
+
+</mapper>

@@ -1,0 +1,1663 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="Ansin.web.mapper.PositionTblMapper" >
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.PositionTblEntity" >
+        <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="POSITION_ID" property="positionId" jdbcType="INTEGER" />
+		<result column="INDUSTRY_ID" property="industryId" jdbcType="INTEGER" />
+		<result column="JOBTYPE_ID" property="jobTypeId" jdbcType="INTEGER" />
+		<result column="SKILL_ID" property="skillId" jdbcType="INTEGER"/>
+		<result column="INDUSTRY_NM" property="industryNm" jdbcType="VARCHAR" />
+		<result column="JOBTYPE_NM" property="jobTypeNm" jdbcType="VARCHAR" />
+		<result column="SKILL_NM" property="skillNm" jdbcType="VARCHAR"/>
+		<result column="POSITION_NM" property="positionNm" jdbcType="VARCHAR" />
+		<result column="DEGREE" property="degree" jdbcType="CHAR" />
+		<result column="POSITION_INT" property="positionInt" jdbcType="VARCHAR" />
+		<result column="WORK_CONTENT" property="workContent" jdbcType="VARCHAR" />
+		<result column="CONTRACT_SECTION" property="contractSection" jdbcType="CHAR" />
+		<result column="WORK_TIME_FROM" property="workTimeFrom" jdbcType="TIME" />
+		<result column="WORK_TIME_TO" property="workTimeTo" jdbcType="TIME" />
+		<result column="POSTAL" property="postal" jdbcType="VARCHAR" />
+		<result column="PREFE_NM" property="prefeNm" jdbcType="VARCHAR" />
+		<result column="WORK_ADDRESS_1" property="workAddress1" jdbcType="VARCHAR" />
+		<result column="WORK_ADDRESS_2" property="workAddress2" jdbcType="VARCHAR" />		
+		<result column="STATION" property="station" jdbcType="CHAR" />
+		<result column="EXP_YEARS" property="expYears" jdbcType="CHAR" />
+		<result column="SALARY_SECTION" property="salarySection" jdbcType="CHAR" />
+		<result column="SALARY_MIN" property="salaryMin" jdbcType="INTEGER" />
+		<result column="SALARY_MAX" property="salaryMax" jdbcType="INTEGER" />
+		<result column="PEO_CNT" property="peoCnt" jdbcType="INTEGER" />
+		<result column="HOLIDAY" property="holiday" jdbcType="VARCHAR" />
+		<result column="EMP_LABOR_INS" property="empLaborIns" jdbcType="CHAR" />
+		<result column="WELFARE" property="welfare" jdbcType="CHAR" />
+		<result column="TRAINING_FLG" property="trainingFlg" jdbcType="CHAR" />
+		<result column="INSPECTION_FLG" property="inspectionFlg" jdbcType="CHAR" />
+		<result column="CON_UPD_FLG" property="conUpdFlg" jdbcType="CHAR" />
+		<result column="WORK_DATE_STR" property="workDateStr" jdbcType="DATE" />
+		<result column="WORKING_ADDRESS1" property="workingAddress1" jdbcType="VARCHAR" />
+		<result column="WORKING_ADDRESS2" property="workingAddress2" jdbcType="VARCHAR" />
+		<result column="WORKING_ADDRESS3" property="workingAddress3" jdbcType="VARCHAR" />
+		<result column="ONLINE_STATUS" property="onlineStatus" jdbcType="CHAR" />
+		<result column="TOP_STATUS" property="topStatus" jdbcType="CHAR" />
+		<result column="EXP_DATE" property="expDate" jdbcType="DATE" />
+		<result column="CHECK_STATUS" property="checkStatus" jdbcType="CHAR" />
+		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <resultMap id="HomeBaseResultMap" type="Ansin.web.entity.PositionTblBySearchIdEntity" >
+        <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+        <result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR" />
+		<result column="POSITION_ID" property="positionId" jdbcType="INTEGER" />
+		<result column="POSITION_NM" property="positionNm" jdbcType="VARCHAR" />
+		<result column="INDUSTRY_ID" property="industryId" jdbcType="INTEGER" />
+		<result column="INDUSTRY_NM" property="industryNm" jdbcType="VARCHAR" />
+		<result column="JOBTYPE_ID" property="jobtypeId" jdbcType="INTEGER" />
+		<result column="JOBTYPE_NM" property="jobtypeNm" jdbcType="VARCHAR" />
+		<result column="DEGREE" property="degree" jdbcType="CHAR" />
+		<result column="POSITION_INT" property="positionInt" jdbcType="VARCHAR" />
+		<result column="WORK_CONTENT" property="workContent" jdbcType="VARCHAR" />
+		<result column="CONTRACT_SECTION" property="contractSection" jdbcType="CHAR" />
+		<result column="WORK_TIME_FROM" property="workTimeFrom" jdbcType="TIME" />
+		<result column="WORK_TIME_TO" property="workTimeTo" jdbcType="TIME" />
+		<result column="POSTAL" property="postal" jdbcType="VARCHAR" />
+		<result column="PREFE_NM" property="prefeNm" jdbcType="VARCHAR" />
+		<result column="WORK_ADDRESS_1" property="workAddress1" jdbcType="VARCHAR" />
+		<result column="WORK_ADDRESS_2" property="workAddress2" jdbcType="VARCHAR" />		
+		<result column="STATION" property="station" jdbcType="CHAR" />
+		<result column="EXP_YEARS" property="expYears" jdbcType="CHAR" />
+		<result column="SALARY_SECTION" property="salarySection" jdbcType="CHAR" />
+		<result column="SALARY_MIN" property="salaryMin" jdbcType="INTEGER" />
+		<result column="SALARY_MAX" property="salaryMax" jdbcType="INTEGER" />
+		<result column="PEO_CNT" property="peoCnt" jdbcType="INTEGER" />
+		<result column="HOLIDAY" property="holiday" jdbcType="VARCHAR" />
+		<result column="EMP_LABOR_INS" property="empLaborIns" jdbcType="CHAR" />
+		<result column="WELFARE" property="welfare" jdbcType="CHAR" />
+		<result column="TRAINING_FLG" property="trainingFlg" jdbcType="CHAR" />
+		<result column="INSPECTION_FLG" property="inspectionFlg" jdbcType="CHAR" />
+		<result column="CON_UPD_FLG" property="conUpdFlg" jdbcType="CHAR" />
+		<result column="WORK_DATE_STR" property="workDateStr" jdbcType="DATE" />
+		<result column="WORKING_ADDRESS1" property="workingAddress1" jdbcType="VARCHAR" />
+		<result column="WORKING_ADDRESS2" property="workingAddress2" jdbcType="VARCHAR" />
+		<result column="WORKING_ADDRESS3" property="workingAddress3" jdbcType="VARCHAR" />
+		<result column="ONLINE_STATUS" property="onlineStatus" jdbcType="CHAR" />
+		<result column="TOP_STATUS" property="topStatus" jdbcType="CHAR" />
+		<result column="EXP_DATE" property="expDate" jdbcType="DATE" />
+		<result column="CHECK_STATUS" property="checkStatus" jdbcType="CHAR" />
+		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+		<result column="USE_FLG" property="useFlg" jdbcType="CHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="LANGUAGE" property="language" jdbcType="VARCHAR" />
+		<result column="LEVEL_SECTION" property="levelSection" jdbcType="VARCHAR" />
+    </resultMap>
+    
+   	<resultMap id="BaseResultMap2" type="Ansin.web.entity.A0601ReportEntity" >
+		<result column="POSITION_NM" property="positionNm" jdbcType="VARCHAR" />
+		<result column="USER_CD" property="userCd" jdbcType="INTEGER" />
+    </resultMap>
+	
+	<sql id="Base_Column_List">
+		POSITION_TBL.COMPANY_ID,
+		POSITION_TBL.POSITION_ID,
+		POSITION_TBL.INDUSTRY_ID,
+		POSITION_TBL.JOBTYPE_ID,
+		POSITION_TBL.SKILL_ID,
+		INDUSTRY_MST.INDUSTRY_NM,
+		SKILL_MST.SKILL_NM,
+		JOBTYPE_MST.JOBTYPE_NM,
+		POSITION_TBL.POSITION_NM,
+		POSITION_TBL.DEGREE,
+		POSITION_TBL.POSITION_INT,
+		POSITION_TBL.WORK_CONTENT,
+		POSITION_TBL.CONTRACT_SECTION,
+		POSITION_TBL.WORK_TIME_FROM,
+		POSITION_TBL.WORK_TIME_TO,
+		POSITION_TBL.POSTAL,
+		POSITION_TBL.PREFE_NM,
+		POSITION_TBL.WORK_ADDRESS_1,
+		POSITION_TBL.WORK_ADDRESS_2,
+		POSITION_TBL.STATION,
+		POSITION_TBL.EXP_YEARS,
+		POSITION_TBL.SALARY_SECTION,
+		POSITION_TBL.SALARY_MIN,
+		POSITION_TBL.SALARY_MAX,
+		POSITION_TBL.PEO_CNT,
+		POSITION_TBL.HOLIDAY,
+		POSITION_TBL.EMP_LABOR_INS,
+		POSITION_TBL.WELFARE,
+		POSITION_TBL.TRAINING_FLG,
+		POSITION_TBL.INSPECTION_FLG,
+		POSITION_TBL.CON_UPD_FLG,
+		POSITION_TBL.WORK_DATE_STR,
+		POSITION_TBL.WORKING_ADDRESS1,
+		POSITION_TBL.WORKING_ADDRESS2,
+		POSITION_TBL.WORKING_ADDRESS3,
+		POSITION_TBL.ONLINE_STATUS,
+		POSITION_TBL.TOP_STATUS,
+		POSITION_TBL.EXP_DATE,
+		POSITION_TBL.CHECK_STATUS,
+		POSITION_TBL.REMARKS,
+		POSITION_TBL.UPDATE_TIME
+	</sql>
+	
+	<sql id="HomeBaseColumnList">
+		POSITION_TBL.COMPANY_ID,
+		COMPANY_TBL.COMPANY_NM,
+		POSITION_TBL.POSITION_ID,
+		POSITION_TBL.POSITION_NM,
+		POSITION_TBL.INDUSTRY_ID,
+		INDUSTRY_MST.INDUSTRY_NM,
+		POSITION_TBL.JOBTYPE_ID,
+		JOBTYPE_MST.JOBTYPE_NM,
+		POSITION_TBL.DEGREE,
+		POSITION_TBL.POSITION_INT,
+		POSITION_TBL.WORK_CONTENT,
+		POSITION_TBL.CONTRACT_SECTION,
+		POSITION_TBL.WORK_TIME_FROM,
+		POSITION_TBL.WORK_TIME_TO,
+		POSITION_TBL.POSTAL,
+		POSITION_TBL.PREFE_NM,
+		POSITION_TBL.WORK_ADDRESS_1,
+		POSITION_TBL.WORK_ADDRESS_2,
+		POSITION_TBL.STATION,
+		POSITION_TBL.EXP_YEARS,
+		POSITION_TBL.SALARY_SECTION,
+		POSITION_TBL.SALARY_MIN,
+		POSITION_TBL.SALARY_MAX,
+		POSITION_TBL.PEO_CNT,
+		POSITION_TBL.HOLIDAY,
+		POSITION_TBL.EMP_LABOR_INS,
+		POSITION_TBL.WELFARE,
+		POSITION_TBL.TRAINING_FLG,
+		POSITION_TBL.INSPECTION_FLG,
+		POSITION_TBL.CON_UPD_FLG,
+		POSITION_TBL.WORK_DATE_STR,
+		POSITION_TBL.WORKING_ADDRESS1,
+		POSITION_TBL.WORKING_ADDRESS2,
+		POSITION_TBL.WORKING_ADDRESS3,
+		POSITION_TBL.ONLINE_STATUS,
+		POSITION_TBL.TOP_STATUS,
+		POSITION_TBL.EXP_DATE,
+		POSITION_TBL.CHECK_STATUS,
+		POSITION_TBL.REMARKS,
+		POSITION_TBL.USE_FLG,
+		POSITION_TBL.UPDATE_TIME,
+		LAN.LANGUAGE,
+		LAN.LEVEL_SECTION
+	</sql>
+
+	<sql id="B0102BaseColumnList">
+		COMPANY_ID
+		,POSITION_ID
+		,INDUSTRY_ID
+		,JOBTYPE_ID
+		,SKILL_ID
+		,POSITION_NM
+		,DEGREE
+		,POSITION_INT
+		,WORK_CONTENT
+		,CONTRACT_SECTION
+		,WORK_TIME_FROM
+		,WORK_TIME_TO
+		,POSTAL
+		,PREFE_NM
+		,WORK_ADDRESS_1
+		,WORK_ADDRESS_2
+		,STATION
+		,EXP_YEARS
+		,SALARY_SECTION
+		,SALARY_MIN
+		,SALARY_MAX
+		,PEO_CNT
+		,HOLIDAY
+		,EMP_LABOR_INS
+		,WELFARE
+		,TRAINING_FLG
+		,INSPECTION_FLG
+		,CON_UPD_FLG
+		,WORK_DATE_STR
+		,WORKING_ADDRESS1
+		,WORKING_ADDRESS2
+		,WORKING_ADDRESS3
+		,ONLINE_STATUS
+		,TOP_STATUS
+		,EXP_DATE
+		,CHECK_STATUS
+		,REMARKS
+		,USE_FLG
+		,DEL_FLG
+		,CREATE_TIME
+		,CREATE_BY
+		,UPDATE_TIME
+	</sql>
+	<sql id="Base_Column_List_b0101">
+		POSITION_TBL.COMPANY_ID,
+		POSITION_TBL.POSITION_ID,
+		POSITION_TBL.INDUSTRY_ID,
+		POSITION_TBL.JOBTYPE_ID,
+		POSITION_TBL.SKILL_ID,
+		INDUSTRY_MST.INDUSTRY_NM,
+		SKILL_MST.SKILL_NM,
+		JOBTYPE_MST.JOBTYPE_NM,
+		POSITION_TBL.POSITION_NM,
+		POSITION_TBL.DEGREE,
+		POSITION_TBL.POSITION_INT,
+		POSITION_TBL.WORK_CONTENT,
+		POSITION_TBL.CONTRACT_SECTION,
+		POSITION_TBL.WORK_TIME_FROM,
+		POSITION_TBL.WORK_TIME_TO,
+		POSITION_TBL.POSTAL,
+		POSITION_TBL.PREFE_NM,
+		POSITION_TBL.WORK_ADDRESS_1,
+		POSITION_TBL.WORK_ADDRESS_2,
+		POSITION_TBL.STATION,
+		POSITION_TBL.EXP_YEARS,
+		POSITION_TBL.SALARY_SECTION,
+		POSITION_TBL.SALARY_MIN,
+		POSITION_TBL.SALARY_MAX,
+		POSITION_TBL.PEO_CNT,
+		POSITION_TBL.HOLIDAY,
+		POSITION_TBL.EMP_LABOR_INS,
+		POSITION_TBL.WELFARE,
+		POSITION_TBL.TRAINING_FLG,
+		POSITION_TBL.INSPECTION_FLG,
+		POSITION_TBL.CON_UPD_FLG,
+		POSITION_TBL.WORK_DATE_STR,
+		POSITION_TBL.WORKING_ADDRESS1,
+		POSITION_TBL.WORKING_ADDRESS2,
+		POSITION_TBL.WORKING_ADDRESS3,
+		POSITION_TBL.ONLINE_STATUS,
+		POSITION_TBL.TOP_STATUS,
+		POSITION_TBL.EXP_DATE,
+		POSITION_TBL.CHECK_STATUS,
+		POSITION_TBL.REMARKS,
+		POSITION_TBL.UPDATE_TIME,
+		COMPANY_TBL.COMPANY_NM
+	</sql>
+
+    <select id="getAll" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM 
+	     POSITION_TBL
+	   WHERE
+	     POSITION_TBL.COMPANY_ID = #{companyId}
+	   AND
+	     POSITION_TBL.DEL_FLG = '0'
+	   ORDER BY
+	   	 POSITION_TBL.UPDATE_TIME
+	   DESC
+    </select>
+
+    <select id="getOne" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM 
+	   		POSITION_TBL,INDUSTRY_MST,JOBTYPE_MST,SKILL_MST
+	   WHERE
+	   		POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID
+	   AND
+	   		POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID
+	   AND 
+	   		POSITION_TBL.SKILL_ID = SKILL_MST.SKILL_ID
+	   AND
+	        POSITION_TBL.POSITION_ID = #{positionId}
+	   AND
+	        POSITION_TBL.DEL_FLG = '0'
+	   ORDER BY
+	   	 	POSITION_TBL.UPDATE_TIME
+	   DESC
+    </select>
+    
+    <select id="getAllPosition" parameterType="Ansin.web.vueForm.B0101VueForm" resultMap="BaseResultMap">
+    	SELECT
+		<include refid="Base_Column_List_b0101" />
+		FROM
+			POSITION_TBL,INDUSTRY_MST,JOBTYPE_MST,SKILL_MST,COMPANY_TBL
+		WHERE
+			POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID
+		AND
+			POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID
+		AND
+			POSITION_TBL.SKILL_ID = SKILL_MST.SKILL_ID
+		AND
+			POSITION_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		AND
+			POSITION_TBL.COMPANY_ID = #{b0101VueForm.companyId}
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			JOBTYPE_MST.DEL_FLG = '0'
+		AND
+			SKILL_MST.DEL_FLG = '0'
+		AND
+			INDUSTRY_MST.DEL_FLG = '0'
+		AND
+			COMPANY_TBL.DEL_FLG = '0'	
+		<if test="b0101VueForm.positionNm != null and b0101VueForm.positionNm !=''">																		
+		AND	
+			POSITION_NM LIKE '%${b0101VueForm.positionNm}%'  
+		</if> 
+		<if test="b0101VueForm.checkStatus != null and b0101VueForm.checkStatus !=''">          													
+		AND	
+			CHECK_STATUS = #{b0101VueForm.checkStatus}
+		</if>
+		ORDER BY 
+			POSITION_TBL.UPDATE_TIME
+		DESC
+	</select>
+    
+    <select id="getAllBySearchId" parameterType="Ansin.web.vueForm.HomeVueForm" resultMap="HomeBaseResultMap">
+		SELECT
+			<include refid="HomeBaseColumnList" />
+			FROM
+	    POSITION_TBL 
+	    LEFT JOIN COMPANY_TBL 
+	        ON POSITION_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID 
+			    AND POSITION_TBL.ONLINE_STATUS = '0' 
+			    AND POSITION_TBL.CHECK_STATUS = '1' 
+			    AND POSITION_TBL.USE_FLG = '0' 
+			    AND POSITION_TBL.DEL_FLG = '0' 
+	    LEFT JOIN INDUSTRY_MST 
+	        ON POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID 
+			    AND POSITION_TBL.ONLINE_STATUS = '0' 
+			    AND POSITION_TBL.CHECK_STATUS = '1' 
+			    AND POSITION_TBL.USE_FLG = '0' 
+			    AND POSITION_TBL.DEL_FLG = '0' 
+	    LEFT JOIN JOBTYPE_MST 
+	        ON POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID 
+			    AND POSITION_TBL.ONLINE_STATUS = '0' 
+			    AND POSITION_TBL.CHECK_STATUS = '1' 
+			    AND POSITION_TBL.USE_FLG = '0' 
+			    AND POSITION_TBL.DEL_FLG = '0' 
+	    LEFT JOIN ( 
+	        SELECT
+	            * 
+	        FROM
+	            POSITION_LAN_TBL
+	            , LAN_MST 
+	        WHERE
+	            POSITION_LAN_TBL.LANGUAGE_ID = LAN_MST.LANGUAGE_ID 
+	            AND POSITION_LAN_TBL.DEL_FLG = '0' 
+	            AND LAN_MST.DEL_FLG = '0'
+	    ) AS LAN 
+        ON ( 
+            POSITION_TBL.COMPANY_ID = LAN.COMPANY_ID 
+            AND POSITION_TBL.POSITION_ID = LAN.POSITION_ID
+		    AND POSITION_TBL.ONLINE_STATUS = '0' 
+		    AND POSITION_TBL.CHECK_STATUS = '1' 
+		    AND POSITION_TBL.USE_FLG = '0' 
+		    AND POSITION_TBL.DEL_FLG = '0' 
+        )
+		WHERE
+			POSITION_TBL.ONLINE_STATUS = '0'
+		AND
+			POSITION_TBL.CHECK_STATUS = '1'
+		AND
+			POSITION_TBL.USE_FLG = '0'	
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		<if test="homeVueForm.searchNm != null and homeVueForm.searchNm !=''">
+		AND	(
+			COMPANY_TBL.COMPANY_NM LIKE '%${homeVueForm.searchNm}%'
+			OR
+				POSITION_TBL.POSITION_NM LIKE '%${homeVueForm.searchNm}%'
+		)
+		</if>
+		<if test="homeVueForm.industryId != null and homeVueForm.industryId !=99">
+		AND
+			POSITION_TBL.INDUSTRY_ID = #{homeVueForm.industryId}
+		</if>
+		<if test="homeVueForm.prefeNm != null and homeVueForm.prefeNm !='' and homeVueForm.prefeNm != '他の都道府県'  and homeVueForm.prefeNm != '99'">
+		AND
+			POSITION_TBL.PREFE_NM = #{homeVueForm.prefeNm}
+		</if>
+		<if test="homeVueForm.prefeNm == '他の都道府県'">
+		AND
+			POSITION_TBL.PREFE_NM NOT IN ('東京都', '大阪府', '神奈川県', '埼玉県', '千葉県', '茨城県', '栃木県', '')
+		</if>
+		<if test="homeVueForm.jobtypeId != null">
+		AND
+			POSITION_TBL.JOBTYPE_ID = #{homeVueForm.jobtypeId}
+		</if>
+		<if test="homeVueForm.language == '日本語'  and homeVueForm.levelSection != null and homeVueForm.levelSection !='' and homeVueForm.levelSection != '99'">
+		AND
+			LAN.LANGUAGE = #{homeVueForm.language}
+			AND
+				LAN.LEVEL_SECTION = #{homeVueForm.levelSection}
+		</if>
+		ORDER BY 
+			POSITION_TBL.UPDATE_TIME
+		DESC
+    </select>
+    
+    <select id="getPosition" resultMap="BaseResultMap">
+	    SELECT																		
+			<include refid="Base_Column_List" />						
+		FROM
+			APPLICANT_INFO_TBL,POSITION_TBL,INDUSTRY_MST,JOBTYPE_MST,SKILL_MST															
+		WHERE
+			APPLICANT_INFO_TBL.USER_CD = #{userCd}
+		AND
+			POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID
+		AND
+			POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID
+		AND
+			POSITION_TBL.SKILL_ID = SKILL_MST.SKILL_ID
+		AND
+			POSITION_TBL.INDUSTRY_ID IN(
+										APPLICANT_INFO_TBL.INDUSTRY_ID1
+										,APPLICANT_INFO_TBL.INDUSTRY_ID2
+										,APPLICANT_INFO_TBL.INDUSTRY_ID3
+										)
+		AND
+			POSITION_TBL.JOBTYPE_ID IN(
+										APPLICANT_INFO_TBL.JOBTYPE_ID1_1
+										,APPLICANT_INFO_TBL.JOBTYPE_ID1_2
+										,APPLICANT_INFO_TBL.JOBTYPE_ID1_3
+										,APPLICANT_INFO_TBL.JOBTYPE_ID2_1
+										,APPLICANT_INFO_TBL.JOBTYPE_ID2_2
+										,APPLICANT_INFO_TBL.JOBTYPE_ID2_3
+										,APPLICANT_INFO_TBL.JOBTYPE_ID3_1
+										,APPLICANT_INFO_TBL.JOBTYPE_ID3_2
+										,APPLICANT_INFO_TBL.JOBTYPE_ID3_3
+										)
+		AND
+			APPLICANT_INFO_TBL.DEL_FLG = '0'
+		AND
+			POSITION_TBL.USE_FLG = '0'
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			INDUSTRY_MST.DEL_FLG = '0'
+		AND
+			JOBTYPE_MST.DEL_FLG = '0'
+		ORDER BY
+		    POSITION_TBL.UPDATE_TIME
+		DESC
+    </select>
+
+	<update id="positionOnlineOrOffline">
+		UPDATE												
+			POSITION_TBL											
+		set											
+			ONLINE_STATUS = #{onlineStatus},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}							
+		WHERE												
+			COMPANY_ID = #{companyId}						
+		AND												
+			POSITION_ID	
+		IN
+			<foreach item="list" index="index" collection="positionIdList"
+	                    open="(" separator="," close=")">
+	                    #{list}
+	        </foreach>					
+														
+	</update>
+
+	<update id="positionDelete">
+		UPDATE												
+			POSITION_TBL											
+		SET											
+			DEL_FLG = '1',
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}							
+		WHERE												
+			COMPANY_ID = #{companyId}						
+		AND												
+			POSITION_ID	
+		IN
+			<foreach item="list" index="index" collection="positionIdList"
+	                    open="(" separator="," close=")">
+	                    #{list}
+	        </foreach>		
+
+	</update>
+<update id="positionTop">
+		UPDATE												
+			POSITION_TBL											
+		set											
+			TOP_STATUS = #{topStatus},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}							
+		WHERE												
+			COMPANY_ID = #{companyId}						
+		AND												
+			POSITION_ID	
+		IN
+			<foreach item="list" index="index" collection="positionIdList"
+	                    open="(" separator="," close=")">
+	                    #{list}
+	        </foreach>														
+														
+	</update>
+
+	<!--B0102 職位情報追加 -->
+	<insert
+		id="addPosition"
+		parameterType="Ansin.web.vueForm.B0102VueForm">
+		INSERT INTO
+		position_tbl
+		(
+		<include refid="B0102BaseColumnList" />
+		)
+		VALUES
+		(
+		#{b0102VueForm.companyId},
+		default,
+		#{b0102VueForm.industryId},
+		#{b0102VueForm.jobTypeId},
+		#{b0102VueForm.skillId},
+		#{b0102VueForm.positionNm},
+		#{b0102VueForm.degree},
+		#{b0102VueForm.positionInt},
+		#{b0102VueForm.workContent},
+		#{b0102VueForm.contractSection},
+		#{b0102VueForm.workTimeFrom},
+		#{b0102VueForm.workTimeTo},
+		#{b0102VueForm.postal},
+		#{b0102VueForm.prefeNm},
+		#{b0102VueForm.workAddress1},
+		#{b0102VueForm.workAddress2},
+		#{b0102VueForm.station},
+		#{b0102VueForm.expYears},
+		#{b0102VueForm.salarySection},
+		#{b0102VueForm.salaryMin},
+		#{b0102VueForm.salaryMax},
+		#{b0102VueForm.peoCnt},
+		#{b0102VueForm.holiday},
+		#{b0102VueForm.empLaborIns},
+		#{b0102VueForm.welfare},
+		#{b0102VueForm.trainingFlg},
+		#{b0102VueForm.inspectionFlg},
+		#{b0102VueForm.conUpdFlg},
+		#{b0102VueForm.workDateStr},
+		#{b0102VueForm.workingAddress1},
+		#{b0102VueForm.workingAddress2},
+		#{b0102VueForm.workingAddress3},
+		'1',
+		'0',
+		#{b0102VueForm.expDate},
+		'0',
+		'0',
+		'0',
+		'0',
+		 CURRENT_TIMESTAMP(0),
+		 #{b0102VueForm.userCd},
+		 CURRENT_TIMESTAMP(0)
+		)
+	</insert>
+
+	<!--B0102 職位情報更新 -->
+	<update
+		id="updPosition"
+		parameterType="Ansin.web.vueForm.B0102VueForm">
+		UPDATE
+		position_tbl
+		SET
+		UPDATE_TIME =
+		CURRENT_TIMESTAMP(0),
+		<if
+			test="b0102VueForm.industryId != null">
+			INDUSTRY_ID =
+			#{b0102VueForm.industryId},
+		</if>
+		<if
+			test="b0102VueForm.jobTypeId != null">
+			JOBTYPE_ID =
+			#{b0102VueForm.jobTypeId},
+		</if>
+		<if
+			test="b0102VueForm.skillId != null">
+			SKILL_ID =
+			#{b0102VueForm.skillId},
+		</if>
+		<if
+			test="b0102VueForm.positionNm != null and b0102VueForm.positionNm !=''">
+			POSITION_NM =
+			#{b0102VueForm.positionNm},
+		</if>
+		<if
+			test="b0102VueForm.degree != null and b0102VueForm.degree !=''">
+			DEGREE =
+			#{b0102VueForm.degree},
+		</if>
+		<if
+			test="b0102VueForm.positionInt != null and b0102VueForm.positionInt !=''">
+			POSITION_INT =
+			#{b0102VueForm.positionInt},
+		</if>
+		<if
+			test="b0102VueForm.workContent != null and b0102VueForm.workContent !=''">
+			WORK_CONTENT =
+			#{b0102VueForm.workContent},
+		</if>
+		<if
+			test="b0102VueForm.contractSection != null and b0102VueForm.contractSection !=''">
+			CONTRACT_SECTION =
+			#{b0102VueForm.contractSection},
+		</if>
+		<if
+			test="b0102VueForm.workTimeFrom != null">
+			WORK_TIME_FROM =
+			#{b0102VueForm.workTimeFrom},
+		</if>
+		<if
+			test="b0102VueForm.workTimeTo != null">
+			WORK_TIME_TO =
+			#{b0102VueForm.workTimeTo},
+		</if>
+		<if
+			test="b0102VueForm.postal != null and b0102VueForm.postal !=''">
+			POSTAL = #{b0102VueForm.postal},
+		</if>
+		<if
+			test="b0102VueForm.prefeNm != null and b0102VueForm.prefeNm !=''">
+			PREFE_NM = #{b0102VueForm.prefeNm},
+		</if>
+		<if
+			test="b0102VueForm.workAddress1 != null and b0102VueForm.workAddress1 !=''">
+			WORK_ADDRESS_1 = #{b0102VueForm.workAddress1},
+		</if>
+		<if
+			test="b0102VueForm.workAddress2 != null and b0102VueForm.workAddress2 !=''">
+			WORK_ADDRESS_2 =
+			#{b0102VueForm.workAddress2},
+		</if>
+		<if
+			test="b0102VueForm.station != null and b0102VueForm.station !=''">
+			STATION = #{b0102VueForm.station},
+		</if>
+		<if
+			test="b0102VueForm.expYears != null">
+			EXP_YEARS = #{b0102VueForm.expYears},
+		</if>
+		<if
+			test="b0102VueForm.salarySection != null and b0102VueForm.salarySection !=''">
+			SALARY_SECTION =
+			#{b0102VueForm.salarySection},
+		</if>
+		<if test="b0102VueForm.salaryMin != null">
+			SALARY_MIN = #{b0102VueForm.salaryMin},
+		</if>
+		<if test="b0102VueForm.salaryMax != null">
+			SALARY_MAX = #{b0102VueForm.salaryMax},
+		</if>
+		<if test="b0102VueForm.peoCnt != null">
+			PEO_CNT =
+			#{b0102VueForm.peoCnt},
+		</if>
+		<if
+			test="b0102VueForm.holiday != null and b0102VueForm.holiday !=''">
+			HOLIDAY = #{b0102VueForm.holiday},
+		</if>
+		<if
+			test="b0102VueForm.empLaborIns != null and b0102VueForm.empLaborIns !=''">
+			EMP_LABOR_INS =
+			#{b0102VueForm.empLaborIns},
+		</if>
+		<if
+			test="b0102VueForm.welfare != null and b0102VueForm.welfare !=''">
+			WELFARE = #{b0102VueForm.welfare},
+		</if>
+		<if
+			test="b0102VueForm.trainingFlg != null and b0102VueForm.trainingFlg !=''">
+			TRAINING_FLG =
+			#{b0102VueForm.trainingFlg},
+		</if>
+		<if
+			test="b0102VueForm.inspectionFlg != null and b0102VueForm.inspectionFlg !=''">
+			INSPECTION_FLG = #{b0102VueForm.inspectionFlg},
+		</if>
+		<if
+			test="b0102VueForm.conUpdFlg != null and b0102VueForm.conUpdFlg !=''">
+			CON_UPD_FLG = #{b0102VueForm.conUpdFlg},
+		</if>
+		<if test="b0102VueForm.workDateStr != null">
+			WORK_DATE_STR =
+			#{b0102VueForm.workDateStr},
+		</if>
+		<if
+			test="b0102VueForm.workingAddress1 != null and b0102VueForm.workingAddress1 !=''">
+			WORKING_ADDRESS1 =
+			#{b0102VueForm.workingAddress1},
+		</if>
+		<if
+			test="b0102VueForm.workingAddress2 != null and b0102VueForm.workingAddress2 !=''">
+			WORKING_ADDRESS2 =
+			#{b0102VueForm.workingAddress2},
+		</if>
+		<if
+			test="b0102VueForm.workingAddress3 != null and b0102VueForm.workingAddress3 !=''">
+			WORKING_ADDRESS3 =
+			#{b0102VueForm.workingAddress3},
+		</if>
+		<if
+			test="b0102VueForm.onlineStatus != null and b0102VueForm.onlineStatus !=''">
+			ONLINE_STATUS =
+			#{b0102VueForm.onlineStatus},
+		</if>
+		<if
+			test="b0102VueForm.topStatus != null and b0102VueForm.topStatus !=''">
+			TOP_STATUS = #{b0102VueForm.topStatus},
+		</if>
+		<if
+			test="b0102VueForm.expDate != null">
+			EXP_DATE = #{b0102VueForm.expDate},
+		</if>
+		<if
+			test="b0102VueForm.checkStatus != null and b0102VueForm.checkStatus !=''">
+			CHECK_STATUS =
+			#{b0102VueForm.checkStatus},
+		</if>
+		<if
+			test="b0102VueForm.remarks != null and b0102VueForm.remarks !=''">
+			REMARKS = #{b0102VueForm.remarks},
+		</if>
+		<if
+			test="b0102VueForm.userCd != null and b0102VueForm.userCd !=''">
+			UPDATE_BY = #{b0102VueForm.userCd},
+		</if>
+		DEL_FLG = '0'
+		WHERE
+		position_tbl.company_id = #{b0102VueForm.companyId}
+		AND
+		position_tbl.position_id = #{b0102VueForm.positionId}
+	</update>
+	
+	<!--C0201 職位推薦一覧 -->
+	<select id="getRecommend" resultMap="BaseResultMap">
+		 SELECT
+			POSITION_TBL.COMPANY_ID,
+			COMPANY_TBL.COMPANY_NM,																
+			POSITION_TBL.POSITION_ID,
+			POSITION_TBL.POSITION_NM,																
+			POSITION_TBL.INDUSTRY_ID,
+			INDUSTRY_MST.INDUSTRY_NM,																
+			POSITION_TBL.JOBTYPE_ID,
+			JOBTYPE_MST.JOBTYPE_NM,	
+			POSITION_TBL.SKILL_ID,
+			SKILL_MST.SKILL_NM,						
+			POSITION_TBL.DEGREE,																
+			POSITION_TBL.POSITION_INT,																
+			POSITION_TBL.WORK_CONTENT,																
+			POSITION_TBL.CONTRACT_SECTION,																
+			POSITION_TBL.WORK_TIME_FROM,																
+			POSITION_TBL.WORK_TIME_TO,																
+			POSITION_TBL.POSTAL,
+			POSITION_TBL.PREFE_NM,															
+			POSITION_TBL.WORK_ADDRESS_1,																
+			POSITION_TBL.WORK_ADDRESS_2,																
+			POSITION_TBL.STATION,
+			POSITION_TBL.EXP_YEARS,																
+			POSITION_TBL.SALARY_SECTION,																
+			POSITION_TBL.SALARY_MIN,																
+			POSITION_TBL.SALARY_MAX,																
+			POSITION_TBL.PEO_CNT,																
+			POSITION_TBL.HOLIDAY,																
+			POSITION_TBL.EMP_LABOR_INS,																
+			POSITION_TBL.WELFARE,																
+			POSITION_TBL.TRAINING_FLG,																
+			POSITION_TBL.INSPECTION_FLG,																
+			POSITION_TBL.CON_UPD_FLG,																
+			POSITION_TBL.WORK_DATE_STR,																
+			POSITION_TBL.WORKING_ADDRESS1,																
+			POSITION_TBL.WORKING_ADDRESS2,																
+			POSITION_TBL.WORKING_ADDRESS3,																
+			POSITION_TBL.ONLINE_STATUS,																
+			POSITION_TBL.TOP_STATUS,																
+			POSITION_TBL.EXP_DATE,																
+			POSITION_TBL.CHECK_STATUS,																
+			POSITION_TBL.REMARKS,
+			POSITION_TBL.UPDATE_TIME
+		FROM
+			POSITION_TBL
+		INNER JOIN 
+			INDUSTRY_MST
+		ON
+			POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID
+		INNER JOIN 
+			JOBTYPE_MST
+		ON
+			POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID
+		INNER JOIN 
+			SKILL_MST
+		ON
+			POSITION_TBL.SKILL_ID = SKILL_MST.SKILL_ID
+		INNER JOIN 
+			COMPANY_TBL
+		ON
+			POSITION_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		WHERE
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			POSITION_TBL.CHECK_STATUS = '1'
+		AND
+			POSITION_TBL.USE_FLG = '0'
+		AND
+			INDUSTRY_MST.DEL_FLG = '0'
+		AND
+			JOBTYPE_MST.DEL_FLG = '0'
+		AND
+			SKILL_MST.DEL_FLG = '0'
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+		(
+		 (
+			POSITION_TBL.INDUSTRY_ID = #{applicantInfoTblEntity.industryId1} 
+				OR 
+			POSITION_TBL.INDUSTRY_ID = #{applicantInfoTblEntity.industryId2} 
+				OR 
+			POSITION_TBL.INDUSTRY_ID = #{applicantInfoTblEntity.industryId3} 
+		)
+		OR (
+			POSITION_TBL.JOBTYPE_ID = #{applicantInfoTblEntity.jobtypeId1_1}
+				OR 
+			POSITION_TBL.JOBTYPE_ID = #{applicantInfoTblEntity.jobtypeId1_2} 
+				OR 
+			POSITION_TBL.JOBTYPE_ID = #{applicantInfoTblEntity.jobtypeId1_3} 
+				OR 
+			POSITION_TBL.JOBTYPE_ID = #{applicantInfoTblEntity.jobtypeId2_1}
+				OR 
+			POSITION_TBL.JOBTYPE_ID = #{applicantInfoTblEntity.jobtypeId2_2}
+				OR 
+			POSITION_TBL.JOBTYPE_ID = #{applicantInfoTblEntity.jobtypeId2_3}
+            	OR 
+            POSITION_TBL.JOBTYPE_ID = #{applicantInfoTblEntity.jobtypeId3_1}
+            	OR 
+            POSITION_TBL.JOBTYPE_ID = #{applicantInfoTblEntity.jobtypeId3_2}
+            	OR
+           	POSITION_TBL.JOBTYPE_ID = #{applicantInfoTblEntity.jobtypeId3_3}
+        )
+			<if test="skills != null">
+			OR (
+				POSITION_TBL.SKILL_ID IN 
+				<foreach item="skills" index="index" collection="skills" open="(" separator="," close=")">
+					#{skills}
+				</foreach>
+			)	
+			</if>
+		)
+		AND
+			NOT EXISTS
+			(SELECT COMPANY_ID,POSITION_ID FROM APPLICATION_TBL WHERE APPLICANT_ID = #{applicantInfoTblEntity.applicantId}
+			AND POSITION_TBL.COMPANY_ID = APPLICATION_TBL.COMPANY_ID
+			and POSITION_TBL.POSITION_ID = APPLICATION_TBL.POSITION_ID)
+        ORDER BY
+            POSITION_TBL.UPDATE_TIME
+        DESC																												
+	</select>
+	
+	
+	<!--C0201 職位一覧リスト -->
+	<select id="getDates" parameterType="Ansin.web.vueForm.C0201ListVueForm" resultMap="BaseResultMap">
+		SELECT																													
+			POSITION_TBL.COMPANY_ID,
+			COMPANY_TBL.COMPANY_NM,																
+			POSITION_TBL.POSITION_ID,
+			POSITION_TBL.POSITION_NM,																
+			POSITION_TBL.INDUSTRY_ID,
+			INDUSTRY_MST.INDUSTRY_NM,																
+			POSITION_TBL.JOBTYPE_ID,
+			JOBTYPE_MST.JOBTYPE_NM,	
+			POSITION_TBL.SKILL_ID,
+			SKILL_MST.SKILL_NM,						
+			POSITION_TBL.DEGREE,																
+			POSITION_TBL.POSITION_INT,																
+			POSITION_TBL.WORK_CONTENT,																
+			POSITION_TBL.CONTRACT_SECTION,																
+			POSITION_TBL.WORK_TIME_FROM,																
+			POSITION_TBL.WORK_TIME_TO,																
+			POSITION_TBL.POSTAL,
+			POSITION_TBL.PREFE_NM,															
+			POSITION_TBL.WORK_ADDRESS_1,																
+			POSITION_TBL.WORK_ADDRESS_2,																
+			POSITION_TBL.STATION,
+			POSITION_TBL.EXP_YEARS,																
+			POSITION_TBL.SALARY_SECTION,																
+			POSITION_TBL.SALARY_MIN,																
+			POSITION_TBL.SALARY_MAX,																
+			POSITION_TBL.PEO_CNT,																
+			POSITION_TBL.HOLIDAY,																
+			POSITION_TBL.EMP_LABOR_INS,																
+			POSITION_TBL.WELFARE,																
+			POSITION_TBL.TRAINING_FLG,																
+			POSITION_TBL.INSPECTION_FLG,																
+			POSITION_TBL.CON_UPD_FLG,																
+			POSITION_TBL.WORK_DATE_STR,																
+			POSITION_TBL.WORKING_ADDRESS1,																
+			POSITION_TBL.WORKING_ADDRESS2,																
+			POSITION_TBL.WORKING_ADDRESS3,																
+			POSITION_TBL.ONLINE_STATUS,																
+			POSITION_TBL.TOP_STATUS,																
+			POSITION_TBL.EXP_DATE,																
+			POSITION_TBL.CHECK_STATUS,																
+			POSITION_TBL.REMARKS,
+			POSITION_TBL.UPDATE_TIME															
+		FROM 																													
+			POSITION_TBL
+		INNER JOIN
+			COMPANY_TBL
+		ON
+			POSITION_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		INNER JOIN
+			INDUSTRY_MST
+		ON
+			POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID
+		AND
+			INDUSTRY_MST.DEL_FLG = '0'
+		INNER JOIN
+			JOBTYPE_MST
+		ON
+			POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID
+		AND
+			JOBTYPE_MST.DEL_FLG = '0'
+		INNER JOIN
+			SKILL_MST
+		ON
+			POSITION_TBL.SKILL_ID = SKILL_MST.SKILL_ID
+		AND
+			SKILL_MST.DEL_FLG = '0'
+		WHERE
+			POSITION_TBL.DEL_FLG = '0'
+		AND 
+			POSITION_TBL.CHECK_STATUS = '1' 
+  		AND 
+  			POSITION_TBL.USE_FLG = '0'
+  		<if test="c0201ListVueForm.salarySection != null and c0201ListVueForm.salarySection != ''">																														
+		AND																													
+			POSITION_TBL.SALARY_SECTION = #{c0201ListVueForm.salarySection}
+		</if>
+		<if test="c0201ListVueForm.likeSelect != null and c0201ListVueForm.likeSelect !=''">
+		AND
+			POSITION_TBL.POSITION_NM LIKE '%${c0201ListVueForm.likeSelect}%'
+		</if>
+		<if test="c0201ListVueForm.companyNm != null and c0201ListVueForm.companyNm !=''">
+		AND
+			COMPANY_TBL.COMPANY_NM LIKE '%${c0201ListVueForm.companyNm}%'
+		</if>
+		<if test="c0201ListVueForm.prefeNm != null and c0201ListVueForm.prefeNm !=''">
+		AND
+			POSITION_TBL.PREFE_NM = #{c0201ListVueForm.prefeNm}
+		</if>
+		<if test="c0201ListVueForm.salary != null">
+		AND
+			POSITION_TBL.SALARY_MAX >= #{c0201ListVueForm.salary}
+		</if>
+		<if test="c0201ListVueForm.industryId != null">
+		AND
+			POSITION_TBL.INDUSTRY_ID = #{c0201ListVueForm.industryId}
+		</if>
+		<if test="c0201ListVueForm.jobtypeId != null">
+		AND
+			POSITION_TBL.JOBTYPE_ID = #{c0201ListVueForm.jobtypeId}
+		</if>
+		<if test="c0201ListVueForm.degree != null and c0201ListVueForm.degree !=''">
+		AND
+			POSITION_TBL.DEGREE = #{c0201ListVueForm.degree}
+		</if>
+		<if test="c0201ListVueForm.empLaborIns != null and c0201ListVueForm.empLaborIns !=''">
+		AND
+			POSITION_TBL.EMP_LABOR_INS = #{c0201ListVueForm.empLaborIns}
+		</if>
+		<if test="c0201ListVueForm.expYears != null and c0201ListVueForm.expYears !=''">
+		AND
+			POSITION_TBL.EXP_YEARS = #{c0201ListVueForm.expYears}
+		</if>
+		<if test="c0201ListVueForm.inspectionFlg != null and c0201ListVueForm.inspectionFlg !=''">
+		AND
+			POSITION_TBL.INSPECTION_FLG = #{c0201ListVueForm.inspectionFlg}
+		</if>
+		<if test="c0201ListVueForm.welfare != null and c0201ListVueForm.welfare !=''">
+		AND
+			POSITION_TBL.WELFARE = #{c0201ListVueForm.welfare}
+		</if>
+		<if test="c0201ListVueForm.trainingFlg != null and c0201ListVueForm.trainingFlg !=''">
+		AND
+			POSITION_TBL.TRAINING_FLG = #{c0201ListVueForm.trainingFlg}
+		</if>
+		<if test="c0201ListVueForm.applicantId != null">
+		AND
+			NOT EXISTS
+			(SELECT COMPANY_ID,POSITION_ID FROM APPLICATION_TBL WHERE APPLICANT_ID = #{c0201ListVueForm.applicantId}
+			AND POSITION_TBL.COMPANY_ID = APPLICATION_TBL.COMPANY_ID
+			AND POSITION_TBL.POSITION_ID = APPLICATION_TBL.POSITION_ID)
+			
+		</if>
+		ORDER BY
+		   	POSITION_TBL.UPDATE_TIME
+		DESC																													
+	</select>
+	
+	<select id="getPost" parameterType="Ansin.web.vueForm.C0201ListVueForm" resultMap="BaseResultMap">
+			SELECT																								
+				POSITION_TBL.COMPANY_ID,																
+				POSITION_TBL.POSITION_ID,																
+				POSITION_TBL.INDUSTRY_ID,																
+				POSITION_TBL.JOBTYPE_ID,																
+				POSITION_TBL.SKILL_ID,																
+				POSITION_TBL.POSITION_NM,																
+				POSITION_TBL.DEGREE,																
+				POSITION_TBL.POSITION_INT,																
+				POSITION_TBL.WORK_CONTENT,																
+				POSITION_TBL.CONTRACT_SECTION,																
+				POSITION_TBL.WORK_TIME_FROM,																
+				POSITION_TBL.WORK_TIME_TO,																
+				POSITION_TBL.POSTAL,
+				POSITION_TBL.PREFE_NM,															
+				POSITION_TBL.WORK_ADDRESS_1,																
+				POSITION_TBL.WORK_ADDRESS_2,																
+				POSITION_TBL.STATION,
+				POSITION_TBL.EXP_YEARS,																
+				POSITION_TBL.SALARY_SECTION,																
+				POSITION_TBL.SALARY_MIN,																
+				POSITION_TBL.SALARY_MAX,																
+				POSITION_TBL.PEO_CNT,																
+				POSITION_TBL.HOLIDAY,																
+				POSITION_TBL.EMP_LABOR_INS,																
+				POSITION_TBL.WELFARE,																
+				POSITION_TBL.TRAINING_FLG,																
+				POSITION_TBL.INSPECTION_FLG,																
+				POSITION_TBL.CON_UPD_FLG,																
+				POSITION_TBL.WORK_DATE_STR,																
+				POSITION_TBL.WORKING_ADDRESS1,																
+				POSITION_TBL.WORKING_ADDRESS2,																
+				POSITION_TBL.WORKING_ADDRESS3,																
+				POSITION_TBL.ONLINE_STATUS,																
+				POSITION_TBL.TOP_STATUS,																
+				POSITION_TBL.EXP_DATE,																
+				POSITION_TBL.CHECK_STATUS,																
+				POSITION_TBL.REMARKS,													
+				COMPANY_TBL.COMPANY_NM,											
+				INDUSTRY_MST.INDUSTRY_NM,											
+				JOBTYPE_MST.JOBTYPE_NM,											
+				SKILL_MST.SKILL_NM																						
+			FROM 																								
+				POSITION_TBL,INDUSTRY_MST,JOBTYPE_MST,SKILL_MST,COMPANY_TBL,APPLICATION_TBL,APPLICANT_INFO_TBL																							
+			WHERE																								
+				INDUSTRY_MST.INDUSTRY_ID = POSITION_TBL.INDUSTRY_ID																							
+			AND 																								
+				JOBTYPE_MST.JOBTYPE_ID = POSITION_TBL.JOBTYPE_ID																							
+			AND 																								
+				SKILL_MST.SKILL_ID = POSITION_TBL.SKILL_ID																							
+			AND 																								
+				COMPANY_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID																							
+			AND 																								
+				APPLICANT_INFO_TBL.USER_CD = #{c0201ListVueForm.userCd}																							
+			AND 																								
+				APPLICATION_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID																							
+			AND 																								
+				APPLICATION_TBL.POSITION_ID = POSITION_TBL.POSITION_ID																							
+			AND 																								
+				APPLICATION_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID	
+			<if test="c0201ListVueForm.likeSelect != null and c0201ListVueForm.likeSelect != ''">																							
+			AND 																								
+				INDUSTRY_MST.INDUSTRY_NM || JOBTYPE_MST.JOBTYPE_NM || POSITION_TBL.POSITION_NM LIKE '%${c0201ListVueForm.likeSelect}%'																							
+			</if>
+			<if test="c0201ListVueForm.companyNm != null and c0201ListVueForm.companyNm != ''">
+			AND 																								
+				COMPANY_TBL.COMPANY_NM LIKE '%${c0201ListVueForm.companyNm}%'																							
+			</if>
+			<if test="c0201ListVueForm.prefeId != null">
+			AND 																								
+				POSITION_TBL.PREFE_NM IN (SELECT PREFE_NM																												
+									FROM 																																												
+										PREFECTURES_MST																																										
+									WHERE 																																											
+										PREFECTURES_MST.PREFE_ID = #{c0201ListVueForm.prefeId}																					
+									AND																						
+										PREFECTURES_MST.DEL_FLG = '0'																																								
+									)												
+			</if>
+			<if test="c0201ListVueForm.salary != null">																							
+			AND																													
+				POSITION_TBL.SALARY_MIN &gt;= #{c0201ListVueForm.salary}	
+			</if>
+			<if test="c0201ListVueForm.industryId != null">																											
+			AND																													
+				POSITION_TBL.INDUSTRY_ID = #{c0201ListVueForm.industryId}
+			</if>
+			<if test="c0201ListVueForm.jobtypeId != null">																														
+			AND																													
+				POSITION_TBL.JOBTYPE_ID = #{c0201ListVueForm.jobtypeId}
+			</if>
+			<if test="c0201ListVueForm.degree != null and c0201ListVueForm.degree != ''">																														
+			AND																													
+				POSITION_TBL.DEGREE = #{c0201ListVueForm.degree}
+			</if>
+			<if test="c0201ListVueForm.expYears != null and c0201ListVueForm.expYears != ''">																														
+			AND																													
+				POSITION_TBL.EXP_YEARS = #{c0201ListVueForm.expYears}
+			</if>
+			<if test="c0201ListVueForm.empLaborIns != null and c0201ListVueForm.empLaborIns != ''">																													
+			AND 																													
+				POSITION_TBL.EMP_LABOR_INS = #{c0201ListVueForm.empLaborIns}
+			</if>
+			<if test="c0201ListVueForm.welfare != null and c0201ListVueForm.welfare != ''">																													
+			AND 																													
+				POSITION_TBL.WELFARE = #{c0201ListVueForm.welfare}
+			</if>
+			<if test="c0201ListVueForm.trainingFlg != null and c0201ListVueForm.trainingFlg != ''">																														
+			AND 																													
+				POSITION_TBL.TRAINING_FLG = #{c0201ListVueForm.trainingFlg}
+			</if>
+			<if test="c0201ListVueForm.inspectionFlg != null and c0201ListVueForm.inspectionFlg != ''">																														
+			AND 																													
+				POSITION_TBL.INSPECTION_FLG = #{c0201ListVueForm.inspectionFlg}
+			</if>																	
+			AND 																								
+				APPLICATION_TBL.APP_APP_STATUS = '0'																							
+			AND 																								
+				POSITION_TBL.DEL_FLG = '0'																							
+			AND 																								
+				POSITION_TBL.CHECK_STATUS = '1'																							
+			AND 																								
+				POSITION_TBL.USE_FLG = '0'																							
+			AND 																								
+				INDUSTRY_MST.DEL_FLG = '0'																							
+			AND 																								
+				JOBTYPE_MST.DEL_FLG = '0'																							
+			AND 																								
+				SKILL_MST.DEL_FLG = '0'																							
+			AND 																								
+				COMPANY_TBL.DEL_FLG = '0'																							
+			AND 																								
+				APPLICATION_TBL.DEL_FLG = '0'																							
+			AND																								
+				APPLICANT_INFO_TBL.DEL_FLG = '0'																							
+			ORDER BY
+				POSITION_TBL.UPDATE_TIME
+			DESC
+	</select>
+	
+	<select id="getLike" parameterType="Ansin.web.vueForm.C0201ListVueForm" resultMap="BaseResultMap">
+			SELECT																								
+					POSITION_TBL.COMPANY_ID,																
+					POSITION_TBL.POSITION_ID,																
+					POSITION_TBL.INDUSTRY_ID,																
+					POSITION_TBL.JOBTYPE_ID,																
+					POSITION_TBL.SKILL_ID,																
+					POSITION_TBL.POSITION_NM,																
+					POSITION_TBL.DEGREE,																
+					POSITION_TBL.POSITION_INT,																
+					POSITION_TBL.WORK_CONTENT,																
+					POSITION_TBL.CONTRACT_SECTION,																
+					POSITION_TBL.WORK_TIME_FROM,																
+					POSITION_TBL.WORK_TIME_TO,																
+					POSITION_TBL.POSTAL,
+					POSITION_TBL.PREFE_NM,															
+					POSITION_TBL.WORK_ADDRESS_1,																
+					POSITION_TBL.WORK_ADDRESS_2,																
+					POSITION_TBL.STATION,
+					POSITION_TBL.EXP_YEARS,																
+					POSITION_TBL.SALARY_SECTION,																
+					POSITION_TBL.SALARY_MIN,																
+					POSITION_TBL.SALARY_MAX,																
+					POSITION_TBL.PEO_CNT,																
+					POSITION_TBL.HOLIDAY,																
+					POSITION_TBL.EMP_LABOR_INS,																
+					POSITION_TBL.WELFARE,																
+					POSITION_TBL.TRAINING_FLG,																
+					POSITION_TBL.INSPECTION_FLG,																
+					POSITION_TBL.CON_UPD_FLG,																
+					POSITION_TBL.WORK_DATE_STR,																
+					POSITION_TBL.WORKING_ADDRESS1,																
+					POSITION_TBL.WORKING_ADDRESS2,																
+					POSITION_TBL.WORKING_ADDRESS3,																
+					POSITION_TBL.ONLINE_STATUS,																
+					POSITION_TBL.TOP_STATUS,																
+					POSITION_TBL.EXP_DATE,																
+					POSITION_TBL.CHECK_STATUS,																
+					POSITION_TBL.REMARKS,													
+					COMPANY_TBL.COMPANY_NM,											
+					INDUSTRY_MST.INDUSTRY_NM,											
+					JOBTYPE_MST.JOBTYPE_NM,											
+					SKILL_MST.SKILL_NM																						
+			FROM 																								
+				POSITION_TBL,INDUSTRY_MST,JOBTYPE_MST,SKILL_MST,COMPANY_TBL,APPLICATION_TBL,APPLICANT_INFO_TBL																							
+			WHERE																								
+				INDUSTRY_MST.INDUSTRY_ID = POSITION_TBL.INDUSTRY_ID																							
+			AND 																								
+				JOBTYPE_MST.JOBTYPE_ID = POSITION_TBL.JOBTYPE_ID																							
+			AND 																								
+				SKILL_MST.SKILL_ID = POSITION_TBL.SKILL_ID																							
+			AND 																								
+				COMPANY_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID																							
+			AND 																								
+				APPLICANT_INFO_TBL.USER_CD = #{c0201ListVueForm.userCd}																							
+			AND 																								
+				APPLICATION_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID																							
+			AND 																								
+				APPLICATION_TBL.POSITION_ID = POSITION_TBL.POSITION_ID																							
+			AND 																								
+				APPLICATION_TBL.APPLICANT_ID = APPLICANT_INFO_TBL.APPLICANT_ID	
+			<if test="c0201ListVueForm.likeSelect != null and c0201ListVueForm.likeSelect != ''">																							
+			AND 																								
+				INDUSTRY_MST.INDUSTRY_NM || JOBTYPE_MST.JOBTYPE_NM || POSITION_TBL.POSITION_NM LIKE '%${c0201ListVueForm.likeSelect}%'																							
+			</if>
+			<if test="c0201ListVueForm.companyNm != null and c0201ListVueForm.companyNm != ''">
+			AND 																								
+				COMPANY_TBL.COMPANY_NM LIKE '%${c0201ListVueForm.companyNm}%'																							
+			</if>
+			<if test="c0201ListVueForm.prefeId != null">
+			AND 																								
+				POSITION_TBL.PREFE_NM = (SELECT PREFE_NM																												
+									FROM 																																												
+										PREFECTURES_MST																																										
+									WHERE 																																											
+										PREFECTURES_MST.PREFE_ID = #{c0201ListVueForm.prefeId}																					
+									AND																						
+										PREFECTURES_MST.DEL_FLG = '0'																																								
+									)												
+			</if>
+			<if test="c0201ListVueForm.salary != null">																							
+			AND																													
+				POSITION_TBL.SALARY_MIN &gt;= #{c0201ListVueForm.salary}	
+			</if>
+			<if test="c0201ListVueForm.industryId != null">																											
+			AND																													
+				POSITION_TBL.INDUSTRY_ID = #{c0201ListVueForm.industryId}
+			</if>
+			<if test="c0201ListVueForm.jobtypeId != null">																														
+			AND																													
+				POSITION_TBL.JOBTYPE_ID = #{c0201ListVueForm.jobtypeId}
+			</if>
+			<if test="c0201ListVueForm.degree != null and c0201ListVueForm.degree != ''">																														
+			AND																													
+				POSITION_TBL.DEGREE = #{c0201ListVueForm.degree}
+			</if>
+			<if test="c0201ListVueForm.expYears != null and c0201ListVueForm.expYears != ''">																														
+			AND																													
+				POSITION_TBL.EXP_YEARS = #{c0201ListVueForm.expYears}
+			</if>
+			<if test="c0201ListVueForm.empLaborIns != null and c0201ListVueForm.empLaborIns != ''">																													
+			AND 																													
+				POSITION_TBL.EMP_LABOR_INS = #{c0201ListVueForm.empLaborIns}
+			</if>
+			<if test="c0201ListVueForm.welfare != null and c0201ListVueForm.welfare != ''">																													
+			AND 																													
+				POSITION_TBL.WELFARE = #{c0201ListVueForm.welfare}
+			</if>
+			<if test="c0201ListVueForm.trainingFlg != null and c0201ListVueForm.trainingFlg != ''">																														
+			AND 																													
+				POSITION_TBL.TRAINING_FLG = #{c0201ListVueForm.trainingFlg}
+			</if>
+			<if test="c0201ListVueForm.inspectionFlg != null and c0201ListVueForm.inspectionFlg != ''">																														
+			AND 																													
+				POSITION_TBL.INSPECTION_FLG = #{c0201ListVueForm.inspectionFlg}
+			</if>									
+			AND 																								
+				APPLICATION_TBL.APP_APP_STATUS = '1'																							
+			AND 																								
+				POSITION_TBL.DEL_FLG = '0'																							
+			AND 																								
+				POSITION_TBL.CHECK_STATUS = '1'																							
+			AND 																								
+				POSITION_TBL.USE_FLG = '0'																							
+			AND 																								
+				INDUSTRY_MST.DEL_FLG = '0'																							
+			AND 																								
+				JOBTYPE_MST.DEL_FLG = '0'																							
+			AND 																								
+				SKILL_MST.DEL_FLG = '0'																							
+			AND 																								
+				COMPANY_TBL.DEL_FLG = '0'																							
+			AND 																								
+				APPLICATION_TBL.DEL_FLG = '0'																							
+			AND																								
+				APPLICANT_INFO_TBL.DEL_FLG = '0'																							
+			ORDER BY
+			   	POSITION_TBL.UPDATE_TIME
+			DESC
+	</select>
+	
+	<select id="getPositionList" parameterType="Ansin.web.vueForm.A020205VueForm" resultMap="BaseResultMap">
+    SELECT																		
+		<include refid="Base_Column_List" />						
+	FROM 																		
+			POSITION_TBL,INDUSTRY_MST,JOBTYPE_MST,SKILL_MST,APPLICATION_TBL															
+	WHERE																		
+			POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID																
+	AND																		
+			POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID	
+	AND
+			POSITION_TBL.SKILL_ID = SKILL_MST.SKILL_ID
+	AND																		
+			APPLICATION_TBL.POSITION_ID = POSITION_TBL.POSITION_ID
+	AND
+			APPLICATION_TBL.APPLICANT_ID = #{b0101VueForm.applicantId}
+	AND																		
+			POSITION_TBL.DEL_FLG = '0'																
+	AND																		
+			JOBTYPE_MST.DEL_FLG = '0'		
+	AND																		
+			SKILL_MST.DEL_FLG = '0'														
+	AND																		
+			INDUSTRY_MST.DEL_FLG = '0'
+	AND																		
+			APPLICATION_TBL.DEL_FLG = '0'
+	<if test="b0101VueForm.positionNm != null and b0101VueForm.positionNm !=''">																		
+	AND	
+			POSITION_NM LIKE '%${b0101VueForm.positionNm}%'  
+	</if> 
+	<if test="b0101VueForm.checkStatus != null and b0101VueForm.checkStatus !=''">          													
+	AND	
+			CHECK_STATUS = #{b0101VueForm.checkStatus}
+	</if> 																
+	ORDER BY 
+			POSITION_TBL.UPDATE_TIME
+	DESC									
+    </select>	
+
+  <!-- A070103職位一覧 -->
+  
+  <select id="getPo" parameterType="Ansin.web.vueForm.A070103VueForm" resultMap="BaseResultMap">
+  		 SELECT																													
+				POSITION_TBL.COMPANY_ID,																
+				POSITION_TBL.POSITION_ID,																
+				POSITION_TBL.INDUSTRY_ID,																
+				POSITION_TBL.JOBTYPE_ID,																
+				POSITION_TBL.SKILL_ID,																
+				POSITION_TBL.POSITION_NM,																
+				POSITION_TBL.DEGREE,																
+				POSITION_TBL.POSITION_INT,																
+				POSITION_TBL.WORK_CONTENT,																
+				POSITION_TBL.CONTRACT_SECTION,																
+				POSITION_TBL.WORK_TIME_FROM,																
+				POSITION_TBL.WORK_TIME_TO,																
+				POSITION_TBL.POSTAL,
+				POSITION_TBL.PREFE_NM,															
+				POSITION_TBL.WORK_ADDRESS_1,																
+				POSITION_TBL.WORK_ADDRESS_2,																
+				POSITION_TBL.STATION,
+				POSITION_TBL.EXP_YEARS,																
+				POSITION_TBL.SALARY_SECTION,																
+				POSITION_TBL.SALARY_MIN,																
+				POSITION_TBL.SALARY_MAX,																
+				POSITION_TBL.PEO_CNT,																
+				POSITION_TBL.HOLIDAY,																
+				POSITION_TBL.EMP_LABOR_INS,																
+				POSITION_TBL.WELFARE,																
+				POSITION_TBL.TRAINING_FLG,																
+				POSITION_TBL.INSPECTION_FLG,																
+				POSITION_TBL.CON_UPD_FLG,																
+				POSITION_TBL.WORK_DATE_STR,																
+				POSITION_TBL.WORKING_ADDRESS1,																
+				POSITION_TBL.WORKING_ADDRESS2,																
+				POSITION_TBL.WORKING_ADDRESS3,																
+				POSITION_TBL.ONLINE_STATUS,																
+				POSITION_TBL.TOP_STATUS,																
+				POSITION_TBL.EXP_DATE,																
+				POSITION_TBL.CHECK_STATUS,																
+				POSITION_TBL.REMARKS,																
+				COMPANY_TBL.COMPANY_NM,																
+				INDUSTRY_MST.INDUSTRY_NM,																
+				JOBTYPE_MST.JOBTYPE_NM,																
+				SKILL_MST.SKILL_NM
+		FROM 																													
+			POSITION_TBL,INDUSTRY_MST,JOBTYPE_MST,SKILL_MST,COMPANY_TBL																												
+		WHERE 																																																																																						
+			INDUSTRY_MST.INDUSTRY_ID = POSITION_TBL.INDUSTRY_ID																												
+		AND 																													
+			JOBTYPE_MST.JOBTYPE_ID = POSITION_TBL.JOBTYPE_ID																												
+		AND 																													
+			SKILL_MST.SKILL_ID = POSITION_TBL.SKILL_ID																												
+		AND 																													
+			COMPANY_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID																												
+
+		<if test="a070103VueForm.likeSelect != null and a070103VueForm.likeSelect != ''">																													
+		AND 																													
+			(
+			INDUSTRY_MST.INDUSTRY_NM  LIKE '%${a070103VueForm.likeSelect}%'	
+				OR 
+			JOBTYPE_MST.JOBTYPE_NM LIKE '%${a070103VueForm.likeSelect}%'
+				OR 
+			POSITION_TBL.POSITION_NM LIKE '%${a070103VueForm.likeSelect}%'
+			) 
+		</if>																													
+		<if test="a070103VueForm.companyNm != null and a070103VueForm.companyNm != ''">
+		AND 																													
+			COMPANY_TBL.COMPANY_NM LIKE '%${a070103VueForm.companyNm}%'
+		</if>
+		<if test="a070103VueForm.prefeNm != null and a070103VueForm.prefeNm != ''">																											
+		AND 																													
+			POSITION_TBL.PREFE_NM Like '%${a070103VueForm.prefeNm}%'																					
+
+		</if>
+		<if test="a070103VueForm.industryId != null">																											
+		AND																													
+			POSITION_TBL.INDUSTRY_ID = #{a070103VueForm.industryId}
+		</if>
+		<if test="a070103VueForm.jobtypeId != null">																														
+		AND																													
+			POSITION_TBL.JOBTYPE_ID = #{a070103VueForm.jobtypeId}
+		</if>																												
+		AND 																													
+			POSITION_TBL.DEL_FLG = '0'																												
+		AND 																													
+			POSITION_TBL.CHECK_STATUS = '0'																												
+		AND 																													
+			POSITION_TBL.USE_FLG = '0'																												
+		AND 																													
+			INDUSTRY_MST.DEL_FLG = '0'																																																							
+		AND 																													
+			JOBTYPE_MST.DEL_FLG = '0'																												
+		AND 																													
+			SKILL_MST.DEL_FLG = '0'																												
+		AND 																													
+			COMPANY_TBL.DEL_FLG = '0'	
+		ORDER BY
+		   	POSITION_TBL.UPDATE_TIME
+		DESC																											
+  </select>
+  
+  <update id="positionConfirmOrDeny">
+  		UPDATE																		
+			POSITION_TBL																
+		SET																		
+			CHECK_STATUS = #{statusFlg},
+			UPDATE_TIME = CURRENT_TIMESTAMP(0),
+			UPDATE_BY = #{userCd}
+		WHERE																					
+			POSITION_ID 																																				
+		IN	
+		<foreach item="list" index="index" collection="list"
+                    open="(" separator="," close=")">
+                    #{list.positionId}
+         </foreach>	
+        AND
+        	COMPANY_ID
+        IN
+        <foreach item="list" index="index" collection="list"
+                    open="(" separator="," close=")">
+                    #{list.companyId}
+         </foreach>	
+  </update>
+  
+  
+  <select id="getPositionForDroplist" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+		<include refid="Base_Column_List" />
+	FROM
+			POSITION_TBL,INDUSTRY_MST,JOBTYPE_MST,SKILL_MST
+	WHERE
+			POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID
+	AND
+			POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID
+	AND
+			POSITION_TBL.SKILL_ID = SKILL_MST.SKILL_ID
+	AND
+			POSITION_TBL.COMPANY_ID = #{companyId}
+	AND
+			POSITION_TBL.DEL_FLG = '0'
+	AND
+			JOBTYPE_MST.DEL_FLG = '0'
+	AND
+			SKILL_MST.DEL_FLG = '0'
+	AND
+			INDUSTRY_MST.DEL_FLG = '0'
+	ORDER BY 
+			POSITION_TBL.UPDATE_TIME
+	DESC
+  </select>
+  
+   <select id="getName" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT
+			POSITION_NM
+		FROM
+			POSITION_TBL
+		WHERE
+			POSITION_TBL.POSITION_ID = #{positionId}
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+  </select>
+  
+  
+ 	<update id="reportPosition">
+		UPDATE
+			POSITION_TBL
+		SET
+		 	USE_FLG = '1',
+		 	UPDATE_TIME = CURRENT_TIMESTAMP(0),
+		 	UPDATE_BY = #{userCd}
+		WHERE
+			POSITION_ID 
+				IN
+		<foreach item="positionIds" index="index" collection="positionIds"
+                	open="(" separator="," close=")">
+        	#{positionIds}
+       	</foreach>
+       	AND
+       		DEL_FLG = '0'
+	</update>
+  
+  
+  
+  	<select id="positionListSelect" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+		SELECT
+			POSITION_TBL.POSITION_NM,
+			USER_TBL.USER_CD
+		FROM
+			POSITION_TBL
+		INNER JOIN
+			USER_TBL
+		ON
+			USER_TBL.COMPANY_ID = POSITION_TBL.COMPANY_ID
+		WHERE
+			POSITION_TBL.POSITION_ID
+				IN
+			<foreach item="positionIds" index="index" collection="positionIds"
+	                	open="(" separator="," close=")">
+	        	#{positionIds}
+	       	</foreach>
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			USER_TBL.AUTHORITY = '会社会員管理員(認証済み)'
+		AND
+			USER_TBL.DEL_FLG = '0'
+  	</select>
+  
+  	<select id="getPositionCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT
+			COUNT(POSITION_TBL.POSITION_ID)
+		FROM
+			POSITION_TBL 
+		INNER JOIN 
+			COMPANY_TBL 
+		ON 
+			POSITION_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID 
+		INNER JOIN 
+			INDUSTRY_MST 
+		ON 
+			POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID 
+		INNER JOIN 
+			JOBTYPE_MST 
+		ON 
+			POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID 
+		INNER JOIN ( 
+		  SELECT
+		    * 
+		  FROM
+		    POSITION_LAN_TBL
+		    , LAN_MST 
+		  WHERE
+		    	POSITION_LAN_TBL.LANGUAGE_ID = LAN_MST.LANGUAGE_ID 
+		    AND 
+		    	POSITION_LAN_TBL.DEL_FLG = '0' 
+		    AND 
+		    	LAN_MST.DEL_FLG = '0'
+		) AS LAN 
+	    ON ( 
+	      POSITION_TBL.COMPANY_ID = LAN.COMPANY_ID 
+	      AND POSITION_TBL.POSITION_ID = LAN.POSITION_ID
+	    ) 
+		WHERE
+			POSITION_TBL.ONLINE_STATUS = '0' 
+		AND 
+			POSITION_TBL.CHECK_STATUS = '1' 
+		AND 
+			POSITION_TBL.USE_FLG = '0' 
+		AND 
+			POSITION_TBL.DEL_FLG = '0' 
+		AND 
+			POSITION_TBL.COMPANY_ID = #{companyId} 
+ 	</select>
+ 	
+ 	
+ 	<select id="getAllByCompanyId" parameterType="java.lang.Integer" resultMap="HomeBaseResultMap">
+		SELECT
+			<include refid="HomeBaseColumnList" />
+		FROM
+	    	POSITION_TBL 
+	    INNER JOIN 
+	    	COMPANY_TBL 
+	    ON 
+	    	POSITION_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID 
+	    INNER JOIN 
+	    	INDUSTRY_MST 
+	    ON 
+	    	POSITION_TBL.INDUSTRY_ID = INDUSTRY_MST.INDUSTRY_ID 
+	    INNER JOIN 
+	    	JOBTYPE_MST 
+	    ON 
+	    	POSITION_TBL.JOBTYPE_ID = JOBTYPE_MST.JOBTYPE_ID 
+	    INNER JOIN ( 
+	        SELECT
+	            * 
+	        FROM
+	            POSITION_LAN_TBL
+	            , LAN_MST 
+	        WHERE
+	            POSITION_LAN_TBL.LANGUAGE_ID = LAN_MST.LANGUAGE_ID 
+	            AND POSITION_LAN_TBL.DEL_FLG = '0' 
+	            AND LAN_MST.DEL_FLG = '0'
+	    ) AS LAN 
+        ON ( 
+            POSITION_TBL.COMPANY_ID = LAN.COMPANY_ID 
+            AND POSITION_TBL.POSITION_ID = LAN.POSITION_ID
+        )
+		WHERE
+			POSITION_TBL.ONLINE_STATUS = '0'
+		AND
+			POSITION_TBL.CHECK_STATUS = '1'
+		AND
+			POSITION_TBL.USE_FLG = '0'	
+		AND
+			POSITION_TBL.DEL_FLG = '0'
+		AND
+			POSITION_TBL.COMPANY_ID = #{companyId}
+		ORDER BY 
+			POSITION_TBL.UPDATE_TIME
+		DESC
+    </select>
+ 	
+  
+  
+</mapper>

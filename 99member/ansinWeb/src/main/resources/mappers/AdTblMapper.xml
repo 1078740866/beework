@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.AdTblMapper">
+	 <resultMap id="BaseResultMap" type="Ansin.web.entity.A0501ListEntity" >
+		<result column="AD_ID" property="adId" jdbcType="INTEGER" />
+		<result column="LAYOUT_ID" property="layoutId" jdbcType="INTEGER" />
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR" />
+		<result column="PHOTO" property="photo" jdbcType="VARCHAR" />
+		<result column="DATE_FROM" property="dateFrom" jdbcType="DATE" />
+		<result column="DATE_TO" property="dateTo" jdbcType="DATE" />
+		<result column="SUM" property="sum" jdbcType="INTEGER" />
+		<result column="ONLINE_FLG" property="onlineFlg" jdbcType="VARCHAR" />
+		<result column="CHARGE_FLG" property="chargeFlg" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="BaseResultMap2" type="Ansin.web.entity.AdTblEntity" >
+		<result column="AD_ID" property="adId" jdbcType="INTEGER" />
+		<result column="LAYOUT_ID" property="layoutId" jdbcType="INTEGER" />
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR" />
+		<result column="PHOTO" property="photo" jdbcType="VARCHAR" />
+		<result column="LINK" property="link" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="DATE_FROM" property="dateFrom" jdbcType="DATE" />
+		<result column="DATE_TO" property="dateTo" jdbcType="DATE" />
+		<result column="DAYS" property="days" jdbcType="INTEGER" />
+		<result column="SUM" property="sum" jdbcType="INTEGER" />
+		<result column="ONLINE_FLG" property="onlineFlg" jdbcType="VARCHAR" />
+		<result column="CHARGE_FLG" property="chargeFlg" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="BaseResultMap3" type="Ansin.web.entity.A0501ListEntity" >
+		<result column="AD_ID" property="adId" jdbcType="INTEGER" />
+		<result column="LAYOUT_ID" property="layoutId" jdbcType="INTEGER" />
+		<result column="LAYOUT_MONEY" property="layoutMoney" jdbcType="INTEGER" />
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="COMPANY_NM" property="companyNm" jdbcType="VARCHAR" />
+		<result column="PHOTO" property="photo" jdbcType="VARCHAR" />
+		<result column="LINK" property="link" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="DATE_FROM" property="dateFrom" jdbcType="DATE" />
+		<result column="DATE_TO" property="dateTo" jdbcType="DATE" />
+		<result column="DAYS" property="days" jdbcType="INTEGER" />
+		<result column="SUM" property="sum" jdbcType="INTEGER" />
+		<result column="ONLINE_FLG" property="onlineFlg" jdbcType="VARCHAR" />
+		<result column="CHARGE_FLG" property="chargeFlg" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <sql id="getAd">
+    	AD_TBL.AD_ID
+		,AD_TBL.LAYOUT_ID
+		,AD_TBL.COMPANY_ID
+		,COMPANY_TBL.COMPANY_NM
+		,AD_TBL.PHOTO
+		,AD_TBL.DATE_FROM
+		,AD_TBL.DATE_TO
+		,AD_TBL.SUM
+		,AD_TBL.ONLINE_FLG
+		,AD_TBL.CHARGE_FLG
+    </sql>
+
+    <sql id="getAdAll">
+    	AD_TBL.AD_ID
+		,AD_TBL.LAYOUT_ID
+		,AD_TBL.COMPANY_ID
+		,COMPANY_TBL.COMPANY_NM
+		,AD_TBL.PHOTO
+		,AD_TBL.LINK
+		,AD_TBL.CONTENT
+		,AD_TBL.DATE_FROM
+		,AD_TBL.DATE_TO
+		,AD_TBL.DAYS
+		,AD_TBL.SUM
+		,AD_TBL.ONLINE_FLG
+		,AD_TBL.CHARGE_FLG
+    </sql>
+    
+    <sql id="getAdAll2">
+    	AD_TBL.AD_ID
+    	,LAYOUT_MST.LAYOUT_MONEY
+		,AD_TBL.LAYOUT_ID
+		,AD_TBL.COMPANY_ID
+		,COMPANY_TBL.COMPANY_NM
+		,AD_TBL.PHOTO
+		,AD_TBL.LINK
+		,AD_TBL.CONTENT
+		,AD_TBL.DATE_FROM
+		,AD_TBL.DATE_TO
+		,AD_TBL.DAYS
+		,AD_TBL.SUM
+		,AD_TBL.ONLINE_FLG
+		,AD_TBL.CHARGE_FLG
+    </sql>
+    
+    
+
+    <!-- 広告一覧リスト取得 -->
+    <select id="getAll" parameterType="Ansin.web.vueForm.A0501VueForm" resultMap="BaseResultMap3">
+	    SELECT
+	    	<include refid="getAdAll2"/>
+	    FROM
+	    	AD_TBL,COMPANY_TBL,LAYOUT_MST
+	    WHERE
+	    	AD_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	    AND
+	    	AD_TBL.LAYOUT_ID = LAYOUT_MST.LAYOUT_ID
+	    <if test="a0501VueForm.layoutId != null">
+		AND
+			AD_TBL.LAYOUT_ID = #{a0501VueForm.layoutId}
+		</if>
+		<if test="a0501VueForm.onlineFlg != null and a0501VueForm.onlineFlg != ''">
+		AND
+			AD_TBL.ONLINE_FLG = #{a0501VueForm.onlineFlg}
+		</if>
+		<if test="a0501VueForm.chargeFlg != null and a0501VueForm.chargeFlg != ''">
+		AND
+			AD_TBL.CHARGE_FLG = #{a0501VueForm.chargeFlg}
+		</if>
+		<if test="a0501VueForm.dateFrom != null">
+		AND
+			AD_TBL.DATE_FROM &lt;= #{a0501VueForm.dateFrom}
+		</if>
+		<if test="a0501VueForm.dateTo != null">
+		AND
+			AD_TBL.DATE_TO &gt;= #{a0501VueForm.dateTo}
+		</if>
+		AND
+			AD_TBL.DEL_FLG = '0'
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		ORDER BY
+			AD_TBL.UPDATE_TIME
+		DESC
+    </select>
+
+    <!-- 広告単数または複数削除 -->
+    <update id="delete">
+    	UPDATE
+    		AD_TBL
+    	SET
+    		DEL_FLG = '1'
+    		,UPDATE_TIME = CURRENT_TIMESTAMP(0)
+			,UPDATE_BY = #{userCd}
+    	WHERE
+    		AD_ID IN
+    		<foreach item="adIds" index="index" collection="adIds"
+                    open="(" separator="," close=")">
+                    #{adIds}
+        	</foreach>
+        AND
+        	DEL_FLG = '0'
+    </update>
+
+
+     <!-- 一つ広告情報取得 -->
+    <select id="getOne" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+	    SELECT
+	    	<include refid="getAdAll"/>
+	    FROM
+	    	AD_TBL,COMPANY_TBL
+	    WHERE
+	    	AD_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+	    AND
+	    	AD_TBL.AD_ID = #{adId}
+		AND
+			AD_TBL.DEL_FLG = '0'
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+    </select>
+
+
+     <!-- 広告一覧リスト取得 -->
+    <select id="getAllInit" resultMap="BaseResultMap2">
+	    SELECT
+	    	<include refid="getAdAll"/>
+	    FROM
+	    	AD_TBL,COMPANY_TBL
+	    WHERE
+	    	AD_TBL.COMPANY_ID = COMPANY_TBL.COMPANY_ID
+		AND
+			AD_TBL.DEL_FLG = '0'
+		AND
+			COMPANY_TBL.DEL_FLG = '0'
+		AND
+			AD_TBL.ONLINE_FLG = '1'
+		AND
+			AD_TBL.CHARGE_FLG = '1'
+		AND
+			AD_TBL.DATE_FROM &lt;= current_date
+		AND
+			AD_TBL.DATE_TO &gt;= current_date
+		ORDER BY
+			AD_TBL.UPDATE_TIME
+		DESC
+    </select>
+
+
+     <!-- 広告更新 -->
+    <update id="update">
+    	UPDATE
+    		AD_TBL
+    	<set>
+    	SET
+    		<if test="a0502VueForm.layoutId != null">
+			LAYOUT_ID = #{a0502VueForm.layoutId}
+			</if>
+			<if test="a0502VueForm.companyId != null">
+			,COMPANY_ID = #{a0502VueForm.companyId}
+			</if>
+			<if test="a0502VueForm.photo != null">
+			,PHOTO = #{a0502VueForm.photo}
+			</if>
+			<if test="a0502VueForm.link != null and a0502VueForm.link != ''">
+			,LINK = #{a0502VueForm.link}
+			</if>
+			<if test="a0502VueForm.content != null and a0502VueForm.content != ''">
+			,CONTENT = #{a0502VueForm.content}
+			</if>
+			<if test="a0502VueForm.dateFrom != null">
+			,DATE_FROM = #{a0502VueForm.dateFrom}
+			</if>
+			<if test="a0502VueForm.dateTo != null">
+			,DATE_TO = #{a0502VueForm.dateTo}
+			</if>
+			<if test="a0502VueForm.days != null">
+			,DAYS = #{a0502VueForm.days}
+			</if>
+			<if test="a0502VueForm.sum != null">
+			,SUM = #{a0502VueForm.sum}
+			</if>
+			<if test="a0502VueForm.onlineFlg != null and a0502VueForm.onlineFlg != ''">
+			,ONLINE_FLG = #{a0502VueForm.onlineFlg}
+			</if>
+			<if test="a0502VueForm.chargeFlg != null and a0502VueForm.chargeFlg != ''">
+			,CHARGE_FLG = #{a0502VueForm.chargeFlg}
+			</if>
+    		,UPDATE_TIME = CURRENT_TIMESTAMP(0)
+			,UPDATE_BY = #{a0501VueForm.userCd}
+		</set>
+    	WHERE
+    		AD_ID = #{a0502VueForm.adId}
+        AND
+        	DEL_FLG = '0'
+    </update>
+
+
+    <insert id="insert">
+    	INSERT INTO
+    		AD_TBL
+    		(
+    		AD_ID
+			,LAYOUT_ID
+			,COMPANY_ID
+			,PHOTO
+			,LINK
+			,CONTENT
+			,DATE_FROM
+			,DATE_TO
+			,DAYS
+			,SUM
+			,ONLINE_FLG
+			,CHARGE_FLG
+			,CREATE_TIME
+			,CREATE_BY
+			,UPDATE_TIME
+    		)
+    	VALUES
+	    	(
+	    	DEFAULT
+	    	,#{a0502VueForm.layoutId}
+	    	,#{a0502VueForm.companyId}
+	    	,#{a0502VueForm.photo}
+	    	,#{a0502VueForm.link}
+	    	,#{a0502VueForm.content}
+	    	,#{a0502VueForm.dateFrom}
+	    	,#{a0502VueForm.dateTo}
+	    	,#{a0502VueForm.days}
+	    	,#{a0502VueForm.sum}
+	    	,#{a0502VueForm.onlineFlg}
+	    	,#{a0502VueForm.chargeFlg}
+	    	,CURRENT_TIMESTAMP(0)
+	    	,#{a0502VueForm.userCd}
+	    	,CURRENT_TIMESTAMP(0)
+	    	)
+
+    </insert>
+
+
+    <select id="getSelectFlg" resultType="java.lang.Integer">
+    	SELECT
+			LAYOUT_ID
+	   	FROM
+    		AD_TBL
+    	WHERE
+    		DATE_FROM = CURRENT_DATE
+    	AND
+    		ONLINE_FLG = '0'
+    	AND
+    		CHARGE_FLG = '1'
+    	AND
+    		DEL_FLG = '0'
+    </select>
+
+
+    <update id="updagtFlg">
+    	UPDATE
+    		LAYOUT_ID
+    	<set>
+    	SET
+    		ONLINE_FLG = '1'
+    		,UPDATE_TIME = CURRENT_TIMESTAMP(0)
+    		,UPDATE_BY = 'SYSTEM'
+    	</set>
+    	WHERE
+    		LAYOUT_ID IN
+    		<foreach item="list" index="index" collection="list"
+	                    separator=",">
+	                     #{list}
+	         </foreach>
+    		AND
+	    		ONLINE_FLG = '0'
+	    	AND
+	    		CHARGE_FLG = '1'
+	    	AND
+	    		DEL_FLG = '0'
+    </update>
+
+</mapper>

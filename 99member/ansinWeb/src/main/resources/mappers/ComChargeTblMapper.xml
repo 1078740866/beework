@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Ansin.web.mapper.ComChargeTblMapper" >
+    <resultMap id="BaseResultMap" type="Ansin.web.entity.ComChargeTblEntity" >
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="CHARGE_ID" property="chargeId" jdbcType="INTEGER" />
+		<result column="CHARGE_TIME" property="chargeTime" jdbcType="TIMESTAMP" />
+		<result column="CHARGE_MONEY" property="chargeMoney" jdbcType="INTEGER" />
+		<result column="CHARGE_HONEY" property="chargeHoney" jdbcType="INTEGER" />
+		<result column="PAY_METHOD" property="payMethod" jdbcType="VARCHAR" />
+		<result column="STATUS_FLG" property="statusFlg" jdbcType="CHAR" />
+		<result column="REMAINDER" property="remainder" jdbcType="INTEGER" />
+		<result column="HONEY_LAST_DATE" property="honeyLastDate" jdbcType="DATE" />
+		<result column="DEL_FLG" property="delFlg" jdbcType="CHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_BY" property="createBy" jdbcType="CHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+    </resultMap>
+
+
+	<sql id="Base_Column_List">
+		COMCHARGE_HIS_TBL.COMPANY_ID
+		,COMCHARGE_HIS_TBL.CHARGE_ID
+		,COMCHARGE_HIS_TBL.CHARGE_TIME
+		,COMCHARGE_HIS_TBL.CHARGE_MONEY
+		,COMCHARGE_HIS_TBL.CHARGE_HONEY
+		,COMCHARGE_HIS_TBL.PAY_METHOD
+		,COMCHARGE_HIS_TBL.STATUS_FLG
+		,COMCHARGE_HIS_TBL.REMAINDER
+		,COMCHARGE_HIS_TBL.HONEY_LAST_DATE
+		,COMCHARGE_HIS_TBL.MUKOU_FLG
+		,COMCHARGE_HIS_TBL.DEL_FLG
+		,COMCHARGE_HIS_TBL.CREATE_TIME
+		,COMCHARGE_HIS_TBL.CREATE_BY
+		,COMCHARGE_HIS_TBL.UPDATE_TIME
+		,COMCHARGE_HIS_TBL.UPDATE_BY
+	</sql>
+	
+	<sql id="Base_Column_List2">
+		COMPANY_ID
+		,CHARGE_ID
+		,CHARGE_TIME
+		,CHARGE_MONEY
+		,CHARGE_HONEY
+		,PAY_METHOD
+		,REMAINDER
+		,HONEY_LAST_DATE
+		,CREATE_TIME
+		,CREATE_BY
+		,UPDATE_TIME
+	</sql>
+	
+
+    <select id="getComchargeTblEntityList" resultMap="BaseResultMap" >
+       SELECT
+        <include refid="Base_Column_List" />
+	   FROM
+	   	 COMCHARGE_HIS_TBL
+	   WHERE
+	     COMCHARGE_HIS_TBL.MUKOU_FLG = '0'
+	   AND  
+	     COMCHARGE_HIS_TBL.DEL_FLG = '0'
+	   AND
+	     COMCHARGE_HIS_TBL.COMPANY_ID = #{comCharge.companyId}
+	   <if test="dateFrom != null">
+	   AND
+	     COMCHARGE_HIS_TBL.CHARGE_TIME &gt;= #{dateFrom}
+	   </if>
+	   <if test="dateTo != null">
+	   AND
+	     COMCHARGE_HIS_TBL.CHARGE_TIME &lt;= #{dateTo}
+	   </if>
+	   <if test="comCharge.statusFlg != null and comCharge.statusFlg != ''">
+	   AND
+	     COMCHARGE_HIS_TBL.STATUS_FLG = #{comCharge.statusFlg}
+	   </if>
+	   ORDER BY 
+	   	 COMCHARGE_HIS_TBL.UPDATE_TIME
+	   DESC
+
+    </select>
+    
+    <insert id="gerCharge">
+    	INSERT INTO
+    		COMCHARGE_HIS_TBL
+    		(
+    		<include refid="Base_Column_List2"/>
+    		)
+    	VALUES(
+    			#{b0803VueForm.companyId},
+    			DEFAULT,
+    			#{b0803VueForm.chargeTime},
+    			#{b0803VueForm.chargeMoney},
+    			#{b0803VueForm.chargeHoney},
+    			#{b0803VueForm.payMethod},
+    			#{b0803VueForm.remainder},
+    			#{b0803VueForm.honeyLastDate},
+    			CURRENT_TIMESTAMP(0),
+    			#{b0803VueForm.userCd},
+    			CURRENT_TIMESTAMP(0)
+    	)
+    
+    </insert>
+    
+    <update id="changeChargeFlg">
+    	UPDATE
+    		COMCHARGE_HIS_TBL
+    	<set>
+    		STATUS_FLG　= '1',
+    		UPDATE_TIME = CURRENT_TIMESTAMP(0),
+    		UPDATE_BY = 'SYSTEM'
+    	</set>	
+    	WHERE
+    		COMPANY_ID = #{companyId}
+    	AND
+    		CHARGE_ID = #{chargeId}
+    	AND
+    		MUKOU_FLG = '0'
+    	AND
+    		DEL_FLG = '0'
+    	AND
+    		STATUS_FLG = '0'
+    </update>
+
+</mapper>
